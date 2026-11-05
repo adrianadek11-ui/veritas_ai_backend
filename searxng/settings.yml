@@ -1,0 +1,21 @@
+use_default_settings: true
+server:
+  port: 8080
+  bind_address: "0.0.0.0"
+  secret_key: "veritas_matrix_nano_core_secret_key_2026"
+search:
+  safe_search: 0
+  autocomplete: ""
+  default_lang: "pl"
+engines:
+  - name: google
+    engine: google
+    shortcut: g
+    timeout: 3.0
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+    timeout: 2.0
+formats:
+  - html
+  - json

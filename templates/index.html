@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas IT Enterprise Portal</title>
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --card-bg: #131b2e;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 1.5rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            max-width: 1000px;
+            margin-bottom: 2rem;
+            position: relative;
+            width: 100%;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000;
+            font-size: 2.2rem;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.6);
+        }
+
+        .logo-text {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 35px rgba(0,242,254,0.3);
+        }
+
+        /* --- STAŁY OPIS FENOMENU POD LOGIEM --- */
+        .phenomenon-description {
+            background: rgba(19, 27, 46, 0.7);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            padding: 2rem 2.5rem;
+            border-radius: 20px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .phenomenon-description strong {
+            color: #fff;
+        }
+
+        .phenomenon-description span.highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* --- STABILNY, UŚMIECHNIĘTY ASYSTENT POŚRODKU --- */
+        .central-assistant-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 15px;
+        }
+
+        .blue-emoji-face {
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle at 30% 30%, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.3), 0 0 30px rgba(0, 242, 254, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: floatFace 4s ease-in-out infinite;
+        }
+
+        @keyframes floatFace {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .emoji-eyes {
+            display: flex;
+            gap: 14px;
+            position: absolute;
+            top: 22px;
+        }
+
+        .emoji-eye {
+            width: 11px;
+            height: 14px;
+            background: #fff;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emoji-pupil {
+            width: 7px;
+            height: 9px;
+            background: #111;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+
+        .emoji-smile-mouth {
+            width: 22px;
+            height: 11px;
+            border-bottom: 3px solid #111;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            bottom: 16px;
+        }
+
+        .emoji-hands-down {
+            position: absolute;
+            width: 95px;
+            display: flex;
+            justify-content: space-between;
+            bottom: -8px;
+            pointer-events: none;
+        }
+
+        .emoji-hand {
+            width: 18px;
+            height: 28px;
+            background: #00f2fe;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+        }
+        .emoji-hand.left { transform: rotate(35deg); }
+        .emoji-hand.right { transform: rotate(-35deg); }
+
+        /* --- STABILNA CHMURKA DIALOGOWA --- */
+        .speech-bubble {
+            background: rgba(19, 27, 46, 0.95);
+            border: 2px solid var(--accent-cyan);
+            padding: 22px 30px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            line-height: 1.7;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.3);
+            max-width: 850px;
+            width: 100%;
+            min-height: 85px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: opacity 0.4s ease-in-out;
+            opacity: 1;
+        }
+
+        .speech-bubble strong {
+            color: var(--accent-cyan);
+        }
+
+        /* --- 3 KOLUMNY (KLIKALNE PANELE) --- */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem 2.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .card.active-target {
+            transform: translateY(-15px) scale(1.04);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 45px rgba(0, 242, 254, 0.5);
+            background: linear-gradient(145deg, #131b2e, #1a2c50);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.2);
+            background: linear-gradient(145deg, #131b2e, #1a2642);
+        }
+
+        .card-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-icon {
+            font-size: 2.4rem;
+            background: rgba(0, 242, 254, 0.1);
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .card.active-target .card-icon, .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(0, 242, 254, 0.25);
+            border-color: var(--accent-cyan);
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            flex-grow: 1;
+        }
+
+        .card-btn {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #000;
+            text-decoration: none;
+            padding: 15px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .card:hover .card-btn {
+            opacity: 0.95;
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+        }
+
+        /* --- SEKCJA KLAUZULI NDA I KONTAKTU --- */
+        .nda-section {
+            background: rgba(19, 27, 46, 0.5);
+            border: 1px dashed rgba(0, 242, 254, 0.4);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 1200px;
+            width: 100%;
+            margin-bottom: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media(max-width: 768px) {
+            .nda-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .nda-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nda-title {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nda-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .contact-box {
+            background: rgba(10, 14, 23, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-item {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .contact-item strong {
+            color: #fff;
+        }
+
+        .contact-item a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .nda-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            width: fit-content;
+        }
+
+        .nda-btn:hover {
+            background: rgba(0, 242, 254, 0.1);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 8px #10b981;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">V</div>
+            <div class="logo-text">VERITAS IT</div>
+        </div>
+        
+        <div class="phenomenon-description">
+            Witaj w rewolucyjnym ekosystemie <span class="highlight">Veritas IT</span>. Jesteśmy wiodącym systemem analitycznym nowej generacji, który dzięki bezkompromisowej architekturze RAG i potężnej inteligencji operacyjnej <span class="highlight">dosłownie bije i miażdży całą dotychczasową konkurencję na głowę</span>. Zapewniamy najwyższą precyzję, natychmiastową syntezę danych oraz niezawodne wsparcie w każdej dziedzinie Twojej pracy.
+        </div>
+
+        <div class="central-assistant-section">
+            <div class="blue-emoji-face">
+                <div class="emoji-eyes">
+                    <div class="emoji-eye"><div class="emoji-pupil"></div></div>
+                    <div class="emoji-eye"><div class="emoji-pupil"></div></div>
+                </div>
+                <div class="emoji-smile-mouth"></div>
+                <div class="emoji-hands-down">
+                    <div class="emoji-hand left"></div>
+                    <div class="emoji-hand right"></div>
+                </div>
+            </div>
+
+            <div class="speech-bubble" id="speechBubble">
+                Ładowanie asystenta...
+            </div>
+        </div>
+    </header>
+
+    <main class="portal-grid">
+        <a href="/media" class="card" id="cardMedia">
+            <div>
+                <div class="card-header-top">
+                    <span class="card-tag">Transmisje & Fakty</span>
+                    <div class="card-icon">🎙️</div>
+                </div>
+                <h2 class="card-title">Veritas Media</h2>
+                <p class="card-desc">
+                    Inteligentny newsroom i centrum analityczne streamingu. Symulacja dynamicznych przekazów, natychmiastowa weryfikacja faktów w locie i śledzenie narracji publicznych.
+                </p>
+            </div>
+            <span class="card-btn">Przetestuj Veritas Media →</span>
+        </a>
+
+        <a href="/prawo" class="card" id="cardLaw">
+            <div>
+                <div class="card-header-top">
+                    <span class="card-tag">Prawo & Administracja</span>
+                    <div class="card-icon">⚖️</div>
+                </div>
+                <h2 class="card-title">Veritas Prawo</h2>
+                <p class="card-desc">
+                    Autonomiczny silnik analizy aktów prawnych, procedur i orzecznictwa. Bezbłędny audyt regulacyjny, weryfikacja paragrafów i wsparcie administracyjne.
+                </p>
+            </div>
+            <span class="card-btn">Przetestuj Veritas Prawo →</span>
+        </a>
+
+        <a href="/medycyna" class="card" id="cardMed">
+            <div>
+                <div class="card-header-top">
+                    <span class="card-tag">Sektor Medyczny</span>
+                    <div class="card-icon">🩺</div>
+                </div>
+                <h2 class="card-title">Veritas Medycyna</h2>
+                <p class="card-desc">
+                    Zaawansowane wsparcie kliniczne oparte o aktualne wytyczne medyczne, analizę baz farmaceutycznych oraz literaturę naukową w czasie rzeczywistym.
+                </p>
+            </div>
+            <span class="card-btn">Przetestuj Veritas Medycyna →</span>
+        </a>
+    </main>
+
+    <!-- KLAUZULA NDA ORAZ DANE KONTAKTOWE -->
+    <section class="nda-section">
+        <div class="nda-column">
+            <div class="nda-title">🛡️ Klauzula Własności i NDA</div>
+            <p class="nda-text">
+                Architektura i specyfikacja systemu stanowią chronioną własność intelektualną. Zainteresowanych poznaniem szczegółów zapraszam do pobrania i podpisania jednostronnej umowy NDA.
+            </p>
+            <a href="javascript:alert('Generowanie pliku jednostronnego NDA (PDF) w toku przygotowań.');" class="nda-btn">
+                📄 Pobierz jednostronne NDA (PDF)
+            </a>
+        </div>
+        <div class="nda-column">
+            <div class="nda-title">📬 Dane Kontaktowe</div>
+            <div class="contact-box">
+                <div class="contact-item"><strong>Autor / Architekt:</strong> Adrian Piotrowski</div>
+                <div class="contact-item"><strong>Adres:</strong> 14913 Niedergörsdorf, Niemcy</div>
+                <div class="contact-item"><strong>E-mail:</strong> <a href="mailto:adrian.adek11@gmail.com">adrian.adek11@gmail.com</a></div>
+                <div class="contact-item"><strong>Telefon:</strong> <a href="tel:+4915223102775">+49 152 231 02 775</a></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><span class="status-dot"></span> Veritas IT Enterprise Core v9.2.0-STABLE | Autonomiczny System Weryfikacji 2026</p>
+    </footer>
+
+    <script>
+        const speechBubble = document.getElementById('speechBubble');
+        const cardMedia = document.getElementById('cardMedia');
+        const cardLaw = document.getElementById('cardLaw');
+        const cardMed = document.getElementById('cardMed');
+
+        const steps = [
+            {
+                text: "Cześć! Jestem Veritas. Cieszę się, że tu jesteś. Spójrz poniżej na nasze możliwości – Veritas IT dosłownie miażdży konkurencję!",
+                target: null
+            },
+            {
+                text: "Zapraszam do przetestowania działu <strong>Veritas Media</strong> 🎙️! Łączy w sobie prowadzenie debat na żywo oraz błyskawiczne dementowanie dezinformacji.",
+                target: cardMedia
+            },
+            {
+                text: "A może chcesz sprawdzić wersję <strong>prawno-administracyjną</strong>? Veritas Prawo ⚖️ to idealny asystent w profesjonalnej pracy i codziennych obowiązkach!",
+                target: cardLaw
+            },
+            {
+                text: "Nie zapomnijmy o <strong>Veritas Medycyna</strong> 🩺! Każda wersja systemu idealnie dopasowuje się do potrzeb sektora klinicznego.",
+                target: cardMed
+            }
+        ];
+
+        let currentStepIndex = 0;
+
+        function runPresentation() {
+            cardMedia.classList.remove('active-target');
+            cardLaw.classList.remove('active-target');
+            cardMed.classList.remove('active-target');
+
+            const step = steps[currentStepIndex];
+
+            speechBubble.style.opacity = 0;
+            setTimeout(() => {
+                speechBubble.innerHTML = step.text;
+                speechBubble.style.opacity = 1;
+            }, 250);
+
+            if (step.target) {
+                step.target.classList.add('active-target');
+            }
+
+            currentStepIndex++;
+            if (currentStepIndex < steps.length) {
+                setTimeout(runPresentation, 5500);
+            } else {
+                currentStepIndex = 0;
+                setTimeout(runPresentation, 5500);
+            }
+        }
+
+        setTimeout(runPresentation, 500);
+    </script>
+</body>
+</html>

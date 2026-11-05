@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # Podsystem SmartCache (Baza danych Redis)
+  veritas-cache:
+    image: redis:7.0-alpine
+    container_name: veritas_redis_cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - veritas-network
+    restart: always
+
+  # NOWY RDZEŃ TECHNOLOGICZNY: Lokalny silnik wyszukiwania SearXNG
+  veritas-search-engine:
+    image: searxng/searxng:latest
+    container_name: veritas_searxng_core
+    ports:
+      - "8888:8080"
+    environment:
+      - SEARXNG_SETTINGS_URL=/etc/searxng/settings.yml
+    volumes:
+      - ./searxng:/etc/searxng
+    networks:
+      - veritas-network
+    restart: always
+
+volumes:
+  redis_data:
+
+networks:
+  veritas-network:
+    driver: bridge
