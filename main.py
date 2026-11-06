@@ -1,4 +1,6 @@
-import os, time, logging
+import os
+import time
+import logging
 from typing import Dict, Any, Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -41,5 +43,5 @@ async def verify_statement(req: UnifiedVerifyRequest) -> Dict[str, Any]:
         "direct_answer": brain_response["direct_answer"],
         "sources": brain_response["sources"],
         "anchor_munition": brain_response["anchor_munition"],
-        "disinformation_score": brain_response["disinformation_score"]
+        "disinformation_score": brain_response.get("disinformation_score", 15)
     }
