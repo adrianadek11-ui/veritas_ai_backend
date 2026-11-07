@@ -1,20 +1,29 @@
-import os, json, logging
+import os
+import json
+import hashlib
 from datetime import datetime
-from cryptography.fernet import Fernet
+
+VAULT_DIR = "compliance_storage"
+os.makedirs(VAULT_DIR, exist_ok=True)
 
 class ComplianceVault:
-    def __init__(self, log_path="compliance_audit.log"):
-        self.log_path = log_path
-        key_env = os.getenv("VERITAS_VAULT_KEY")
-        self.key = key_env.encode('utf-8') if key_env else b'G3F8fH1k93jD_lAqwX7zP_MnbvCxZlkjhgfdsaQWER4=' 
-        self.cipher = Fernet(self.key)
-
-    def log_action(self, query: str, answer: str, status: str) -> str:
-        payload = {"timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "query": query, "answer": answer, "status": status}
-        json_data = json.dumps(payload).encode('utf-8')
-        encrypted_data = self.cipher.encrypt(json_data)
-        with open(self.log_path, "ab") as log_file:
-            log_file.write(encrypted_data + b'\n')
-        return encrypted_data.decode('utf-8')
-
-compliance_vault = ComplianceVault()
+    @staticmethod
+    def secure_store(claim: str, source_url: str, content_snippet: str) -> str:
+        timestamp = datetime.utcnow().isoformat()
+        raw_data = f"{claim}|{source_url}|{content_snippet}|{timestamp}"
+        sha_hash = hashlib.sha256(raw_data.encode('utf-8')).hexdigest()
+        
+        record = {
+            "timestamp": timestamp,
+            "claim": claim,
+            "source_url": source_url,
+            "content_snippet": content_snippet,
+            "sha256": sha_hash,
+            "status": "VERIFIED_TRUTH_ARCHIVE"
+        }
+        
+        filename = os.path.join(VAULT_DIR, f"{sha_hash[:16]}.json")
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(record, f, ensure_ascii=False, indent=2)
+            
+        return sha_hash

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Veritas Media — Panel Reżysera (Control Room v52)</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0b0f19; color: #f3f4f6; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Sidebar / Kontrola */
+        .sidebar { width: 420px; background: #111827; border-right: 1px solid #1f2937; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
+        h1 { font-size: 1.2rem; color: #38bdf8; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
+        .subtitle { font-size: 0.8rem; color: #9ca3af; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.85rem; color: #d1d5db; margin-bottom: 5px; font-weight: 600; }
+        textarea, input { width: 100%; background: #1f2937; border: 1px solid #374151; color: #fff; padding: 10px; border-radius: 6px; font-size: 0.9rem; resize: none; }
+        textarea { height: 90px; }
+        
+        button { background: #0284c7; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s; margin-top: 5px; }
+        button:hover { background: #0ea5e9; }
+        button.danger { background: #dc2626; }
+        button.danger:hover { background: #ef4444; }
+
+        /* Main Content / Podgląd */
+        .main { flex: 1; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; background: #0f172a; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #1e293b; }
+        .status-badge { background: #065f46; color: #34d399; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .card h3 { font-size: 0.95rem; color: #38bdf8; margin-bottom: 8px; }
+        .card p { font-size: 0.9rem; line-height: 1.4; color: #e2e8f0; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .metric { font-size: 1.5rem; font-weight: bold; color: #f87171; }
+        
+        .source-link { display: inline-block; background: #334155; color: #94a3b8; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; margin-right: 5px; margin-top: 5px; }
+        
+        .broadcast-panel { margin-top: auto; background: #1e1b4b; border: 1px solid #312e81; padding: 15px; border-radius: 8px; }
+        
+        /* Panel czatu reżyserskiego */
+        .director-chat { margin-top: 15px; background: #111827; border: 1px solid #374151; padding: 12px; border-radius: 8px; }
+        .director-chat-box { height: 100px; overflow-y: auto; background: #030712; padding: 8px; border-radius: 4px; font-size: 0.8rem; color: #cbd5e1; margin-bottom: 8px; border: 1px solid #1f2937; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h1>🐙 Veritas Reżyserka</h1>
+        <div class="subtitle">Panel Sterowania Stacji Live (v52)</div>
+        
+        <div class="form-group">
+            <label>Teza / Wypowiedź z Debaty:</label>
+            <textarea id="queryInput" placeholder="Wpisz lub wklej wypowiedź polityka/eksperta..."></textarea>
+        </div>
+        
+        <button onclick="verifyStatement()">🚀 Wyślij do Analizy (RAG / Macki)</button>
+        <button class="danger" onclick="clearScreen()" style="margin-top: 10px;">🗑️ Wyczyść Ekran Studio</button>
+        
+        <div class="director-chat">
+            <label style="color: #38bdf8; margin-bottom: 5px; font-size: 0.8rem;">Konsultacje / Chat z Prowadzącym:</label>
+            <div class="director-chat-box" id="directorChatLog">
+                <div>[System]: Oczekiwanie na zapytania z telepromptera...</div>
+            </div>
+        </div>
+
+        <div class="broadcast-panel" style="margin-top: 15px;">
+            <label style="color: #a5b4fc; margin-bottom: 8px;">Sterowanie Emisją (Studio):</label>
+            <button onclick="pushToStudio()" style="background: #4f46e5;">📡 Wyślij Ripostę na Antenę</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="top-bar">
+            <h2>Monitor Stanu Systemu</h2>
+            <div class="status-badge" id="wsStatus">🟢 WebSocket: Połączono</div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Stanokor / Źródło Analizy</h3>
+                <p id="stanokorVal" style="color: #38bdf8; font-weight: bold;">Oczekiwanie na zapytanie...</p>
+            </div>
+            <div class="card">
+                <h3>Wskaźnik Dysonansu / Dezinformacji</h3>
+                <div class="metric" id="disinfoVal">0.0%</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Synteza / Odpowiedź Systemu</h3>
+            <p id="directAnswerVal" style="white-space: pre-line;">Brak danych w buforze...</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Amunicja Emisyjna (Riposty / Kontry)</h3>
+                <p id="munitionVal">-</p>
+            </div>
+            <div class="card">
+                <h3>Zweryfikowane Źródła Web</h3>
+                <div id="sourcesVal">-</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let lastResponseData = null;
+        const ws = new WebSocket(`ws://${window.location.host}/ws`);
+
+        ws.onopen = () => { document.getElementById('wsStatus').innerText = "🟢 WebSocket: Aktywny"; };
+        ws.onclose = () => { document.getElementById('wsStatus').innerText = "🔴 WebSocket: Rozłączono"; };
+        
+        ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            if (message.action === "ANCHOR_QUERY") {
+                const log = document.getElementById('directorChatLog');
+                log.innerHTML += `<div style="color: #38bdf8; margin-top: 3px;">[Prowadzący]: ${message.query}</div>`;
+                log.scrollTop = log.scrollHeight;
+            }
+        };
+
+        async function verifyStatement() {
+            const query = document.getElementById('queryInput').value;
+            if (!query.trim()) return alert("Wpisz tezę do analizy!");
+
+            document.getElementById('stanokorVal').innerText = "Analiza w toku...";
+            
+            try {
+                const response = await fetch('/api/verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query })
+                });
+                const data = await response.json();
+                lastResponseData = data;
+                
+                document.getElementById('stanokorVal').innerText = data.stanokor || "Zakończono";
+                document.getElementById('disinfoVal').innerText = (data.disinfo_score || data.disinformation_score || 0).toFixed(1) + "%";
+                document.getElementById('directAnswerVal').innerText = data.answer || data.direct_answer || "Brak syntezy.";
+                
+                let munitionText = "-";
+                if (data.anchor_munition && data.anchor_munition.length > 0) {
+                    munitionText = data.anchor_munition[0];
+                } else if (data.munition) {
+                    munitionText = data.munition;
+                }
+                document.getElementById('munitionVal').innerText = munitionText;
+                
+                const sourcesDiv = document.getElementById('sourcesVal');
+                sourcesDiv.innerHTML = '';
+                const sources = data.sources || [];
+                if (sources.length > 0) {
+                    sources.forEach(src => {
+                        const a = document.createElement('a');
+                        a.href = src.url || '#';
+                        a.target = '_blank';
+                        a.className = 'source-link';
+                        a.innerText = src.title || src.url;
+                        sourcesDiv.appendChild(a);
+                    });
+                } else {
+                    sourcesDiv.innerText = "Brak źródeł zewnętrznych.";
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Błąd połączenia z backendem.");
+            }
+        }
+
+        async function clearScreen() {
+            document.getElementById('queryInput').value = '';
+            document.getElementById('stanokorVal').innerText = "Oczekiwanie na zapytanie...";
+            document.getElementById('disinfoVal').innerText = "0.0%";
+            document.getElementById('directAnswerVal').innerText = "Brak danych w buforze...";
+            document.getElementById('munitionVal').innerText = "-";
+            document.getElementById('sourcesVal').innerText = "-";
+            lastResponseData = null;
+
+            try {
+                await fetch('/api/clear', { method: 'POST' });
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function pushToStudio() {
+            if (!lastResponseData) return alert("Brak danych w buforze do wysłania na antenę!");
+            try {
+                await fetch('/api/broadcast', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(lastResponseData)
+                });
+                alert("Riposta została pomyślnie wysłana na antenę (Studio)!");
+            } catch (err) {
+                console.error(err);
+                alert("Błąd wysyłania na antenę.");
+            }
+        }
+    </script>
+</body>
+</html>

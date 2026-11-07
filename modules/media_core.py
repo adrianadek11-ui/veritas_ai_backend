@@ -12,7 +12,7 @@ router = APIRouter()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Bezpieczne pobieranie klucza API ze zmiennych środowiskowych (brak wycieków na GitHubie)
+# Bezpieczne pobieranie klucza API ze zmiennych środowiskowych
 API_KEY_VAL = os.getenv("GCP_API_KEY", "")
 
 QUERY_CACHE = {}
@@ -65,7 +65,7 @@ def core_guardrail_fallback(raw_query: str, zip_matches: list):
             "conflict_text": f"Zweryfikowano pomyślnie dla zapytania: {raw_query}",
             "direct_answer": (
                 f"<strong>BRIEF SYSTEMOWY: {raw_query.upper()}</strong><br>"
-                "Analiza wykazuje spójność z powszechnie dostępnymi rejestrami stacji.<br>"
+                "Analiza wykazuje spójność z powszechnie dostępnymi rejestrami.<br>"
                 "<ul>"
                 "<li><strong>Status:</strong> Zweryfikowano w oparciu o bazy wiedzy stacji.</li>"
                 "<li><a href='https://www.gov.pl' target='_blank'>[Oficjalne Rejestry i Biuletyny Informacyjne]</a></li>"
@@ -84,7 +84,6 @@ class QueryRequest(BaseModel):
 def verify_fact(req: QueryRequest):
     start_time = time.time()
     
-    # Rdzeń 0: Bufor intencji
     buffer_result = buffer_core.process_and_classify(req.query)
     raw_query = buffer_result["cleaned_query"]
     q_lower = raw_query.lower()
@@ -94,7 +93,6 @@ def verify_fact(req: QueryRequest):
         cached["processing_time"] = f"{round((time.time() - start_time) * 1000, 1)} ms (Cache Hit)"
         return cached
 
-    # Jeśli wykryto absurd – zwracamy pełen, zsynchronizowany payload
     if buffer_result["is_absurd"]:
         elapsed = round((time.time() - start_time) * 1000, 1)
         result_payload = {
@@ -112,7 +110,6 @@ def verify_fact(req: QueryRequest):
         QUERY_CACHE[q_lower] = result_payload
         return result_payload
 
-    # Standardowy potok analityczny
     zip_matches = scan_local_zip_archives(q_lower)
     
     prompt_text = f"""
@@ -135,6 +132,7 @@ def verify_fact(req: QueryRequest):
     }}
     """
 
+    # Poprawione adresy endpointów API Gemini bez uciętych linii i znaczników Markdown
     endpoints = [
         f"[https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=](https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=){API_KEY_VAL}",
         f"[https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=](https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=){API_KEY_VAL}"

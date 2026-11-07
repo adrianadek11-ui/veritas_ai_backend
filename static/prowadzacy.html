@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Veritas Studio — Ekran Prowadzącego (Live Teleprompter)</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #000; color: #fff; height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 30px; overflow: hidden; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #222; padding-bottom: 15px; }
+        .logo { font-size: 1.6rem; font-weight: bold; color: #ef4444; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .clock { font-size: 1.6rem; font-family: monospace; color: #94a3b8; }
+
+        .workspace { flex: 1; display: grid; grid-template-columns: 1fr 350px; gap: 25px; margin-top: 20px; overflow: hidden; }
+        .left-column { display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+        
+        .content { display: flex; flex-direction: column; justify-content: center; padding: 15px; background: #0b0f19; border: 1px solid #1e293b; border-radius: 8px; }
+        .fact-box { font-size: 1.8rem; line-height: 1.4; color: #f8fafc; font-weight: 500; }
+        
+        .munition-section { background: #111827; border: 1px solid #374151; padding: 15px; border-radius: 8px; display: flex; flex-direction: column; gap: 10px; }
+        .munition-title { font-size: 0.9rem; color: #38bdf8; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .ticker { background: #1e293b; border-left: 5px solid #38bdf8; padding: 12px; border-radius: 4px; font-size: 1.1rem; color: #e2e8f0; }
+
+        .chat-panel { background: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 8px; display: flex; flex-direction: column; gap: 10px; }
+        .chat-messages { height: 120px; overflow-y: auto; background: #020617; padding: 10px; border-radius: 4px; font-size: 0.85rem; color: #cbd5e1; border: 1px solid #1e293b; }
+        .chat-input-row { display: flex; gap: 8px; }
+        .chat-input { flex: 1; background: #1e293b; border: 1px solid #475569; color: #fff; padding: 8px; border-radius: 4px; font-size: 0.85rem; }
+        .chat-btn { background: #0284c7; color: white; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .chat-btn:hover { background: #0ea5e9; }
+
+        .right-column { background: #111; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+        .vertical-meter-container { flex: 1; width: 40px; background: #1f2937; border-radius: 20px; position: relative; overflow: hidden; margin: 15px 0; border: 1px solid #374151; display: flex; align-items: flex-end; }
+        .vertical-meter-fill { width: 100%; background: #34d399; height: 15%; transition: height 0.4s ease, background 0.4s ease; border-radius: 0 0 20px 20px; }
+        .vertical-meter-label { font-size: 0.9rem; color: #94a3b8; text-align: center; font-weight: bold; }
+        .vertical-meter-value { font-size: 1.8rem; font-weight: bold; color: #34d399; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">🔴 VERITAS MEDIA LIVE // STUDIO FEED</div>
+        <div class="clock" id="clock">15:30:00</div>
+    </div>
+
+    <div class="workspace">
+        <div class="left-column">
+            <div class="content">
+                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 5px; text-transform: uppercase;">Przekaz z reżyserki:</div>
+                <div class="fact-box" id="mainFact">Oczekiwanie na przekaz z reżyserki...</div>
+            </div>
+
+            <div class="munition-section">
+                <div class="munition-title">⚡ Amunicja Emisyjna (Magazynki Kontr):</div>
+                <div class="ticker" id="munitionTicker">System monitoringu dyskursu w gotowości.</div>
+            </div>
+
+            <div class="chat-panel">
+                <div class="munition-title">🤖 Żywy Chatbot / Konsultacje z Reżyserką:</div>
+                <div class="chat-messages" id="chatMessages">
+                    <div>[System]: Połączono z centralnym mózgiem RAG. Zadaj pytanie lub poproś o dodatkowe dane na żywo...</div>
+                </div>
+                <div class="chat-input-row">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Zapytaj asystenta w reżyserce..." onkeypress="handleChatKey(event)">
+                    <button class="chat-btn" onclick="sendChatQuery()">Wyślij</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="vertical-meter-label">Wskaźnik Dysonansu / Dezinformacji</div>
+            <div class="vertical-meter-container">
+                <div class="vertical-meter-fill" id="disinfoMeterFill"></div>
+            </div>
+            <div class="vertical-meter-value" id="disinfoMeter">15.0%</div>
+        </div>
+    </div>
+
+    <script>
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toTimeString().split(' ')[0];
+        }, 1000);
+
+        const ws = new WebSocket(`ws://${window.location.host}/ws`);
+
+        ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            if (message.action === "UPDATE_STUDIO" && message.data) {
+                const data = message.data;
+                document.getElementById('mainFact').innerText = data.direct_answer || data.answer || "Brak danych.";
+                
+                let munitionText = "ZALECENIE: Brak szczególnych kontr.";
+                if (data.anchor_munition && data.anchor_munition.length > 0) {
+                    munitionText = data.anchor_munition[0];
+                } else if (data.munition) {
+                    munitionText = data.munition;
+                }
+                document.getElementById('munitionTicker').innerText = munitionText;
+                
+                const score = data.disinformation_score || data.disinfo_score || 0;
+                updateVerticalMeter(score);
+
+            } else if (message.action === "CLEAR") {
+                document.getElementById('mainFact').innerText = "Oczekiwanie na przekaz z reżyserki...";
+                document.getElementById('munitionTicker').innerText = "System monitoringu dyskursu w gotowości.";
+                updateVerticalMeter(0.0);
+            }
+        };
+
+        function updateVerticalMeter(score) {
+            const meterVal = document.getElementById('disinfoMeter');
+            const meterFill = document.getElementById('disinfoMeterFill');
+            
+            meterVal.innerText = score.toFixed(1) + "%";
+            meterFill.style.height = Math.min(Math.max(score, 5), 100) + "%";
+
+            if (score > 50) {
+                meterVal.style.color = "#ef4444";
+                meterFill.style.background = "#ef4444";
+            } else if (score > 25) {
+                meterVal.style.color = "#f59e0b";
+                meterFill.style.background = "#f59e0b";
+            } else {
+                meterVal.style.color = "#34d399";
+                meterFill.style.background = "#34d399";
+            }
+        }
+
+        async function sendChatQuery() {
+            const input = document.getElementById('chatInput');
+            const query = input.value.trim();
+            if (!query) return;
+
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML += `<div style="color: #38bdf8; margin-top: 5px;">[Prowadzący]: ${query}</div>`;
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch('/api/verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query })
+                });
+                const data = await response.json();
+                
+                const reply = data.answer || data.stanokor || "Brak odpowiedzi od systemu.";
+                chatMessages.innerHTML += `<div style="color: #34d399; margin-top: 5px;">[Reżyserka / AI]: ${reply}</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } catch (err) {
+                console.error(err);
+                chatMessages.innerHTML += `<div style="color: #ef4444; margin-top: 5px;">[Błąd]: Nie udało się połączyć z reżyserką.</div>`;
+            }
+        }
+
+        function handleChatKey(event) {
+            if (event.key === 'Enter') {
+                sendChatQuery();
+            }
+        }
+    </script>
+</body>
+</html>

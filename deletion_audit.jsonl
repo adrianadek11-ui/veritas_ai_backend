@@ -1,0 +1,72 @@
+{"timestamp": "2026-11-06T12:34:49.608008", "query": "tusk", "status": "VERIFIED", "details": "Przetworzono zapytanie. Wynik dysonansu: 0.0%"}
+{"timestamp": "2026-11-06T13:12:57.166176", "query": "adek", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 15.0%"}
+{"timestamp": "2026-11-06T13:28:30.912181", "query": "Nawrocki", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-06T13:28:30.924129", "query": "Nawrocki", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-06T14:31:14.955784", "query": "tusk", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 0.0%"}
+{"timestamp": "2026-11-07T12:02:15.710562", "query": "tusk", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 0.0%"}
+{"timestamp": "2026-11-07T12:03:11.759075", "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:03:11.760047", "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:03:16.498741", "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:03:16.499065", "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:04:17.427502", "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:04:17.427799", "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:07:23.227412", "query": "Wzrost gospodarczy wyniósł 3%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:07:23.227567", "query": "Wzrost gospodarczy wyniósł 3%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:07:42.616218", "query": "Wzrost gospodarczy wyniósł 3%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:07:42.616509", "query": "Wzrost gospodarczy wyniósł 3%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:07:43.571536", "query": "Wzrost gospodarczy wyniósł 3%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:07:43.571858", "query": "Wzrost gospodarczy wyniósł 3%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:08:16.269102", "query": "komorowski", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:08:16.269260", "query": "komorowski", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:22:39.574046", "query": "nawrocki", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:22:39.574315", "query": "nawrocki", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-07T12:23:19.783866", "query": "morowiecki", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:23:19.784161", "query": "morowiecki", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:23:38.459854", "query": "morawiecki", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:23:38.460088", "query": "morawiecki", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-07T12:24:05.919590", "query": "morowiecki", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:24:05.919967", "query": "morowiecki", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:24:24.866933", "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:24:24.867225", "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:24:47.080937", "query": "Wzrost gospodarczy wyniósł 3%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:24:47.081215", "query": "Wzrost gospodarczy wyniósł 3%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:37:18.992065", "query": "D. Trumfp", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:37:18.992313", "query": "D. Trumfp", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:37:27.888276", "query": "D. Trumf", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:37:27.888493", "query": "D. Trumf", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:37:31.325942", "query": "D. Trump", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:37:31.326163", "query": "D. Trump", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:37:37.472777", "query": "Donald Tusk", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:37:37.473094", "query": "Donald Tusk", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-07T12:38:04.782982", "query": "Kosiniak-kamysz", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:38:04.783220", "query": "Kosiniak-kamysz", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-07T12:38:32.576862", "query": "M. Olejnik", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:38:32.577123", "query": "M. Olejnik", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-07T12:39:00.284544", "query": "D. Trumpf", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:39:00.284782", "query": "D. Trumpf", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:39:20.641446", "query": "D. Trumfp", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:39:20.641826", "query": "D. Trumfp", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:39:34.482712", "query": "D. Trump", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:39:34.483878", "query": "D. Trump", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:39:56.605317", "query": "Inflacja W Kraju Spadła Do Historycznego Poziomu 1.5%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:39:56.605666", "query": "Inflacja W Kraju Spadła Do Historycznego Poziomu 1.5%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:40:24.218770", "query": "Wzrost Gospodarczy Wyniósł 3%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:40:24.218986", "query": "Wzrost Gospodarczy Wyniósł 3%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:52:53.010286", "query": "Walesa", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:52:53.010742", "query": "Walesa", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:53:15.046218", "query": "Donald Tusk", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:53:15.046621", "query": "Donald Tusk", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-07T12:53:36.175916", "query": "Bogucki", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:53:36.176287", "query": "Bogucki", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:54:26.225441", "query": "Karol Nawrocki", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:54:26.225755", "query": "Karol Nawrocki", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-07T12:55:01.108329", "query": "Minister Kowal", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:55:01.108802", "query": "Minister Kowal", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:55:16.672936", "query": "Inflacja W Kraju Spadła Do Historycznego Poziomu 1.5%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:55:16.673180", "query": "Inflacja W Kraju Spadła Do Historycznego Poziomu 1.5%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:55:33.172183", "query": "Wzrost Gospodarczy Wyniósł 3%", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:55:33.172447", "query": "Wzrost Gospodarczy Wyniósł 3%", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
+{"timestamp": "2026-11-07T12:55:54.096514", "query": "Donald Tusk", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:55:54.096811", "query": "Donald Tusk", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 25.0%"}
+{"timestamp": "2026-11-07T12:58:13.959012", "query": "Walesa", "status": "FLIP_FLOP_DETECTED", "details": "Wykryto woltę retoryczną w wypowiedzi"}
+{"timestamp": "2026-11-07T12:58:13.959196", "query": "Walesa", "status": "VERIFIED", "details": "Przetworzono zapytanie przez RAG. Wynik dysonansu: 40.0%"}
