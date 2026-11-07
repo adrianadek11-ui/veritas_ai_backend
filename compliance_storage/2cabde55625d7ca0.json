@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-11-07T17:07:42.026401",
+  "claim": "nawrocki",
+  "source_url": "https://veritas-media.internal/vault/audit?q=nawrocki",
+  "content_snippet": "Analiza merytoryczna Live Web RAG (Stan w czasie rzeczywistym dla tezy: 'nawrocki'): Przeanalizowano najnowsze doniesienia medialne, oficjalne stenogramy, wskaźniki statystyczne GUS/NBP oraz rejestry publiczne. Wypowiedź weryfikowano pod kątem spójności faktograficznej, wykrywając potencjalne rozbieżności narracyjne oraz odniesienia do wcześniejszych deklaracji w otwartej przestrzeni publicznej.",
+  "sha256": "2cabde55625d7ca0c13e78c50a4a4e2b64415c868e4974ac9cb21358cd326f55",
+  "status": "VERIFIED_TRUTH_ARCHIVE"
+}

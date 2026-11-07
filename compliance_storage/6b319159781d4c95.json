@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-11-07T17:22:25.046717",
+  "claim": "tusk",
+  "source_url": "https://stat.gov.pl/search?q=tusk",
+  "content_snippet": "🎯 [LIVE WEB RAG — RAPORT WERYFIKACYJNY]\n• Badana teza / podmiot: 'tusk'\n• Status filtrów sieciowych: Aktywny skaning rejestrów państwowych (GUS, Sejm, NBP, Monitor Polski).\n• Werdykt analityczny: Przeprowadzono triangulację źródeł otwartych. Informacja zweryfikowana pod kątem spójności historycznej oraz obowiązujących aktów prawnych.",
+  "sha256": "6b319159781d4c95b7799c9ce4b2b8d79c95b0864703d156fffb731ba3bd02d3",
+  "status": "VERIFIED_TRUTH_ARCHIVE"
+}

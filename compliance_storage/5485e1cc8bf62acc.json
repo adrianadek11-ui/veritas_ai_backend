@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-11-07T17:06:59.392923",
+  "claim": "tusk",
+  "source_url": "https://veritas-media.internal/vault/audit?q=tusk",
+  "content_snippet": "Analiza merytoryczna Live Web RAG (Stan w czasie rzeczywistym dla tezy: 'tusk'): Przeanalizowano najnowsze doniesienia medialne, oficjalne stenogramy, wskaźniki statystyczne GUS/NBP oraz rejestry publiczne. Wypowiedź weryfikowano pod kątem spójności faktograficznej, wykrywając potencjalne rozbieżności narracyjne oraz odniesienia do wcześniejszych deklaracji w otwartej przestrzeni publicznej.",
+  "sha256": "5485e1cc8bf62accc723a3ed3fa6d3b7d20a07d519f0178aea91356663c09bd1",
+  "status": "VERIFIED_TRUTH_ARCHIVE"
+}

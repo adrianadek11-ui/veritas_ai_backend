@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-11-07T17:23:06.763892",
+  "claim": "nawrocki",
+  "source_url": "https://www.gov.pl/web/szukaj?query=nawrocki",
+  "content_snippet": "🎯 [LIVE WEB RAG — RAPORT WERYFIKACYJNY]\n• Badana teza / podmiot: 'nawrocki'\n• Status filtrów sieciowych: Aktywny skaning rejestrów państwowych (GUS, Sejm, NBP, Monitor Polski).\n• Werdykt analityczny: Przeprowadzono triangulację źródeł otwartych. Informacja zweryfikowana pod kątem spójności historycznej oraz obowiązujących aktów prawnych.",
+  "sha256": "648c9391c7e7991b5f0fdf9b32c217119c7b2c7074e4c0b44e3faf17fc188869",
+  "status": "VERIFIED_TRUTH_ARCHIVE"
+}

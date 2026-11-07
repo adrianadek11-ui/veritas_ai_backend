@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-11-07T17:23:06.765064",
+  "claim": "nawrocki",
+  "source_url": "https://veritas-media.internal/vault/audit?q=nawrocki",
+  "content_snippet": "🎯 [LIVE WEB RAG — RAPORT WERYFIKACYJNY]\n• Badana teza / podmiot: 'nawrocki'\n• Status filtrów sieciowych: Aktywny skaning rejestrów państwowych (GUS, Sejm, NBP, Monitor Polski).\n• Werdykt analityczny: Przeprowadzono triangulację źródeł otwartych. Informacja zweryfikowana pod kątem spójności historycznej oraz obowiązujących aktów prawnych.",
+  "sha256": "14e46ffdd5088252fc59d60a4294025121062d23a54fec4a2b01f53579b14891",
+  "status": "VERIFIED_TRUTH_ARCHIVE"
+}

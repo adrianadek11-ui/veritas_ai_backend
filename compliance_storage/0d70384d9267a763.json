@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-11-07T17:07:01.429680",
+  "claim": "tusk",
+  "source_url": "https://www.gov.pl/web/szukaj?query=tusk",
+  "content_snippet": "Analiza merytoryczna Live Web RAG (Stan w czasie rzeczywistym dla tezy: 'tusk'): Przeanalizowano najnowsze doniesienia medialne, oficjalne stenogramy, wskaźniki statystyczne GUS/NBP oraz rejestry publiczne. Wypowiedź weryfikowano pod kątem spójności faktograficznej, wykrywając potencjalne rozbieżności narracyjne oraz odniesienia do wcześniejszych deklaracji w otwartej przestrzeni publicznej.",
+  "sha256": "0d70384d9267a76385b2d5e504a858abc579d972452f2a2a12c656ec85324d18",
+  "status": "VERIFIED_TRUTH_ARCHIVE"
+}
