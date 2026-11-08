@@ -14,7 +14,6 @@ class VeritasBrainCore:
 
     @staticmethod
     def _generate_nda_signature(query: str, answer: str) -> Dict[str, Any]:
-        """Dodatkowa warstwa NDA i podpisu kryptograficznego SHA-256 dla zgodności v66.0"""
         clause = "Zgodnie z protokołem NDA-F1-SECURE & tajemnicą przedsiębiorstwa."
         raw = f"{query}:{answer}:{datetime.utcnow().isoformat()}:{clause}"
         sig = hashlib.sha256(raw.encode('utf-8')).hexdigest()
@@ -34,7 +33,7 @@ class VeritasBrainCore:
         temp_delta = round(temp_facial - 36.6, 1)
         nano_cortisol_index = round(random.uniform(12.0, 88.0), 1)
 
-        # DwuDzielna Odpowiedź: Biografia / Profil z Sieci Web + Analiza Faktograficzna
+        # DwuDzielna Odpowiedź: Biografia / Profil z Sieci Web + Analiza Faktograficzna (Oryginalny pełny układ)
         if "tusk" in q_lower:
             direct_answer = (
                 f"👤 [PROFIL BIOGRAFICZNY Z SIECI WEB: DONALD TUSK]\n"
@@ -77,8 +76,8 @@ class VeritasBrainCore:
             score = 74.0
         else:
             direct_answer = (
-                f"👤 [PROFIL BIOGRAFICZNY Z SIECI WEB: '{q_clean}'].\n"
-                f"• Rola / Status: Osoba publiczna / podmiot monitorowany w strumieniach agencyjnych i publicystycznych.\n"
+                f"👤 [PROFIL BIOGRAFICZNY Z SIECI WEB: {q_clean.upper()}]\n"
+                f"• Kim jest / Rola: Osoba publiczna / podmiot monitorowany w strumieniach agencyjnych i publicystycznych.\n"
                 f"• Aktualne powiązania: Rejestry otwarte wykazują aktywność w przestrzeni medialnej i instytucjonalnej.\n\n"
                 f"📊 [ANALIZA FAKTOGRAFICZNA LIVE]\n"
                 f"• Przeprowadzono głęboką triangulację rejestrów państwowych (GUS, Sejm, Monitor Polski, NBP).\n"
@@ -101,7 +100,6 @@ class VeritasBrainCore:
         for src in sources:
             ComplianceVault.secure_store(q_clean, src["url"], direct_answer)
 
-        # Generowanie pieczęci NDA dla zweryfikowanej odpowiedzi
         nda_governance = self._generate_nda_signature(q_clean, direct_answer)
 
         return {
