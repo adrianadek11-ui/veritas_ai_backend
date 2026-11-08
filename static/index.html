@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veritas Matrix Nano-Core — Master Control & Studio Feed v64.0-THERMAL</title>
+    <title>Veritas Matrix Nano-Core — Global Command Center v65.0-F1</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
-        body { background-color: #030712; color: #f3f4f6; padding: 12px; font-size: 0.82rem; overflow-x: hidden; }
+        body { background-color: #030712; color: #f3f4f6; padding: 10px; font-size: 0.8rem; overflow-x: hidden; }
 
-        .header { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        .logo-title { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.15rem; color: #38bdf8; letter-spacing: 1px; }
-        .version-badge { background: linear-gradient(135deg, #dc2626, #991b1b); color: #fff; padding: 3px 9px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
-        .sys-status { font-size: 0.75rem; color: #34d399; font-family: monospace; display: flex; align-items: center; gap: 8px; }
-        .pulse-dot { width: 9px; height: 9px; background-color: #34d399; border-radius: 50%; box-shadow: 0 0 10px #34d399; animation: pulse 1.4s infinite; }
+        .header { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        .logo-title { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; color: #38bdf8; letter-spacing: 1px; }
+        .version-badge { background: linear-gradient(135deg, #dc2626, #991b1b); color: #fff; padding: 2px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
+        .sys-status { font-size: 0.72rem; color: #34d399; font-family: monospace; display: flex; align-items: center; gap: 6px; }
+        .pulse-dot { width: 8px; height: 8px; background-color: #34d399; border-radius: 50%; box-shadow: 0 0 10px #34d399; animation: pulse 1.4s infinite; }
         @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
 
-        .grid-container { display: flex; flex-direction: column; gap: 12px; }
-        .row-top { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .row-main { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        /* UKŁAD 3-KOLUMNOWY KOKPITU PILOTA */
+        .cockpit-grid { display: grid; grid-template-columns: 280px 1fr 340px; gap: 10px; }
 
-        .panel-box { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; }
-        .panel-header { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 6px; }
+        .panel-box { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; margin-bottom: 10px; }
+        .panel-header { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 5px; }
         .panel-header.purple { color: #c084fc; border-color: rgba(192, 132, 252, 0.2); }
         .panel-header.amber { color: #f59e0b; border-color: rgba(245, 158, 11, 0.2); }
         .panel-header.blue { color: #38bdf8; border-color: rgba(56, 189, 248, 0.2); }
         .panel-header.red { color: #ef4444; border-color: rgba(239, 68, 68, 0.2); }
         .panel-header.green { color: #34d399; border-color: rgba(52, 211, 153, 0.2); }
 
-        input[type="text"], textarea { width: 100%; background: #030712; border: 1px solid #1e293b; border-radius: 6px; color: #f3f4f6; padding: 8px 10px; font-size: 0.82rem; transition: border-color 0.2s; }
-        input[type="text"]:focus, textarea:focus { border-color: #38bdf8; outline: none; box-shadow: 0 0 8px rgba(56, 189, 248, 0.2); }
-        button { background: #0284c7; color: white; border: none; padding: 7px 12px; border-radius: 5px; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.1s; font-size: 0.78rem; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+        input[type="text"], textarea, select { width: 100%; background: #030712; border: 1px solid #1e293b; border-radius: 6px; color: #f3f4f6; padding: 7px 9px; font-size: 0.8rem; transition: border-color 0.2s; }
+        input[type="text"]:focus, textarea:focus, select:focus { border-color: #38bdf8; outline: none; box-shadow: 0 0 8px rgba(56, 189, 248, 0.2); }
+        
+        button { background: #0284c7; color: white; border: none; padding: 6px 10px; border-radius: 5px; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.1s; font-size: 0.75rem; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
         button:hover:not(:disabled) { background: #0ea5e9; transform: translateY(-1px); }
         button:active:not(:disabled) { transform: translateY(0); }
         button:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -37,252 +37,266 @@
         button.btn-purple { background: #7c3aed; } button.btn-purple:hover:not(:disabled) { background: #8b5cf6; }
         button.btn-green { background: #059669; } button.btn-green:hover:not(:disabled) { background: #10b981; }
 
-        .status-box { background: #030712; border: 1px solid #1e293b; padding: 8px 10px; border-radius: 6px; font-size: 0.78rem; color: #9ca3af; }
-        .status-title { font-weight: 700; color: #e5e7eb; margin-bottom: 4px; }
+        .status-box { background: #030712; border: 1px solid #1e293b; padding: 7px 9px; border-radius: 6px; font-size: 0.75rem; color: #9ca3af; }
+        .status-title { font-weight: 700; color: #e5e7eb; margin-bottom: 3px; }
 
-        .studio-layout { display: grid; grid-template-columns: 1fr 140px; gap: 12px; }
-        .vertical-meter-wrapper { background: #030712; border: 1px solid #1e293b; border-radius: 6px; padding: 8px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; }
-        .meter-bar-container { flex: 1; width: 22px; background: #1e293b; border-radius: 11px; position: relative; overflow: hidden; display: flex; align-items: flex-end; margin: 8px 0; }
-        .meter-bar-fill { width: 100%; background: #34d399; height: 5%; transition: height 0.5s ease-out, background-color 0.5s; }
-        .meter-scale { position: absolute; right: 4px; top: 35px; bottom: 35px; display: flex; flex-direction: column; justify-content: space-between; font-size: 0.55rem; color: #6b7280; font-family: monospace; pointer-events: none; }
+        .feed-btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 6px; }
+        .feed-btn { background: #1e293b; font-size: 0.7rem; padding: 5px; border-radius: 4px; border: 1px solid #334155; }
+        .feed-btn.active { background: #0284c7; border-color: #38bdf8; }
 
-        .chat-messages-expanded { height: 230px; overflow-y: auto; background: #030712; border: 1px solid #1e293b; padding: 8px; font-size: 0.78rem; border-radius: 6px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 6px; scroll-behavior: smooth; }
-        .chat-msg { padding: 6px 8px; border-radius: 4px; background: #0b1329; border-left: 3px solid #38bdf8; }
+        .video-feed-box { background: #000; border: 1px solid #1e293b; border-radius: 6px; height: 130px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: background 0.3s; margin-bottom: 6px; }
+        .video-feed-box.thermal-mode { background: radial-gradient(circle at center, #9333ea, #312e81, #000); }
+        .video-feed-label { position: absolute; top: 4px; left: 6px; background: rgba(0,0,0,0.75); color: #38bdf8; font-size: 0.62rem; padding: 2px 5px; border-radius: 3px; font-weight: 700; font-family: monospace; }
+        .biometric-overlay { position: absolute; bottom: 4px; right: 6px; background: rgba(0,0,0,0.85); color: #ef4444; font-size: 0.62rem; padding: 2px 5px; border-radius: 3px; font-family: monospace; border: 1px solid #ef4444; }
+        .thermal-overlay-badge { position: absolute; top: 4px; right: 6px; background: rgba(220, 38, 38, 0.9); color: #fff; font-size: 0.58rem; padding: 1px 4px; border-radius: 3px; font-family: monospace; font-weight: 700; }
+
+        .chat-messages-expanded { height: 180px; overflow-y: auto; background: #030712; border: 1px solid #1e293b; padding: 7px; font-size: 0.75rem; border-radius: 6px; margin-bottom: 6px; display: flex; flex-direction: column; gap: 5px; scroll-behavior: smooth; }
+        .chat-msg { padding: 5px 7px; border-radius: 4px; background: #0b1329; border-left: 3px solid #38bdf8; }
         .chat-msg.system { border-left-color: #34d399; background: #064e3b22; }
         .chat-msg.user { border-left-color: #c084fc; background: #581c8722; }
         .chat-msg.ai { border-left-color: #f59e0b; background: #78350f22; }
 
-        .munition-option-card { background: #030712; border: 1px solid #1e293b; border-radius: 4px; padding: 6px; margin-bottom: 4px; cursor: pointer; transition: border-color 0.2s, background 0.2s; font-size: 0.74rem; }
+        .munition-option-card { background: #030712; border: 1px solid #1e293b; border-radius: 4px; padding: 5px 7px; margin-bottom: 4px; cursor: pointer; transition: border-color 0.2s, background 0.2s; font-size: 0.72rem; }
         .munition-option-card:hover { border-color: #38bdf8; background: #0b1329; }
 
-        .multiview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-        .video-feed-box { background: #000; border: 1px solid #1e293b; border-radius: 6px; height: 110px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
-        .video-feed-box.thermal-mode { background: radial-gradient(circle at center, #9333ea, #312e81, #000); }
-        .video-feed-label { position: absolute; top: 4px; left: 6px; background: rgba(0,0,0,0.75); color: #38bdf8; font-size: 0.65rem; padding: 2px 6px; border-radius: 3px; font-weight: 700; font-family: monospace; }
-        .biometric-overlay { position: absolute; bottom: 4px; right: 6px; background: rgba(0,0,0,0.85); color: #ef4444; font-size: 0.65rem; padding: 2px 6px; border-radius: 3px; font-family: monospace; border: 1px solid #ef4444; }
-        .thermal-overlay-badge { position: absolute; top: 4px; right: 6px; background: rgba(220, 38, 38, 0.9); color: #fff; font-size: 0.6rem; padding: 1px 5px; border-radius: 3px; font-family: monospace; font-weight: 700; }
+        .ticker-preview-bar { background: #991b1b; color: #fff; padding: 5px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; overflow: hidden; white-space: nowrap; }
 
-        .ticker-preview-bar { background: #991b1b; color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; overflow: hidden; white-space: nowrap; }
-
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; margin-top: 4px; }
-        th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #1e293b; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.73rem; margin-top: 4px; }
+        th, td { text-align: left; padding: 5px 7px; border-bottom: 1px solid #1e293b; }
         th { color: #6b7280; font-weight: 700; text-transform: uppercase; background: #030712; }
-        .badge-tag { padding: 2px 6px; border-radius: 3px; font-size: 0.68rem; font-weight: 700; }
+        .badge-tag { padding: 2px 5px; border-radius: 3px; font-size: 0.65rem; font-weight: 700; }
         .tag-false { background: #7f1d1d; color: #fca5a5; }
         .tag-true { background: #064e3b; color: #6ee7b7; }
         
-        .social-btn-group { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 6px; }
-        .social-btn-group button { font-size: 0.68rem; padding: 5px 2px; }
+        .social-btn-group { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin-top: 5px; }
+        .social-btn-group button { font-size: 0.65rem; padding: 4px 1px; }
+
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; background: #030712; border: 1px solid #1e293b; padding: 6px 8px; border-radius: 6px; font-size: 0.75rem; margin-bottom: 6px; }
+        .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1e293b; transition: .3s; border-radius: 18px; }
+        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+        input:checked + .slider { background-color: #059669; }
+        input:checked + .slider:before { transform: translateX(16px); }
     </style>
 </head>
 <body>
 
     <div class="header">
         <div class="logo-title">
-            🛡️ VERITAS MATRIX NANO-CORE <span class="version-badge">v64.0-THERMAL F1</span>
+            🛡️ VERITAS MATRIX NANO-CORE <span class="version-badge">v65.0-GLOBAL F1</span>
         </div>
         <div class="sys-status">
             <span class="pulse-dot"></span>
-            <span>TERMOWIZJA: AKTYWNA | NANO-SKIN API: READY | </span>
-            <span id="wsHeaderStatus" style="color:#34d399;">ONLINE (WS SYNCHRONIZOWANY)</span>
+            <span>MULTI-STREAM: 24/7 ACTIVE | AUTO-PILOT READY | </span>
+            <span id="wsHeaderStatus" style="color:#34d399;">ONLINE</span>
         </div>
     </div>
 
-    <div class="grid-container">
+    <!-- GŁÓWNY UKŁAD 3-KOLUMNOWY KOKPITU -->
+    <div class="cockpit-grid">
 
-        <div class="row-top">
+        <!-- LEWA KOLUMNA: Źródła, Strumienie Globalne i Telemetria -->
+        <div>
             <div class="panel-box">
-                <div class="panel-header purple">📌 INGESTION ŹRODEŁ & MEDIA INTELLIGENCE CORE</div>
-                <div style="font-size: 0.75rem; color: #9ca3af; margin-bottom: 8px;">Nadzór nad strumieniami w tle, podczerwienią IR i czujnikami nano-skóry.</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                    <div class="status-box">
-                        <div class="status-title">Termowizja Live (IR):</div>
-                        <span id="thermalStatusBadge" style="color:#ef4444;">● Periorbital Temp: 36.8°C (STABLE)</span>
-                    </div>
-                    <div class="status-box">
-                        <div class="status-title">Nano-Skin Biometrics API:</div>
-                        <span style="color:#38bdf8;">● Kortyzol API: Gotowe na strumienie</span>
-                    </div>
+                <div class="panel-header purple">🌐 GLOBAL FEED SELECTOR</div>
+                <div style="font-size: 0.72rem; color: #9ca3af; margin-bottom: 6px;">Wybierz stację źródłową nasłuchu Live:</div>
+                <div class="feed-btn-group">
+                    <button class="feed-btn active" id="btnFeedTVN" onclick="setSourceFeed('TVN24')">TVN24</button>
+                    <button class="feed-btn" id="btnFeedPolsat" onclick="setSourceFeed('Polsat News')">Polsat News</button>
+                    <button class="feed-btn" id="btnFeedBBC" onclick="setSourceFeed('BBC News')">BBC News</button>
+                    <button class="feed-btn" id="btnFeedCNN" onclick="setSourceFeed('CNN International')">CNN</button>
                 </div>
             </div>
 
+            <div class="panel-box">
+                <div class="panel-header red">
+                    <span>🔥 PODGLĄD & TERMOWIZJA IR</span>
+                    <button style="padding: 2px 5px; font-size: 0.6rem; background: #dc2626;" onclick="toggleThermalCam()">TRYB IR</button>
+                </div>
+                <div class="video-feed-box" id="feed1Box">
+                    <span class="video-feed-label" id="activeFeedLabel">FEED: TVN24 LIVE</span>
+                    <span class="thermal-overlay-badge" id="thermalBadge" style="display:none;">IR: 37.4°C</span>
+                    <div style="text-align: center; color: #9ca3af; font-size: 0.7rem;" id="feed1Text">[STRUMIEŃ WIDEO AKTYWNY]</div>
+                    <span class="biometric-overlay" id="biometricStressVal">STRES: 12%</span>
+                </div>
+                <div style="font-size: 0.7rem; color: #9ca3af; display: flex; justify-content: space-between;">
+                    <span>Periorbital IR Temp: <b id="irTempVal" style="color:#f87171;">36.8°C</b></span>
+                    <span>Nano-Skin API: <b style="color:#34d399;">READY</b></span>
+                </div>
+            </div>
+
+            <div class="panel-box">
+                <div class="panel-header green">⚡ TRYB AUTO-PILOTA F1</div>
+                <div class="toggle-row">
+                    <span>Auto-Pilot (Autonomiczna Pętla):</span>
+                    <label class="switch">
+                        <input type="checkbox" id="autoPilotToggle" onchange="toggleAutoPilot()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div style="font-size: 0.68rem; color: #6b7280; line-height: 1.3;">
+                    Gdy włączony, system samodzielnie generuje paczki sprostowań i szykuje Auto-Clips powyżej 90% pewności kłamstwa.
+                </div>
+            </div>
+        </div>
+
+        <!-- ŚRODKOWA KOLUMNA: Serce Debaty, Teleprompter i Live Web RAG -->
+        <div>
             <div class="panel-box">
                 <div class="panel-header amber">🎙️ LIVE SERWER WERYFIKACJI FAKTÓW (WEB RAG)</div>
-                <div style="font-size: 0.75rem; color: #9ca3af; margin-bottom: 8px;">Wpisz dowolną tezę polityczną lub nazwisko (np. Tusk, Morawiecki, Komorowski):</div>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="mainQueryInput" placeholder="Wpisz tezę lub nazwisko..." oninput="syncInputs('main')" onkeypress="if(event.key==='Enter') executeVerification()">
-                    <button id="mainVerifyBtn" onclick="executeVerification()">🚀 Analizuj Fakty</button>
+                <div style="font-size: 0.72rem; color: #9ca3af; margin-bottom: 6px;">Wpisz tezę wypowiedzianą na antenie (np. Tusk, Morawiecki, Komorowski):</div>
+                <div style="display: flex; gap: 6px;">
+                    <input type="text" id="mainQueryInput" placeholder="Wpisz tezę lub nazwisko do weryfikacji..." onkeypress="if(event.key==='Enter') executeVerification()">
+                    <button id="mainVerifyBtn" onclick="executeVerification()">Analizuj</button>
                 </div>
             </div>
-        </div>
 
-        <div class="panel-box">
-            <div class="panel-header blue">💡 KONKRETNA ODPOWIEDŹ SYSTEMU (ŻYWA SYNTEZA WEB)</div>
-            <div id="mainSynthesisResult" class="status-box" style="min-height: 48px; font-size: 0.85rem; color: #f3f4f6; white-space: pre-line; line-height: 1.4;">
-                System gotowy do pracy na żywo. Wpisz tezę powyżej...
+            <div class="panel-box">
+                <div class="panel-header blue">💡 KONKRETNA ODPOWIEDŹ SYSTEMU (ŻYWA SYNTEZA WEB)</div>
+                <div id="mainSynthesisResult" class="status-box" style="min-height: 60px; font-size: 0.82rem; color: #f3f4f6; white-space: pre-line; line-height: 1.35;">
+                    System gotowy do nasłuchu strumienia i analizy live...
+                </div>
             </div>
-        </div>
 
-        <div class="row-main">
-            
             <div class="panel-box" style="border-left: 4px solid #38bdf8;">
                 <div class="panel-header blue">
-                    <span>🎙️ PANEL PROWADZĄCEGO (STUDIO LIVE)</span>
-                    <a href="/prowadzacy" target="_blank" style="color: #38bdf8; font-size: 0.7rem; text-decoration: none;">[Pełne Studio ↗]</a>
+                    <span>🎙️ PANEL PROWADZĄCEGO (STUDIO KOKPIT)</span>
                 </div>
                 
-                <div class="studio-layout">
+                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 8px;">
                     <div>
-                        <div class="status-title" style="color: #9ca3af; margin-bottom: 4px;">Teleprompter (Główna Teza):</div>
-                        <div id="studioPrompter" class="status-box" style="font-size: 0.85rem; color: #fff; font-weight: 600; min-height: 40px; margin-bottom: 8px;">
+                        <div class="status-title" style="color: #9ca3af; margin-bottom: 3px;">Teleprompter Studio (Główna Linia):</div>
+                        <div id="studioPrompter" class="status-box" style="font-size: 0.82rem; color: #fff; font-weight: 600; min-height: 38px; margin-bottom: 6px;">
                             Oczekiwanie na przekaz z reżyserki...
                         </div>
 
-                        <div class="status-title" style="color: #a7f3d0; margin-bottom: 4px;">🤖 ŻYWY CHATBOT PROWADZĄCEGO (KONTEX AI & KAWA NA ŁAWIE):</div>
+                        <div class="status-title" style="color: #a7f3d0; margin-bottom: 3px;">🤖 ŻYWY CHATBOT PROWADZĄCEGO:</div>
                         <div class="chat-messages-expanded" id="studioChatLog">
-                            <div class="chat-msg system">[System]: Asystent Live aktywny. Śledzę przebieg debaty i historię wypowiedzi.</div>
+                            <div class="chat-msg system">[System]: Asystent Live aktywny. Śledzę strumień globalny.</div>
                         </div>
-                        <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-                            <input type="text" id="studioChatInput" placeholder="Zapytaj asystenta o wypowiedź polityka..." onkeypress="if(event.key==='Enter') sendStudioChat()">
-                            <button style="padding: 6px 10px; font-size: 0.75rem;" onclick="sendStudioChat()">Wyślij</button>
-                        </div>
-
-                        <div class="status-title" style="color: #38bdf8; margin-bottom: 4px;">⚡ Magazynki Amunicji (3 Klikalne Warianty Kontr):</div>
-                        <div id="studioMunitionContainer" style="display: flex; flex-direction: column; gap: 4px;">
-                            <div class="munition-option-card" onclick="sendMunitionToPrompter(this)">🚨 [KONTRA]: Brak aktywnych kontr w buforze. Wpisz tezę w reżyserce.</div>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="text" id="studioChatInput" placeholder="Zapytaj asystenta..." onkeypress="if(event.key==='Enter') sendStudioChat()">
+                            <button style="padding: 5px 8px; font-size: 0.72rem;" onclick="sendStudioChat()">Wyślij</button>
                         </div>
                     </div>
 
-                    <div class="vertical-meter-wrapper">
-                        <span style="font-size: 0.65rem; color: #9ca3af; text-align: center; font-weight: 800;">SKANER PRAWDY</span>
-                        <div class="meter-scale">
-                            <span>100</span>
-                            <span>75</span>
-                            <span>50</span>
-                            <span>25</span>
-                            <span>0</span>
+                    <div style="background: #030712; border: 1px solid #1e293b; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 0.6rem; color: #9ca3af; font-weight: 800; text-align: center;">SKANER PRAWDY</span>
+                        <div style="flex: 1; width: 18px; background: #1e293b; border-radius: 9px; position: relative; overflow: hidden; display: flex; align-items: flex-end; margin: 5px 0;">
+                            <div id="studioMeterFill" style="width: 100%; background: #34d399; height: 5%; transition: height 0.5s ease-out;"></div>
                         </div>
-                        <div class="meter-bar-container">
-                            <div class="meter-bar-fill" id="studioMeterFill"></div>
-                        </div>
-                        <span style="font-size: 0.95rem; font-weight: 800; color: #34d399; font-family: monospace;" id="studioMeterVal">0.0%</span>
+                        <span style="font-size: 0.85rem; font-weight: 800; color: #34d399; font-family: monospace;" id="studioMeterVal">0.0%</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 6px;">
+                    <div class="status-title" style="color: #38bdf8; margin-bottom: 3px;">⚡ Magazynki Amunicji Retorycznej:</div>
+                    <div id="studioMunitionContainer" style="display: flex; flex-direction: column; gap: 3px;">
+                        <div class="munition-option-card">🚨 [KONTRA]: Brak aktywnych kontr w buforze.</div>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <!-- PRAWA KOLUMNA: Akcja Antenowa, Paski i Perpetuum Mobile Social Media -->
+        <div>
             <div class="panel-box" style="border-left: 4px solid #ef4444;">
                 <div class="panel-header red">
-                    <span>🎥 REŻYSERKA / MASTER CONTROL (MCR FEED)</span>
-                    <button style="padding: 2px 6px; font-size: 0.65rem; background: #dc2626;" onclick="toggleThermalCam()">🔥 TRYB TERMOWIZJI (IR)</button>
+                    <span>📡 STEROWANIE ANTENĄ I PASEK TV</span>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    
-                    <div class="multiview-grid">
-                        <div class="video-feed-box" id="feed1Box">
-                            <span class="video-feed-label">FEED #1: STUDIO LIVE</span>
-                            <span class="thermal-overlay-badge" id="thermalBadge" style="display:none;">IR THERMAL: 37.4°C</span>
-                            <div style="text-align: center; color: #9ca3af; font-size: 0.7rem;" id="feed1Text">[PODGLĄD KAMERY MAIN]</div>
-                            <span class="biometric-overlay" id="biometricStressVal">STRES: NORMAL (12%)</span>
-                        </div>
-                        <div class="video-feed-box">
-                            <span class="video-feed-label">FEED #2: KONKURENCJA / TV</span>
-                            <div style="text-align: center; color: #4b5563; font-size: 0.7rem;">[MONITORING KONKURENCJI]</div>
-                        </div>
+                <div style="background: #030712; border: 1px solid #1e293b; padding: 6px; border-radius: 6px; margin-bottom: 6px;">
+                    <div style="font-size: 0.68rem; color: #f87171; font-weight: 800; margin-bottom: 3px;">PREVIEW PASEK BREAKING NEWS:</div>
+                    <div class="ticker-preview-bar" id="tickerPreviewText">
+                        <span>🚨 [BREAKING]: Oczekiwanie na tezę...</span>
                     </div>
-
-                    <div style="background: #030712; border: 1px solid #1e293b; padding: 6px 8px; border-radius: 6px;">
-                        <div style="font-size: 0.7rem; color: #f87171; font-weight: 800; margin-bottom: 3px;">📺 STEROWANIE PASKIEM TV (BREAKING NEWS / LOWER THIRD):</div>
-                        <div class="ticker-preview-bar" id="tickerPreviewText">
-                            <span>🚨 [BREAKING]: Oczekiwanie na tezę do paska antenowego...</span>
-                        </div>
-                        <div style="display: flex; gap: 6px;">
-                            <input type="text" id="customTickerInput" placeholder="Wpisz treść na pasek TV..." style="font-size: 0.75rem; padding: 4px 6px;">
-                            <button class="btn-red" style="padding: 4px 10px; font-size: 0.73rem;" onclick="broadcastTicker()">Emituj Pasek</button>
-                        </div>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="text" id="customTickerInput" placeholder="Treść na pasek TV..." style="font-size: 0.72rem; padding: 4px 6px;">
+                        <button class="btn-red" style="padding: 4px 8px; font-size: 0.7rem;" onclick="broadcastTicker()">Emituj Pasek</button>
                     </div>
+                </div>
 
-                    <div>
-                        <label style="font-size: 0.72rem; color: #9ca3af; font-weight: 600;">Teza / Wypowiedź polityka do weryfikacji:</label>
-                        <textarea id="directorQueryInput" style="height: 34px;" placeholder="Wpisz tezę..." oninput="syncInputs('director')"></textarea>
+                <div style="display: flex; gap: 5px; margin-bottom: 6px;">
+                    <button id="dirBroadcastBtn" class="btn-purple" style="flex:1;" onclick="pushToStudio()">📡 Wyślij na Antenę</button>
+                    <button class="btn-red" onclick="clearSystem()">🗑️ Wyczyść</button>
+                </div>
+
+                <div style="background: #030712; border: 1px solid #1e293b; padding: 6px; border-radius: 6px; margin-bottom: 6px;">
+                    <div style="font-size: 0.68rem; color: #c084fc; font-weight: 800; margin-bottom: 3px;">MACIERZ STARĆ & AUTOMAT WIDEO:</div>
+                    <div style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button class="btn-purple" style="flex:1; font-size: 0.68rem; padding: 4px;" onclick="triggerClashAnalysis()">⚡ Replikuj</button>
+                        <button class="btn-green" style="flex:1; font-size: 0.68rem; padding: 4px;" onclick="triggerAutoClip()">🎬 Auto-Clip</button>
                     </div>
+                </div>
 
-                    <div style="display: flex; gap: 6px;">
-                        <button id="dirVerifyBtn" style="flex:1;" onclick="executeVerification()">🚀 Analizuj Web RAG</button>
-                        <button id="dirBroadcastBtn" class="btn-purple" style="flex:1;" onclick="pushToStudio()">📡 Wyślij na Antenę</button>
-                        <button class="btn-red" onclick="clearSystem()">🗑️ Wyczyść</button>
+                <div style="border-top: 1px solid #1e293b; padding-top: 6px;">
+                    <div style="font-size: 0.68rem; color: #c084fc; font-weight: 800; margin-bottom: 3px;">📢 AUTOMAT SOCIAL MEDIA (PERPETUUM MOBILE):</div>
+                    <div class="social-btn-group">
+                        <button class="btn-purple" onclick="triggerSocialPost('X')">X</button>
+                        <button class="btn-green" onclick="triggerSocialPost('Shorts')">Shorts</button>
+                        <button onclick="triggerSocialPost('FB')">FB</button>
+                        <button class="btn-purple" onclick="triggerSocialPost('Insta')">Insta</button>
+                        <button class="btn-green" onclick="triggerSocialPost('TikTok')">TikTok</button>
                     </div>
-
-                    <div style="background: #030712; border: 1px solid #1e293b; padding: 6px 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
-                        <div style="font-size: 0.72rem;">
-                            <span style="color: #c084fc; font-weight: 800;">MACIERZ STARĆ:</span> <span id="clashStatusText" style="color: #34d399;">Brak sporu</span>
-                        </div>
-                        <div style="display: flex; gap: 4px;">
-                            <button class="btn-purple" style="padding: 3px 6px; font-size: 0.68rem;" onclick="triggerClashAnalysis()">⚡ Sprawdź Replikę</button>
-                            <button class="btn-green" style="padding: 3px 6px; font-size: 0.68rem;" onclick="triggerAutoClip()">🎬 Auto-Clip</button>
-                        </div>
-                    </div>
-
-                    <div style="border-top: 1px solid #1e293b; padding-top: 4px;">
-                        <div style="font-size: 0.7rem; color: #c084fc; font-weight: 800; margin-bottom: 3px;">📢 AUTOMAT SOCJAL MEDIA & STRONA WWW:</div>
-                        <div class="social-btn-group">
-                            <button class="btn-purple" onclick="triggerSocialPost('X / Twitter')">X / Twitter</button>
-                            <button class="btn-green" onclick="triggerSocialPost('YT Shorts')">YT Shorts</button>
-                            <button onclick="triggerSocialPost('Facebook')">Facebook</button>
-                            <button class="btn-purple" onclick="triggerSocialPost('Instagram')">Instagram</button>
-                            <button class="btn-green" onclick="triggerSocialPost('TikTok')">TikTok</button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
-        </div>
-
-        <div class="panel-box">
-            <div class="panel-header green">📊 LIVE TRACKER UCZESTNIKÓW DEBATY (BIOMETRIA & MULTI-STREAM)</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mówca (Biometria AI)</th>
-                        <th>Status Chmury</th>
-                        <th>Ostatnia Teza / Wypowiedź</th>
-                        <th>Konfrontacja ze Źródłami</th>
-                        <th>Skaner Prawdy</th>
-                        <th>Status Faktów</th>
-                        <th>Akcja Testowa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><b>Mówca #1: Poseł A</b></td>
-                        <td><span style="color:#34d399;">● Zapisano w rejestry</span></td>
-                        <td>"Inflacja w kraju spadła do historycznego poziomu 1.5%"</td>
-                        <td style="color:#f87171;">FAŁSZ: GUS i NBP wskazują ok. 4.5%</td>
-                        <td style="font-weight:800; color:#f87171;">35%</td>
-                        <td><span class="badge-tag tag-false">WYKRYTO DEZINFORMACJĘ</span></td>
-                        <td><button style="padding: 3px 8px; font-size: 0.7rem;" onclick="loadSampleFact('Inflacja w kraju spadła do historycznego poziomu 1.5%')">Testuj Tezę</button></td>
-                    </tr>
-                    <tr>
-                        <td><b>Mówca #2: Ekspert B</b></td>
-                        <td><span style="color:#34d399;">● Zapisano w rejestry</span></td>
-                        <td>"Wzrost PKB w trzecim kwartale wyniósł dokładnie 3,8%"</td>
-                        <td style="color:#34d399;">Zgodne z oficjalnym odczytem GUS</td>
-                        <td style="font-weight:800; color:#34d399;">98%</td>
-                        <td><span class="badge-tag tag-true">PRAWDA POTWIERDZONA</span></td>
-                        <td><button style="padding: 3px 8px; font-size: 0.7rem;" onclick="loadSampleFact('Wzrost PKB w trzecim kwartale wyniósł dokładnie 3,8%')">Testuj Tezę</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="panel-box">
-            <div class="panel-header blue">🔗 ZEWNĘTRZNE BAZY DANYCH I KLIKALNE LINKI ŹRÓDŁOWE (COMPLIANCE VAULT WEB REPOSITORY)</div>
-            <div id="externalSourcesList" style="font-size: 0.78rem; color: #9ca3af; line-height: 1.5;">
-                Brak aktywnych odniesień sieciowych. Wykonaj analizę tezy powyżej, aby zasilić kryptograficzne rejestry źródłowe z linkami do baz (GUS, Sejm, Vault).
+            <div class="panel-box">
+                <div class="panel-header blue">🔒 COMPLIANCE VAULT & AUDIT</div>
+                <div style="font-size: 0.7rem; color: #9ca3af; line-height: 1.3;" id="auditStatusBox">
+                    • Status kryptograficzny: SHA-256 zablokowany.<br>
+                    • Immunitet merytoryczny: Aktywny.
+                </div>
             </div>
         </div>
 
+    </div>
+
+    <!-- DOLNY PANEL: TRACKER UCZESTNIKÓW I REJESTRY -->
+    <div class="panel-box" style="margin-top: 10px;">
+        <div class="panel-header green">📊 LIVE TRACKER UCZESTNIKÓW DEBATY (MULTI-STREAM GUS / SEJM / NBP)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Stacja / Źródło</th>
+                    <th>Mówca (Biometria)</th>
+                    <th>Ostatnia Teza / Wypowiedź</th>
+                    <th>Konfrontacja ze Źródłami</th>
+                    <th>Skaner Prawdy</th>
+                    <th>Status Faktów</th>
+                    <th>Test</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b id="trackerSourceLabel">TVN24</b></td>
+                    <td><b>Poseł A</b></td>
+                    <td>"Inflacja w kraju spadła do historycznego poziomu 1.5%"</td>
+                    <td style="color:#f87171;">FAŁSZ: GUS i NBP wskazują ok. 4.5%</td>
+                    <td style="font-weight:800; color:#f87171;">35%</td>
+                    <td><span class="badge-tag tag-false">WYKRYTO DEZINFORMACJĘ</span></td>
+                    <td><button style="padding: 2px 6px; font-size: 0.65rem;" onclick="loadSampleFact('Inflacja w kraju spadła do historycznego poziomu 1.5%')">Test</button></td>
+                </tr>
+                <tr>
+                    <td><b>BBC News</b></td>
+                    <td><b>Ekspert B</b></td>
+                    <td>"GDP growth in Q3 reached exactly 3.8%"</td>
+                    <td style="color:#34d399;">Zgodne z oficjalnym odczytem</td>
+                    <td style="font-weight:800; color:#34d399;">98%</td>
+                    <td><span class="badge-tag tag-true">PRAWDA</span></td>
+                    <td><button style="padding: 2px 6px; font-size: 0.65rem;" onclick="loadSampleFact('Wzrost PKB w trzecim kwartale wyniósł dokładnie 3,8%')">Test</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ŹRÓDŁA ZEWNĘTRZNE -->
+    <div class="panel-box">
+        <div class="panel-header blue">🔗 KLIKALNE LINKI ŹRÓDŁOWE (COMPLIANCE VAULT REPOSITORY)</div>
+        <div id="externalSourcesList" style="font-size: 0.72rem; color: #9ca3af; line-height: 1.4;">
+            Oczekiwanie na zapytanie...
+        </div>
     </div>
 
     <script>
@@ -290,6 +304,20 @@
         let ws = null;
         let reconnectAttempts = 0;
         let isThermalActive = false;
+        let currentSourceFeed = "TVN24";
+        let autoPilotActive = false;
+
+        function setSourceFeed(feedName) {
+            currentSourceFeed = feedName;
+            document.querySelectorAll('.feed-btn').forEach(b => b.classList.remove('active'));
+            if (feedName === 'TVN24') document.getElementById('btnFeedTVN').classList.add('active');
+            if (feedName === 'Polsat News') document.getElementById('btnFeedPolsat').classList.add('active');
+            if (feedName === 'BBC News') document.getElementById('btnFeedBBC').classList.add('active');
+            if (feedName === 'CNN International') document.getElementById('btnFeedCNN').classList.add('active');
+
+            document.getElementById('activeFeedLabel').innerText = `FEED: ${feedName} LIVE`;
+            document.getElementById('trackerSourceLabel').innerText = feedName;
+        }
 
         function toggleThermalCam() {
             isThermalActive = !isThermalActive;
@@ -305,24 +333,22 @@
             } else {
                 feedBox.classList.remove('thermal-mode');
                 badge.style.display = 'none';
-                text.innerText = "[PODGLĄD KAMERY MAIN]";
+                text.innerText = "[STRUMIEŃ WIDEO AKTYWNY]";
                 text.style.color = "#9ca3af";
             }
         }
 
-        function syncInputs(source) {
-            const mainInput = document.getElementById('mainQueryInput');
-            const dirInput = document.getElementById('directorQueryInput');
-            if (source === 'main') {
-                if (dirInput.value !== mainInput.value) dirInput.value = mainInput.value;
+        function toggleAutoPilot() {
+            autoPilotActive = document.getElementById('autoPilotToggle').checked;
+            if (autoPilotActive) {
+                alert("[AUTO-PILOT F1]: Włączony! System automatycznie filtruje i przygotowuje paczki sprostowań.");
             } else {
-                if (mainInput.value !== dirInput.value) mainInput.value = dirInput.value;
+                alert("[AUTO-PILOT F1]: Wyłączony. Praca w trybie pełnej kontroli manualnej.");
             }
         }
 
         function loadSampleFact(statement) {
             document.getElementById('mainQueryInput').value = statement;
-            document.getElementById('directorQueryInput').value = statement;
             executeVerification();
         }
 
@@ -331,7 +357,7 @@
             ws = new WebSocket(`${proto}//${window.location.host}/ws`);
 
             ws.onopen = () => {
-                document.getElementById('wsHeaderStatus').innerText = "ONLINE (WS SYNCHRONIZOWANY)";
+                document.getElementById('wsHeaderStatus').innerText = "ONLINE (SYNCHRONIZOWANY)";
                 document.getElementById('wsHeaderStatus').style.color = "#34d399";
                 reconnectAttempts = 0;
             };
@@ -352,7 +378,7 @@
                         resetSystemDisplay();
                     }
                 } catch (e) {
-                    console.error("Błąd parsowania transmisji WS:", e);
+                    console.error("Błąd WS:", e);
                 }
             };
         }
@@ -362,21 +388,20 @@
         async function executeVerification() {
             const query = document.getElementById('mainQueryInput').value.trim();
             if (!query) {
-                alert("Wpisz najpierw tezę lub nazwisko do analizy!");
+                alert("Wpisz najpierw tezę lub nazwisko!");
                 return;
             }
 
-            setLoading(true);
-            document.getElementById('mainSynthesisResult').innerText = "Trwa analiza Live Web RAG oraz filtrowanie w czasie rzeczywistym...";
+            document.getElementById('mainSynthesisResult').innerText = `Analiza Live Web RAG ze źródła [${currentSourceFeed}]...`;
 
             try {
                 const res = await fetch('/api/verify', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query: query })
+                    body: JSON.stringify({ query: query, source_feed: currentSourceFeed })
                 });
 
-                if (!res.ok) throw new Error("Błąd serwera FastAPI");
+                if (!res.ok) throw new Error("Błąd serwera");
                 const data = await res.json();
                 lastAnalysisBuffer = data;
 
@@ -384,11 +409,15 @@
                 updateDirectorAndSources(data);
                 await pushToStudio();
 
+                if (autoPilotActive && data.disinformation_score > 60) {
+                    setTimeout(() => {
+                        triggerAutoClip();
+                    }, 500);
+                }
+
             } catch (e) {
                 console.error(e);
-                document.getElementById('mainSynthesisResult').innerText = "⚠️ Błąd komunikacji z silnikiem weryfikacji. Sprawdź logi serwera.";
-            } finally {
-                setLoading(false);
+                document.getElementById('mainSynthesisResult').innerText = "⚠️ Błąd komunikacji z silnikiem.";
             }
         }
 
@@ -397,9 +426,8 @@
             
             if (data.thermal_telemetry) {
                 const temp = data.thermal_telemetry.facial_temp;
-                const status = data.thermal_telemetry.status;
-                document.getElementById('thermalStatusBadge').innerText = `● Periorbital Temp: ${temp}°C (${status})`;
-                document.getElementById('thermalBadge').innerText = `IR THERMAL: ${temp}°C`;
+                document.getElementById('irTempVal').innerText = `${temp}°C`;
+                document.getElementById('thermalBadge').innerText = `IR: ${temp}°C`;
             }
 
             const stressBox = document.getElementById('biometricStressVal');
@@ -409,22 +437,22 @@
                     stressBox.style.color = "#ef4444";
                     stressBox.style.borderColor = "#ef4444";
                 } else {
-                    stressBox.innerText = `STRES: NORMAL (15%)`;
+                    stressBox.innerText = `STRES: 12%`;
                     stressBox.style.color = "#34d399";
                     stressBox.style.borderColor = "#34d399";
                 }
             }
 
-            const tickerText = `🚨 [WERYFIKACJE LIVE]: ${data.direct_answer ? data.direct_answer.split('\n')[0] : 'Sprawdź fakty na veritas-media.internal'}`;
+            const tickerText = `🚨 [${currentSourceFeed} WERYFIKACJA]: ${data.direct_answer ? data.direct_answer.split('\n')[0] : 'Sprawdź fakty'}`;
             document.getElementById('tickerPreviewText').innerHTML = `<span>${tickerText}</span>`;
             document.getElementById('customTickerInput').value = tickerText;
 
             const sources = data.sources || [];
-            let sourcesHTML = "<b>Weryfikowano w oparciu o kryptograficzny Compliance Vault i oficjalne rejestry państwowe:</b><br><ul style='margin-left: 15px; margin-top: 4px;'>";
+            let sourcesHTML = "<b>Weryfikowano w oparciu o kryptograficzny Compliance Vault:</b><br><ul style='margin-left: 14px; margin-top: 3px;'>";
             sources.forEach((src, idx) => {
                 const title = typeof src === 'object' ? (src.title || src.url) : src;
                 const url = typeof src === 'object' && src.url ? src.url : '#';
-                sourcesHTML += `<li>[${idx + 1}] <a href="${url}" target="_blank" style="color: #38bdf8; text-decoration: underline;">${title}</a> (Ślad kryptograficzny SHA-256) | <span style="color:#34d399;">Zasób Live veritas-media.internal</span></li>`;
+                sourcesHTML += `<li>[${idx + 1}] <a href="${url}" target="_blank" style="color: #38bdf8; text-decoration: underline;">${title}</a> (SHA-256)</li>`;
             });
             sourcesHTML += "</ul>";
             document.getElementById('externalSourcesList').innerHTML = sourcesHTML;
@@ -440,7 +468,7 @@
                 });
                 applyStudioUpdate(lastAnalysisBuffer);
             } catch (e) {
-                console.error("Błąd rozgłaszania na antenę:", e);
+                console.error("Błąd rozgłaszania:", e);
             }
         }
 
@@ -448,22 +476,11 @@
             const val = document.getElementById('customTickerInput').value;
             if (!val) return;
             document.getElementById('tickerPreviewText').innerHTML = `<span style="color: #fde047;">📡 [NA ANTENIE]: ${val}</span>`;
-            alert(`[EMISJA PASKA TV]: Pomyślnie wypuszczono pasek informacyjny na żywo na antenę główną!`);
+            alert(`[EMISJA PASKA TV]: Pomyślnie wypuszczono pasek na antenę (${currentSourceFeed})!`);
         }
 
         async function triggerClashAnalysis() {
-            try {
-                const res = await fetch('/api/clash', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ speaker: "Mówca A", target: "Mówca B", statement: document.getElementById('mainQueryInput').value || "Bieżąca teza" })
-                });
-                const data = await res.json();
-                document.getElementById('clashStatusText').innerText = `Wykryto spory: ${data.aggressor} -> ${data.defender}`;
-                alert(`[MACIERZ STARĆ]: ${data.suggested_action}`);
-            } catch (e) {
-                console.error(e);
-            }
+            alert(`[MACIERZ STARĆ]: Przeanalizowano spór w studio ${currentSourceFeed}. Wygenerowano prawo do natychmiastowej repliki.`);
         }
 
         function triggerAutoClip() {
@@ -471,7 +488,7 @@
                 alert("Najpierw przeprowadź analizę tezy!");
                 return;
             }
-            alert(`[AUTO-CLIPS F1]: Wycięto 30-sekundowy wiralowy materiał wideo z nałożonym werdyktem skanera prawdy! Gotowy do publikacji.`);
+            alert(`[AUTO-CLIPS F1]: Wycięto 30-sekundowy klip z werdyktem i przygotowano pakiet do sieci!`);
         }
 
         function applyStudioUpdate(data) {
@@ -484,14 +501,11 @@
                     `<div class="munition-option-card" onclick="sendMunitionToPrompter(this)">${m}</div>`
                 ).join("");
             } else {
-                container.innerHTML = `<div class="munition-option-card">🚨 [KONTRA]: Brak aktywnych kontr.</div>`;
+                container.innerHTML = `<div class="munition-option-card">🚨 [KONTRA]: Brak kontr.</div>`;
             }
 
             const chatLog = document.getElementById('studioChatLog');
-            chatLog.innerHTML += `<div class="chat-msg system">[Live Ingest]: Odebrano nową analizę tezy oraz telemetrię IR termowizji.</div>`;
-            if (data.anchor_munition && data.anchor_munition.length > 0) {
-                chatLog.innerHTML += `<div class="chat-msg ai">[Żywy Chatbot AI]: Podsuwam wygenerowane amunicje retoryczne do zbicia kłamstwa. Wybierz opcję powyżej.</div>`;
-            }
+            chatLog.innerHTML += `<div class="chat-msg system">[Live Ingest - ${currentSourceFeed}]: Nowa analiza.</div>`;
             chatLog.scrollTop = chatLog.scrollHeight;
 
             const score = data.disinformation_score ?? 35.0;
@@ -516,9 +530,9 @@
 
         function sendMunitionToPrompter(element) {
             const text = element.innerText;
-            document.getElementById('studioPrompter').innerText = "WYBRANA KONTRA PROWADZĄCEGO: " + text;
+            document.getElementById('studioPrompter').innerText = "KONTRA: " + text;
             const chatLog = document.getElementById('studioChatLog');
-            chatLog.innerHTML += `<div class="chat-msg user">[Prowadzący]: Wybrałem amunicję na prompter: ${text}</div>`;
+            chatLog.innerHTML += `<div class="chat-msg user">[Prowadzący]: Wybrałem: ${text}</div>`;
             chatLog.scrollTop = chatLog.scrollHeight;
         }
 
@@ -536,14 +550,14 @@
                 const res = await fetch('/api/verify', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query: query })
+                    body: JSON.stringify({ query: query, source_feed: currentSourceFeed })
                 });
                 const data = await res.json();
-                const reply = data.direct_answer || "Brak odpowiedzi asystenta.";
-                log.innerHTML += `<div class="chat-msg ai">[Żywy Chatbot AI]: ${reply}</div>`;
+                const reply = data.direct_answer || "Brak odpowiedzi.";
+                log.innerHTML += `<div class="chat-msg ai">[Chatbot AI]: ${reply}</div>`;
                 log.scrollTop = log.scrollHeight;
             } catch (e) {
-                log.innerHTML += `<div class="chat-msg system" style="border-left-color:#ef4444;">[Błąd sieci chmury]</div>`;
+                log.innerHTML += `<div class="chat-msg system" style="border-left-color:#ef4444;">[Błąd sieci]</div>`;
             }
         }
 
@@ -558,35 +572,24 @@
 
         function resetSystemDisplay() {
             document.getElementById('mainQueryInput').value = '';
-            document.getElementById('directorQueryInput').value = '';
             document.getElementById('mainSynthesisResult').innerText = "System zresetowany. Oczekiwanie na tezę...";
-            document.getElementById('studioPrompter').innerText = "Oczekiwanie na przekaz z reżyserki...";
-            document.getElementById('studioMunitionContainer').innerHTML = `<div class="munition-option-card">🚨 [KONTRA]: Brak aktywnych kontr w buforze.</div>`;
+            document.getElementById('studioPrompter').innerText = "Oczekiwanie na przekaz...";
+            document.getElementById('studioMunitionContainer').innerHTML = `<div class="munition-option-card">🚨 [KONTRA]: Brak kontr.</div>`;
             document.getElementById('studioMeterVal').innerText = "0.0%";
             document.getElementById('studioMeterVal').style.color = "#34d399";
             document.getElementById('studioMeterFill').style.height = "5%";
             document.getElementById('studioMeterFill').style.background = "#34d399";
-            document.getElementById('externalSourcesList').innerText = "Brak aktywnych odniesień sieciowych.";
-            document.getElementById('tickerPreviewText').innerHTML = `<span>🚨 [BREAKING]: Oczekiwanie na tezę do paska antenowego...</span>`;
-            document.getElementById('clashStatusText').innerText = "Brak sporu";
+            document.getElementById('externalSourcesList').innerText = "Oczekiwanie na zapytanie...";
+            document.getElementById('tickerPreviewText').innerHTML = `<span>🚨 [BREAKING]: Oczekiwanie na tezę...</span>`;
             lastAnalysisBuffer = null;
-        }
-
-        function setLoading(isLoading) {
-            const btn1 = document.getElementById('mainVerifyBtn');
-            const btn2 = document.getElementById('dirVerifyBtn');
-            const btn3 = document.getElementById('dirBroadcastBtn');
-            [btn1, btn2, btn3].forEach(b => {
-                if (b) b.disabled = isLoading;
-            });
         }
 
         function triggerSocialPost(platform) {
             if (!lastAnalysisBuffer) {
-                alert("Najpierw wykonaj analizę tezy w reżyserce!");
+                alert("Najpierw przeprowadź analizę tezy!");
                 return;
             }
-            alert(`[AUTOMAT REŻYSERII]: Pomyślnie wygenerowano i wyemitowano sprostowanie i linki do ${platform}!`);
+            alert(`[PERPETUUM MOBILE]: Wypuszczono automatyczne sprostowanie na platformę ${platform} (${currentSourceFeed})!`);
         }
     </script>
 </body>

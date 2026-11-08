@@ -11,9 +11,9 @@ from core.brain import brain
 from core.compliance_vault import ComplianceVault
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("VeritasF1Master")
+logger = logging.getLogger("VeritasGlobalF1")
 
-app = FastAPI(title="Veritas Matrix Nano-Core", version="64.0-F1 Thermal")
+app = FastAPI(title="Veritas Matrix Nano-Core Global F1", version="65.0-GLOBAL")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -24,7 +24,7 @@ class ConnectionManager:
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
-        logger.info(f"Klient WebSocket połączony. Aktywnych: {len(self.active_connections)}")
+        logger.info(f"Klient WebSocket połączony z Globalnym Centrum. Aktywnych: {len(self.active_connections)}")
 
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
@@ -42,6 +42,7 @@ manager = ConnectionManager()
 
 class VerifyRequest(BaseModel):
     query: str
+    source_feed: Optional[str] = "TVN24"
     context: Optional[Dict[str, Any]] = None
 
 class NanoSkinIngest(BaseModel):
@@ -51,7 +52,7 @@ class NanoSkinIngest(BaseModel):
 
 @app.on_event("startup")
 async def startup_event():
-    logger.info("VeritasF1: Wszystkie jądra serwerowe (w tym Thermal Biometrics & Nano-Skin Protocol) uruchomione pomyślnie.")
+    logger.info("VeritasF1 Global: Wszystkie jądra (Multi-Stream, IR Thermal, Nano-Skin, Auto-Pilot) aktywne.")
 
 @app.get("/")
 async def get_index():
@@ -60,6 +61,7 @@ async def get_index():
 @app.post("/api/verify")
 async def api_verify(req: VerifyRequest):
     result = await brain.route_and_process(req.query, req.context)
+    result["active_source_feed"] = req.source_feed
     return result
 
 @app.post("/api/broadcast")
@@ -69,9 +71,9 @@ async def api_broadcast(data: Dict[str, Any]):
 
 @app.post("/api/nano-skin/ingest")
 async def api_nano_skin_ingest(payload: NanoSkinIngest):
-    logger.info(f"Odebrano telemetrię z nano-skóry [{payload.sensor_id}]: Kortyzol={payload.cortisol_level}, GDR={payload.gdr_value}")
+    logger.info(f"Odebrano telemetrię nano-skóry [{payload.sensor_id}]: Kortyzol={payload.cortisol_level}")
     await manager.broadcast({"action": "NANO_SKIN_UPDATE", "data": payload.dict()})
-    return {"status": "ingested", "protocol": "v64.0-NANO-READY"}
+    return {"status": "ingested", "protocol": "v65.0-GLOBAL-READY"}
 
 @app.post("/api/clear")
 async def api_clear():
