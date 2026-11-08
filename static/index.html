@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veritas Matrix Nano-Core — Global Command & Analytics v66.0-F1</title>
+    <title>Veritas Matrix Nano-Core — Global Command Center v66.0-F1 (NDA & Analytics)</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
         body { background-color: #030712; color: #f3f4f6; padding: 10px; font-size: 0.8rem; overflow-x: hidden; }
@@ -15,6 +15,7 @@
         .pulse-dot { width: 8px; height: 8px; background-color: #34d399; border-radius: 50%; box-shadow: 0 0 10px #34d399; animation: pulse 1.4s infinite; }
         @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
 
+        /* UKŁAD 3-KOLUMNOWY KOKPITU PILOTA */
         .cockpit-grid { display: grid; grid-template-columns: 280px 1fr 340px; gap: 10px; }
 
         .panel-box { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; margin-bottom: 10px; }
@@ -40,7 +41,7 @@
         .status-title { font-weight: 700; color: #e5e7eb; margin-bottom: 3px; }
 
         .feed-btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 6px; }
-        .feed-btn { background: #1e293b; font-size: 0.7rem; padding: 5px; border-radius: 4px; border: 1px solid #334155; }
+        .feed-btn { background: #1e293b; font-size: 0.7rem; padding: 5px; border-radius: 4px; border: 1px solid #334155; color: #fff; cursor: pointer; }
         .feed-btn.active { background: #0284c7; border-color: #38bdf8; }
 
         .video-feed-box { background: #000; border: 1px solid #1e293b; border-radius: 6px; height: 130px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: background 0.3s; margin-bottom: 6px; }
@@ -49,7 +50,7 @@
         .biometric-overlay { position: absolute; bottom: 4px; right: 6px; background: rgba(0,0,0,0.85); color: #ef4444; font-size: 0.62rem; padding: 2px 5px; border-radius: 3px; font-family: monospace; border: 1px solid #ef4444; }
         .thermal-overlay-badge { position: absolute; top: 4px; right: 6px; background: rgba(220, 38, 38, 0.9); color: #fff; font-size: 0.58rem; padding: 1px 4px; border-radius: 3px; font-family: monospace; font-weight: 700; }
 
-        .chat-messages-expanded { height: 180px; overflow-y: auto; background: #030712; border: 1px solid #1e293b; padding: 7px; font-size: 0.75rem; border-radius: 6px; margin-bottom: 6px; display: flex; flex-direction: column; gap: 5px; scroll-behavior: smooth; }
+        .chat-messages-expanded { height: 160px; overflow-y: auto; background: #030712; border: 1px solid #1e293b; padding: 7px; font-size: 0.75rem; border-radius: 6px; margin-bottom: 6px; display: flex; flex-direction: column; gap: 5px; scroll-behavior: smooth; }
         .chat-msg { padding: 5px 7px; border-radius: 4px; background: #0b1329; border-left: 3px solid #38bdf8; }
         .chat-msg.system { border-left-color: #34d399; background: #064e3b22; }
         .chat-msg.user { border-left-color: #c084fc; background: #581c8722; }
@@ -88,11 +89,11 @@
 
     <div class="header">
         <div class="logo-title">
-            🛡️ VERITAS MATRIX NANO-CORE <span class="version-badge">v66.0-ANALYTICS F1</span>
+            🛡️ VERITAS MATRIX NANO-CORE <span class="version-badge">v66.0-F1 MASTER</span>
         </div>
         <div class="sys-status">
             <span class="pulse-dot"></span>
-            <span>MULTI-STREAM: ACTIVE | SAFETY INTERLOCK: ONLINE | </span>
+            <span>MULTI-STREAM: 24/7 ACTIVE | NDA PROTECTION: ON | </span>
             <span id="wsHeaderStatus" style="color:#34d399;">ONLINE</span>
         </div>
     </div>
@@ -100,7 +101,7 @@
     <!-- GŁÓWNY UKŁAD 3-KOLUMNOWY KOKPITU -->
     <div class="cockpit-grid">
 
-        <!-- LEWA KOLUMNA -->
+        <!-- LEWA KOLUMNA: Źródła, Strumienie Globalne i Telemetria -->
         <div>
             <div class="panel-box">
                 <div class="panel-header purple">🌐 GLOBAL FEED SELECTOR</div>
@@ -145,7 +146,7 @@
             </div>
         </div>
 
-        <!-- ŚRODKOWA KOLUMNA -->
+        <!-- ŚRODKOWA KOLUMNA: Serce Debaty, Teleprompter i Live Web RAG -->
         <div>
             <div class="panel-box">
                 <div class="panel-header amber">🎙️ LIVE SERWER WERYFIKACJI FAKTÓW (WEB RAG)</div>
@@ -203,7 +204,7 @@
             </div>
         </div>
 
-        <!-- PRAWA KOLUMNA: Akcja Antenowa, Perpetuum Mobile i Analytics Panel -->
+        <!-- PRAWA KOLUMNA: Akcja Antenowa, Perpetuum Mobile, Analytics & NDA Vault -->
         <div>
             <div class="panel-box" style="border-left: 4px solid #ef4444;">
                 <div class="panel-header red">
@@ -246,10 +247,24 @@
                 </div>
             </div>
 
-            <!-- ZAAWANSOWANY PANEL STATYSTYK ZASIĘGÓW & SAFETY INTERLOCK -->
+            <!-- COMPLIANCE VAULT & NDA GOVERNANCE -->
+            <div class="panel-box" style="border-left: 4px solid #38bdf8;">
+                <div class="panel-header blue">
+                    <span>🔒 COMPLIANCE VAULT & NDA</span>
+                    <span class="badge-tag tag-true" style="font-size:0.6rem;">NDA ACTIVE</span>
+                </div>
+                <div style="font-size: 0.7rem; color: #9ca3af; line-height: 1.3;">
+                    • Status klauzuli: <b style="color:#34d399;">NDA-F1-SECURE</b><br>
+                    • Maskowanie PII: <b style="color:#38bdf8;">WŁĄCZONE</b>
+                </div>
+                <div id="ndaSignatureDisplay" style="font-family: monospace; font-size: 0.62rem; color: #6b7280; background: #030712; padding: 4px 6px; border-radius: 4px; border: 1px solid #1e293b; margin-top: 5px;">
+                    Podpis SHA-256 NDA: Oczekiwanie na tezę...
+                </div>
+            </div>
+
+            <!-- LIVE REACH & VIRAL ANALYTICS -->
             <div class="panel-box" style="border-left: 4px solid #34d399;">
-                <div class="panel-header green">📈 LIVE REACH & VIRAL ANALYTICS</div>
-                
+                <div class="panel-header green">📈 LIVE REACH & ANALYTICS</div>
                 <div class="metric-card-grid">
                     <div class="metric-card">
                         <div class="metric-val" id="analyticsReachVal">1.48M</div>
@@ -259,14 +274,6 @@
                         <div class="metric-val" style="color:#f59e0b;" id="analyticsVelocityVal">480/m</div>
                         <div class="metric-lbl">Wiralność/min</div>
                     </div>
-                </div>
-
-                <div style="margin-top: 8px; font-size: 0.7rem; background: #030712; border: 1px solid #1e293b; padding: 6px; border-radius: 5px;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
-                        <span>Compliance Safety Interlock:</span>
-                        <b id="safetyStatusTag" style="color:#34d399;">PASSED (96.5%)</b>
-                    </div>
-                    <div style="font-size: 0.65rem; color:#6b7280;">Prog zaufania etycznego: >90.0% (Automatyczna blokada cenzuralna wyłączona)</div>
                 </div>
             </div>
         </div>
@@ -412,7 +419,7 @@
                 return;
             }
 
-            document.getElementById('mainSynthesisResult').innerText = `Analiza Live Web RAG ze źródła [${currentSourceFeed}]...`;
+            document.getElementById('mainSynthesisResult').innerText = `Analiza Live Web RAG ze źródła [${currentSourceFeed}] pod klauzulą NDA...`;
 
             try {
                 const res = await fetch('/api/verify', {
@@ -454,14 +461,15 @@
                 const reachFormatted = (data.analytics.total_reach / 1000000).toFixed(2) + "M";
                 document.getElementById('analyticsReachVal').innerText = reachFormatted;
                 document.getElementById('analyticsVelocityVal').innerText = `${data.analytics.viral_velocity}/m`;
-                
-                const safetyTag = document.getElementById('safetyStatusTag');
-                if (data.analytics.safety_interlock.status === "PASSED") {
-                    safetyTag.innerText = `PASSED (${data.analytics.safety_interlock.confidence}%)`;
-                    safetyTag.style.color = "#34d399";
-                } else {
-                    safetyTag.innerText = `HELD (${data.analytics.safety_interlock.confidence}%)`;
-                    safetyTag.style.color = "#ef4444";
+            }
+
+            if (data.nda_governance) {
+                const ndaBox = document.getElementById('ndaSignatureDisplay');
+                if (ndaBox) {
+                    ndaBox.innerHTML = `
+                        <span style="color:#34d399;">[NDA SECURE]</span> SHA: 
+                        <span style="color:#38bdf8;">${data.nda_governance.signature.substring(0, 20)}...</span>
+                    `;
                 }
             }
 
@@ -483,7 +491,7 @@
             document.getElementById('customTickerInput').value = tickerText;
 
             const sources = data.sources || [];
-            let sourcesHTML = "<b>Weryfikowano w oparciu o kryptograficzny Compliance Vault:</b><br><ul style='margin-left: 14px; margin-top: 3px;'>";
+            let sourcesHTML = "<b>Weryfikowano w oparciu o kryptograficzny Compliance Vault (NDA Protected):</b><br><ul style='margin-left: 14px; margin-top: 3px;'>";
             sources.forEach((src, idx) => {
                 const title = typeof src === 'object' ? (src.title || src.url) : src;
                 const url = typeof src === 'object' && src.url ? src.url : '#';
@@ -540,7 +548,7 @@
             }
 
             const chatLog = document.getElementById('studioChatLog');
-            chatLog.innerHTML += `<div class="chat-msg system">[Live Ingest - ${currentSourceFeed}]: Nowa analiza.</div>`;
+            chatLog.innerHTML += `<div class="chat-msg system">[Live Ingest - ${currentSourceFeed}]: Nowa analiza zaktualizowana.</div>`;
             chatLog.scrollTop = chatLog.scrollHeight;
 
             const score = data.disinformation_score ?? 35.0;
