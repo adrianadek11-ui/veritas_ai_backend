@@ -1,0 +1,12 @@
+{
+  "query": "d. trumpf",
+  "source_url": "https://pl.wikipedia.org/w/index.php?search=d.%20trumpf",
+  "verified_answer": "🌐 [LIVE WEB RAG — WYNIK Z SIECI INTERNETOWEJ]\n• Znaleziony profil: Trumpf\n• Biografia / Kontekst na żywo:\n\"Trumpf – niemieckie przedsiębiorstwo z główną siedzibą w Ditzingen koło Stuttgartu założone przez Christiana Trumpfa w 1923 roku. Przedsiębiorstwo posiada na świecie 56 oddziałów, w tym w Europie, Ameryce Północnej i Południowej oraz w Azji. Oddziały produkcyjne zlokalizowane są w: Niemczech, Austrii, Chinach, Czechach, Francji, Wielkiej Brytanii, Indiach, Japonii, Meksyku, Polsce, Singapurze, Szwajcarii i w USA. TRUMPF jest producentem narzędzi do przetwarzania metalu i jego obróbki laserowej. ...\"\n\n📊 [ANALIZA FAKTOGRAFICZNA LIVE]\n• Triangulacja tezy 'd. trumpf': Zweryfikowano w globalnym strumieniu.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:32:18.807577",
+    "sha256_signature": "f64c27ed975c64b53f822cf9126f28a0768353191b7efa984428d595cd0332eb",
+    "export_restricted": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "query": "d. trump",
+  "source_url": "https://www.gov.pl/web/szukaj?query=d.%20trump",
+  "verified_answer": "🌐 [LIVE WEB RAG — WYNIK Z SIECI INTERNETOWEJ]\n• Znaleziony profil: Donald Trump\n• Biografia / Kontekst na żywo:\n\"Donald John Trump (wym. /ˈdɑnəld dʒɑn trʌmp/ ( odsłuchaj); ur. 14 czerwca 1946 w Nowym Jorku) – amerykański polityk, przedsiębiorca i osobowość telewizyjna, 45. prezydent Stanów Zjednoczonych w latach 2017–2021 oraz 47. prezydent Stanów Zjednoczonych od 2025. Człowiek Roku tygodnika „Time” w 2016 i 2024. W 1968 otrzymał Bachelor of Science (licencjat) z ekonomii na Wharton School of Business. W 1971 przejął rodzinną firmę Elizabeth Trump & Son, której nazwę zmienił w późniejszych czasach na The ...\"\n\n📊 [ANALIZA FAKTOGRAFICZNA LIVE]\n• Triangulacja tezy 'd. trump': Zweryfikowano w globalnym strumieniu.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:32:26.204945",
+    "sha256_signature": "8d3082e26b82806ced3d26b872ef2228df4f0ea29021ff4fa721350441af294c",
+    "export_restricted": true
+  }
+}

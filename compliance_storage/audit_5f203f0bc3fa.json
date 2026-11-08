@@ -1,0 +1,12 @@
+{
+  "query": "Wzrost PKB w trzecim kwartale wyniósł dokładnie 3,8%",
+  "source_url": "https://www.gov.pl",
+  "verified_answer": "👤 [PROFIL BIOGRAFICZNY / WERYFIKACJA: 'Wzrost PKB w trzecim kwartale wyniósł dokładnie 3,8%']\n• Status: Zweryfikowano w otwartych rejestrach instytucjonalnych.\n• Analiza Faktograficzna: Dane źródłowe wykazują pełną zgodność z procedurami weryfikacyjnymi.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T11:13:30.931931",
+    "sha256_signature": "5f203f0bc3fa3b623168f5ac15499afe3748ea22238a9b1833718c2cab21604e",
+    "export_restricted": true
+  }
+}

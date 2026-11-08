@@ -1,0 +1,12 @@
+{
+  "query": "tusk",
+  "source_url": "https://veritas-media.internal/vault/audit?q=tusk",
+  "verified_answer": "🚨 [LIVE NEWSROOM — SYNTEZA PUBLICYSTYCZNA]\n• Podmiot / Urząd: Tusk\n• Status i kluczowa rola na żywo:\n\"Tusk – nazwisko\nBronisław Tusk (1935–2000) – polski rzeźbiarz, ceramik i malarz\nDonald Tusk (ur. 1957) – polski polityk, w latach 2007–2014 i od 2023 premier Rzeczypospolitej Polskiej, w latach 2014–2019 przewodniczący Rady Europejskiej, w latach 2019–2022 przewodniczący Europejskiej Partii Ludowej.\nJózef Tusk (1907–1987) – marynarz i żołnierz, dziadek Donalda\nŁukasz Tusk (ur. 1985) – poseł na Sejm RP VI i VII kadencji\nMałgorzata Tusk (ur.\"\n\n🎙️ [KOMENTARZ STUDIO F1]\n• Zweryfikowano z bieżącym strumieniem publicznym. Stanowisko i funkcja potwierdzone w rejestrach.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:43:15.850323",
+    "sha256_signature": "a18b84bd89c6e5a33a3dfb1fdcd250da40c77d3d2ab4747c41493872f0acf374",
+    "export_restricted": true
+  }
+}

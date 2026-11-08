@@ -1,0 +1,12 @@
+{
+  "query": "Adam Małysz",
+  "source_url": "https://www.gov.pl/web/szukaj?query=Adam+Małysz",
+  "verified_answer": "🌐 [LIVE WEB RAG — WYNIK Z SIECI INTERNETOWEJ]\n• Zapytanie: 'Adam Małysz'\n• Status: Przeszukano otwarte rejestry publiczne. Brak bezpośredniego wpisu encyklopedycznego.\n\n📊 [ANALIZA FAKTOGRAFICZNA LIVE]\n• System zarejestrował tezę i prowadzi nasłuch w strumieniu agencyjnym.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:26:57.217719",
+    "sha256_signature": "5a3c6e969f0b7213aa509a4b364368ff98cab10bec0fddeb704bad2a494bf40d",
+    "export_restricted": true
+  }
+}

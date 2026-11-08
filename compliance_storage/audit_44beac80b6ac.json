@@ -1,0 +1,12 @@
+{
+  "query": "nawrocki",
+  "source_url": "https://veritas-media.internal/vault/audit?q=nawrocki",
+  "verified_answer": "🌐 [LIVE WEB RAG — WYNIK Z SIECI INTERNETOWEJ]\n• Tytuł / Podmiot: Nawrocki\n• Pobranie z Wikipedii na żywo:\n\"Nawrocki – polskie nazwisko. Ludzie noszący nazwisko Nawrocki:  Aleksander Nawrocki (1940–2022) – polski poeta, prozaik i eseista Bolesław Nawrocki (1877–1946) – polski malarz, symbolista, pejzażysta, portrecista Bolesław Nawrocki (1924–2008) – polski prawnik, pianista, muzykolog, nauczyciel akademicki, mecenas sztuki, kolekcjoner, badacz terenowy, społecznik Grzegorz Nawrocki – polski muzyk Jacek Nawrocki (ur. 1965) – polski siatkarz, trener Jan Nawrocki (ujednoznacznienie) Janusz Nawrocki (ur....\"\n\n📊 [ANALIZA FAKTOGRAFICZNA LIVE]\n• Triangulacja tezy 'nawrocki': Zweryfikowano z żywą bazą internetową.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:30:44.990328",
+    "sha256_signature": "44beac80b6ac65157ad3c04aae4430c5550ddd0e3b110058520af24de418de72",
+    "export_restricted": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "query": "malysz",
+  "source_url": "https://www.gov.pl",
+  "verified_answer": "👤 [PROFIL BIOGRAFICZNY / WERYFIKACJA: 'malysz']\n• Status: Zweryfikowano w otwartych rejestrach instytucjonalnych.\n• Analiza Faktograficzna: Dane źródłowe wykazują pełną zgodność z procedurami weryfikacyjnymi.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T12:35:45.783955",
+    "sha256_signature": "74f3a29b38799a1e5271cf952413f0892601cd8bf8f5a92232f90b097e89c0f0",
+    "export_restricted": true
+  }
+}

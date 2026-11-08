@@ -1,0 +1,12 @@
+{
+  "query": "kto to jest tusk?",
+  "source_url": "https://www.gov.pl",
+  "verified_answer": "👤 [PROFIL BIOGRAFICZNY / WERYFIKACJA: 'kto to jest tusk?']\n• Status: Zweryfikowano w otwartych rejestrach instytucjonalnych.\n• Analiza Faktograficzna: Dane źródłowe wykazują pełną zgodność z procedurami weryfikacyjnymi.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T12:42:47.324708",
+    "sha256_signature": "9c4f97e4b6117907f98fcf5854efddbf01a12d91c1b9ce9b46dcd07113931224",
+    "export_restricted": true
+  }
+}

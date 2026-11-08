@@ -1,0 +1,12 @@
+{
+  "query": "d. tusk kim jest",
+  "source_url": "https://veritas-media.internal/vault/audit?q=d.%20tusk%20kim%20jest",
+  "verified_answer": "🚨 [LIVE NEWSROOM — SYNTEZA PUBLICYSTYCZNA]\n• Zidentyfikowany Profil: Donald Tusk\n• Aktualna rola / Stanowisko:\n\"Donald Franciszek Tusk (ur. 22 kwietnia 1957 w Gdańsku) – polski polityk i historyk. W latach 2007–2014 i od 2023 prezes Rady Ministrów stojący na czele swojego pierwszego, drugiego i trzeciego gabinetu\"\n\n🎙️ [KOMENTARZ STUDIO F1]\n• Triangulacja tezy 'd. tusk kim jest' zakończona sukcesem. Dane zaktualizowane w czasie rzeczywistym.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:41:33.185429",
+    "sha256_signature": "46bc758826d5a1dcbeb528762ffb52e21fa8ae6d2ca3b9c004ec2469432c0c99",
+    "export_restricted": true
+  }
+}

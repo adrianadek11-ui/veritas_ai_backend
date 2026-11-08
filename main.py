@@ -9,34 +9,7 @@ from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 
 from core.compliance_vault import NDAEnforcementEngine, ComplianceVault
-
-# Prosta klasa symulująca jądro RAG, jeśli core/brain.py nie jest osobnym plikiem
-class VeritasBrainCore:
-    async def route_and_process(self, query: str, context_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        q_clean = query.strip()
-        direct_answer = (
-            f"👤 [PROFIL BIOGRAFICZNY / WERYFIKACJA: '{q_clean}']\n"
-            f"• Status: Zweryfikowano w otwartych rejestrach instytucjonalnych.\n"
-            f"• Analiza Faktograficzna: Dane źródłowe wykazują pełną zgodność z procedurami weryfikacyjnymi."
-        )
-        sources = [
-            {"title": f"Oficjalny Rejestr Państwowy - {q_clean}", "url": "https://www.gov.pl"}
-        ]
-        munition = [
-            f"🚨 [KONTRA / LIVE RAG]: Teza wymaga weryfikacji w oparciu o oficjalne stenogramy."
-        ]
-        for src in sources:
-            ComplianceVault.secure_store(q_clean, src["url"], direct_answer)
-
-        return {
-            "direct_answer": direct_answer,
-            "sources": sources,
-            "anchor_munition": munition,
-            "disinformation_score": 35.0,
-            "thermal_telemetry": {"facial_temp": 37.1, "status": "STABLE"}
-        }
-
-brain = VeritasBrainCore()
+from core.brain import brain
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
 logger = logging.getLogger("VeritasGlobalF1")

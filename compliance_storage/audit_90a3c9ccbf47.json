@@ -1,0 +1,12 @@
+{
+  "query": "tusk",
+  "source_url": "https://www.gov.pl",
+  "verified_answer": "👤 [PROFIL BIOGRAFICZNY / WERYFIKACJA: 'tusk']\n• Status: Zweryfikowano w otwartych rejestrach instytucjonalnych.\n• Analiza Faktograficzna: Dane źródłowe wykazują pełną zgodność z procedurami weryfikacyjnymi.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T11:19:47.545435",
+    "sha256_signature": "90a3c9ccbf47d952b7bb4dc7ead3b09ee5ec0c59d5ca273ed13b0852bc133b3a",
+    "export_restricted": true
+  }
+}

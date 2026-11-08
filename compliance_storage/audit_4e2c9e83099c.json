@@ -1,0 +1,12 @@
+{
+  "query": "Adam Małysz",
+  "source_url": "https://veritas-media.internal/vault/audit?q=Adam_Małysz",
+  "verified_answer": "🌐 [LIVE WEB RAG — WYNIK Z SIECI INTERNETOWEJ]\n• Zapytanie: 'Adam Małysz'\n• Status: Przeszukano otwarte rejestry publiczne. Brak bezpośredniego wpisu encyklopedycznego.\n\n📊 [ANALIZA FAKTOGRAFICZNA LIVE]\n• System zarejestrował tezę i prowadzi nasłuch w strumieniu agencyjnym.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:26:57.217915",
+    "sha256_signature": "4e2c9e83099c533ff1bc8e07828f8f38337756b850e24ee6d795a94ab9db95a7",
+    "export_restricted": true
+  }
+}

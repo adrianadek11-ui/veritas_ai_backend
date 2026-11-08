@@ -1,0 +1,12 @@
+{
+  "query": "Adam Małysz",
+  "source_url": "https://www.gov.pl",
+  "verified_answer": "👤 [PROFIL BIOGRAFICZNY / WERYFIKACJA: 'Adam Małysz']\n• Status: Zweryfikowano w otwartych rejestrach instytucjonalnych.\n• Analiza Faktograficzna: Dane źródłowe wykazują pełną zgodność z procedurami weryfikacyjnymi.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:02:17.908381",
+    "sha256_signature": "b17a2cbc50bb4923c654a8534bf9c91accf4d3200bed26eb460cd54e4015ae5d",
+    "export_restricted": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "query": "Adam Małysz",
+  "source_url": "https://veritas-media.internal/vault/audit?q=Adam%20Ma%C5%82ysz",
+  "verified_answer": "🌐 [LIVE WEB RAG — WYNIK Z SIECI INTERNETOWEJ]\n• Tytuł / Podmiot: Adam Małysz\n• Pobranie z Wikipedii na żywo:\n\"Adam Henryk Małysz (ur. 3 grudnia 1977 w Wiśle) – polski skoczek narciarski uprawiający także kombinację norweską i kierowca rajdowy. Od 2022 do 2026 prezes Polskiego Związku Narciarskiego. Czterokrotny olimpijczyk. Zdobywca czterech medali olimpijskich (srebrnego i brązowego w 2002 i dwóch srebrnych w 2010) i sześciu medali mistrzostw świata (złotego i srebrnego w 2001, dwóch złotych w 2003, złotego w 2007 i brązowego w 2011). Czterokrotny zdobywca Pucharu Świata (w sezonach 2000/2001, 2001/200...\"\n\n📊 [ANALIZA FAKTOGRAFICZNA LIVE]\n• Triangulacja tezy 'Adam Małysz': Zweryfikowano z żywą bazą internetową.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:29:34.283841",
+    "sha256_signature": "74ba17a45b7141c9ff6646a387da74a4237771aebf1abec33b7868352bddf8ef",
+    "export_restricted": true
+  }
+}

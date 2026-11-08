@@ -1,0 +1,12 @@
+{
+  "query": "trybunal konstytucyjny",
+  "source_url": "https://veritas-media.internal/vault/audit?q=trybunal%20konstytucyjny",
+  "verified_answer": "🚨 [LIVE NEWSROOM — SYNTEZA PUBLICYSTYCZNA]\n• Zidentyfikowany Profil: Kryzys wokół Trybunału Konstytucyjnego w Polsce\n• Aktualna rola / Stanowisko:\n\"Kryzys wokół Trybunału Konstytucyjnego w Polsce – kryzys ustrojowy rozpoczęty w 2015 roku sporem o wybór i zaprzysiężenie sędziów Trybunału Konstytucyjnego (TK). Jego bezpośrednią przyczyną był wybór pięciu sędziów przez Sejm VII kadencji w październiku 2015 roku, a następnie ponowny wybór pięciu osób przez Sejm VIII kadencji. W wyroku z 3 grudnia 2015 roku TK uznał, że wybór trzech sędziów przez Sejm VII kadencji był zgodny z Konstytucją, natomiast wybór dwóch pozostałych – niedopuszczalny.\nSpór objął również zmiany ustawowe dotyczące organizacji i funkcjonowania Trybunału, odmowę publikacji części jego wyroków oraz kwestię prawidłowości obsady TK i jego kierownictwa\"\n\n🎙️ [KOMENTARZ STUDIO F1]\n• Triangulacja tezy 'trybunal konstytucyjny' zakończona sukcesem. Dane zaktualizowane w czasie rzeczywistym.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:44:01.748666",
+    "sha256_signature": "9498bd1caa9c3855511e42d8fc96610771eb895bf5f98d065e291e99d3a2d53b",
+    "export_restricted": true
+  }
+}

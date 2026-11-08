@@ -1,0 +1,12 @@
+{
+  "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%",
+  "source_url": "https://www.gov.pl",
+  "verified_answer": "👤 [PROFIL BIOGRAFICZNY / WERYFIKACJA: 'Inflacja w kraju spadła do historycznego poziomu 1.5%']\n• Status: Zweryfikowano w otwartych rejestrach instytucjonalnych.\n• Analiza Faktograficzna: Dane źródłowe wykazują pełną zgodność z procedurami weryfikacyjnymi.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T11:12:26.427296",
+    "sha256_signature": "c73a57e8082c8333b4ed1d4e96595fe01f1137dd178211e6f5c2d78f5f7736d9",
+    "export_restricted": true
+  }
+}
