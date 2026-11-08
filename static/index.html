@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veritas Matrix Nano-Core — Master Control & Studio Feed v63.3-PROD</title>
+    <title>Veritas Matrix Nano-Core — Master Control & Studio Feed v64.0-THERMAL</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
         body { background-color: #030712; color: #f3f4f6; padding: 12px; font-size: 0.82rem; overflow-x: hidden; }
 
         .header { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
         .logo-title { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.15rem; color: #38bdf8; letter-spacing: 1px; }
-        .version-badge { background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; padding: 3px 9px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
+        .version-badge { background: linear-gradient(135deg, #dc2626, #991b1b); color: #fff; padding: 3px 9px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
         .sys-status { font-size: 0.75rem; color: #34d399; font-family: monospace; display: flex; align-items: center; gap: 8px; }
         .pulse-dot { width: 9px; height: 9px; background-color: #34d399; border-radius: 50%; box-shadow: 0 0 10px #34d399; animation: pulse 1.4s infinite; }
         @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
@@ -44,7 +44,6 @@
         .vertical-meter-wrapper { background: #030712; border: 1px solid #1e293b; border-radius: 6px; padding: 8px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; }
         .meter-bar-container { flex: 1; width: 22px; background: #1e293b; border-radius: 11px; position: relative; overflow: hidden; display: flex; align-items: flex-end; margin: 8px 0; }
         .meter-bar-fill { width: 100%; background: #34d399; height: 5%; transition: height 0.5s ease-out, background-color 0.5s; }
-        
         .meter-scale { position: absolute; right: 4px; top: 35px; bottom: 35px; display: flex; flex-direction: column; justify-content: space-between; font-size: 0.55rem; color: #6b7280; font-family: monospace; pointer-events: none; }
 
         .chat-messages-expanded { height: 230px; overflow-y: auto; background: #030712; border: 1px solid #1e293b; padding: 8px; font-size: 0.78rem; border-radius: 6px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 6px; scroll-behavior: smooth; }
@@ -57,9 +56,11 @@
         .munition-option-card:hover { border-color: #38bdf8; background: #0b1329; }
 
         .multiview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-        .video-feed-box { background: #000; border: 1px solid #1e293b; border-radius: 6px; height: 110px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .video-feed-box { background: #000; border: 1px solid #1e293b; border-radius: 6px; height: 110px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .video-feed-box.thermal-mode { background: radial-gradient(circle at center, #9333ea, #312e81, #000); }
         .video-feed-label { position: absolute; top: 4px; left: 6px; background: rgba(0,0,0,0.75); color: #38bdf8; font-size: 0.65rem; padding: 2px 6px; border-radius: 3px; font-weight: 700; font-family: monospace; }
         .biometric-overlay { position: absolute; bottom: 4px; right: 6px; background: rgba(0,0,0,0.85); color: #ef4444; font-size: 0.65rem; padding: 2px 6px; border-radius: 3px; font-family: monospace; border: 1px solid #ef4444; }
+        .thermal-overlay-badge { position: absolute; top: 4px; right: 6px; background: rgba(220, 38, 38, 0.9); color: #fff; font-size: 0.6rem; padding: 1px 5px; border-radius: 3px; font-family: monospace; font-weight: 700; }
 
         .ticker-preview-bar { background: #991b1b; color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; overflow: hidden; white-space: nowrap; }
 
@@ -78,12 +79,12 @@
 
     <div class="header">
         <div class="logo-title">
-            🛡️ VERITAS MATRIX NANO-CORE <span class="version-badge">v63.3-F1 ULTIMATE</span>
+            🛡️ VERITAS MATRIX NANO-CORE <span class="version-badge">v64.0-THERMAL F1</span>
         </div>
         <div class="sys-status">
             <span class="pulse-dot"></span>
-            <span>MEDIA WATCHER: ONLINE | FILTRY RAG: AKTYWNE | </span>
-            <span id="wsHeaderStatus" style="color:#34d399;">Połączono (WebSocket Live)</span>
+            <span>TERMOWIZJA: AKTYWNA | NANO-SKIN API: READY | </span>
+            <span id="wsHeaderStatus" style="color:#34d399;">ONLINE (WS SYNCHRONIZOWANY)</span>
         </div>
     </div>
 
@@ -92,15 +93,15 @@
         <div class="row-top">
             <div class="panel-box">
                 <div class="panel-header purple">📌 INGESTION ŹRODEŁ & MEDIA INTELLIGENCE CORE</div>
-                <div style="font-size: 0.75rem; color: #9ca3af; margin-bottom: 8px;">Nadzór nad strumieniami w tle, filtrami sieciowymi oraz biometrią głosu.</div>
+                <div style="font-size: 0.75rem; color: #9ca3af; margin-bottom: 8px;">Nadzór nad strumieniami w tle, podczerwienią IR i czujnikami nano-skóry.</div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                     <div class="status-box">
-                        <div class="status-title">Filtry Sieciowe (Live):</div>
-                        <span id="sentimentStatusBadge" style="color:#34d399;">● Aktywne (Gov/GUS/Sejm)</span>
+                        <div class="status-title">Termowizja Live (IR):</div>
+                        <span id="thermalStatusBadge" style="color:#ef4444;">● Periorbital Temp: 36.8°C (STABLE)</span>
                     </div>
                     <div class="status-box">
-                        <div class="status-title">Compliance Vault:</div>
-                        <span style="color:#38bdf8;">● Ochrona Kryptograficzna (SHA-256)</span>
+                        <div class="status-title">Nano-Skin Biometrics API:</div>
+                        <span style="color:#38bdf8;">● Kortyzol API: Gotowe na strumienie</span>
                     </div>
                 </div>
             </div>
@@ -172,15 +173,16 @@
             <div class="panel-box" style="border-left: 4px solid #ef4444;">
                 <div class="panel-header red">
                     <span>🎥 REŻYSERKA / MASTER CONTROL (MCR FEED)</span>
-                    <a href="/rezyserka" target="_blank" style="color: #ef4444; font-size: 0.7rem; text-decoration: none;">[Pełna Reżyserka ↗]</a>
+                    <button style="padding: 2px 6px; font-size: 0.65rem; background: #dc2626;" onclick="toggleThermalCam()">🔥 TRYB TERMOWIZJI (IR)</button>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                     
                     <div class="multiview-grid">
-                        <div class="video-feed-box">
+                        <div class="video-feed-box" id="feed1Box">
                             <span class="video-feed-label">FEED #1: STUDIO LIVE</span>
-                            <div style="text-align: center; color: #4b5563; font-size: 0.7rem;">[PODGLĄD KAMERY MAIN]</div>
+                            <span class="thermal-overlay-badge" id="thermalBadge" style="display:none;">IR THERMAL: 37.4°C</span>
+                            <div style="text-align: center; color: #9ca3af; font-size: 0.7rem;" id="feed1Text">[PODGLĄD KAMERY MAIN]</div>
                             <span class="biometric-overlay" id="biometricStressVal">STRES: NORMAL (12%)</span>
                         </div>
                         <div class="video-feed-box">
@@ -287,6 +289,26 @@
         let lastAnalysisBuffer = null;
         let ws = null;
         let reconnectAttempts = 0;
+        let isThermalActive = false;
+
+        function toggleThermalCam() {
+            isThermalActive = !isThermalActive;
+            const feedBox = document.getElementById('feed1Box');
+            const badge = document.getElementById('thermalBadge');
+            const text = document.getElementById('feed1Text');
+
+            if (isThermalActive) {
+                feedBox.classList.add('thermal-mode');
+                badge.style.display = 'block';
+                text.innerText = "[SKANING PODCZERWIENI IR ACTIVE]";
+                text.style.color = "#f472b6";
+            } else {
+                feedBox.classList.remove('thermal-mode');
+                badge.style.display = 'none';
+                text.innerText = "[PODGLĄD KAMERY MAIN]";
+                text.style.color = "#9ca3af";
+            }
+        }
 
         function syncInputs(source) {
             const mainInput = document.getElementById('mainQueryInput');
@@ -373,6 +395,13 @@
         function updateDirectorAndSources(data) {
             const score = data.disinformation_score ?? 35.0;
             
+            if (data.thermal_telemetry) {
+                const temp = data.thermal_telemetry.facial_temp;
+                const status = data.thermal_telemetry.status;
+                document.getElementById('thermalStatusBadge').innerText = `● Periorbital Temp: ${temp}°C (${status})`;
+                document.getElementById('thermalBadge').innerText = `IR THERMAL: ${temp}°C`;
+            }
+
             const stressBox = document.getElementById('biometricStressVal');
             if (stressBox) {
                 if (score > 50) {
@@ -459,7 +488,7 @@
             }
 
             const chatLog = document.getElementById('studioChatLog');
-            chatLog.innerHTML += `<div class="chat-msg system">[Live Ingest]: Odebrano nową analizę tezy ze źródeł.</div>`;
+            chatLog.innerHTML += `<div class="chat-msg system">[Live Ingest]: Odebrano nową analizę tezy oraz telemetrię IR termowizji.</div>`;
             if (data.anchor_munition && data.anchor_munition.length > 0) {
                 chatLog.innerHTML += `<div class="chat-msg ai">[Żywy Chatbot AI]: Podsuwam wygenerowane amunicje retoryczne do zbicia kłamstwa. Wybierz opcję powyżej.</div>`;
             }
