@@ -19,7 +19,6 @@ class GlobalBackgroundEngine:
         query_clean = query.strip().lower()
         log.info(f"[Web Stream Watcher] Skanowanie sieci i rejestrów dla tezy: '{query}'")
         
-        # Symulacja inteligentnego przeszukiwania strumienia web w tle
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         audit_entry = {

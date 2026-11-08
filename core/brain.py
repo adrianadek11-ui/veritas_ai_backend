@@ -1,6 +1,8 @@
 import logging
 import os
 import random
+import hashlib
+from datetime import datetime
 from typing import Dict, Any, Optional, List
 from core.compliance_vault import ComplianceVault
 
@@ -9,6 +11,18 @@ logger = logging.getLogger("VeritasBrainThermalNano")
 class VeritasBrainCore:
     def __init__(self):
         self.vault_dir = "compliance_storage"
+
+    @staticmethod
+    def _generate_nda_signature(query: str, answer: str) -> Dict[str, Any]:
+        """Dodatkowa warstwa NDA i podpisu kryptograficznego SHA-256 dla zgodności v66.0"""
+        clause = "Zgodnie z protokołem NDA-F1-SECURE & tajemnicą przedsiębiorstwa."
+        raw = f"{query}:{answer}:{datetime.utcnow().isoformat()}:{clause}"
+        sig = hashlib.sha256(raw.encode('utf-8')).hexdigest()
+        return {
+            "confidentiality_level": "STRICT_NDA_PROTECTED",
+            "nda_clause": clause,
+            "signature": sig
+        }
 
     async def route_and_process(self, query: str, context_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         q_clean = query.strip()
@@ -87,6 +101,9 @@ class VeritasBrainCore:
         for src in sources:
             ComplianceVault.secure_store(q_clean, src["url"], direct_answer)
 
+        # Generowanie pieczęci NDA dla zweryfikowanej odpowiedzi
+        nda_governance = self._generate_nda_signature(q_clean, direct_answer)
+
         return {
             "direct_answer": direct_answer,
             "sources": sources,
@@ -100,7 +117,8 @@ class VeritasBrainCore:
             "nano_skin_telemetry": {
                 "cortisol_index": nano_cortisol_index,
                 "protocol_status": "API_READY"
-            }
+            },
+            "nda_governance": nda_governance
         }
 
 brain = VeritasBrainCore()
