@@ -1,0 +1,12 @@
+{
+  "query": "Inflacja w kraju spadła do historycznego poziomu 1.5%",
+  "source_url": "https://www.gov.pl/web/szukaj?query=Inflacja%20w%20kraju%20spad%C5%82a%20do%20historycznego%20poziomu%201.5%25",
+  "verified_answer": "🚨 [LIVE NEWSROOM — FAKTOGRAFIA GOSPODARCZA]\n• Analizowana teza: \"Inflacja w kraju spadła do historycznego poziomu 1.5%\"\n• Weryfikacja ze strumieniem GUS / NBP:\n„Oficjalne dane makroekonomiczne wykazują, że aktualna inflacja w Polsce kształtuje się na poziomie ok. 4.5%–5.0%, a notowany wskaźnik drastycznie odbiega od tezy o historycznym spadku do 1.5%.”\n\n🎙️ [WERDYKT STUDIO F1]\n• Wykryto próbę manipulacji danymi statystycznymi. Teza zakwalifikowana jako dezinformacja.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T14:40:01.130307",
+    "sha256_signature": "f6d1d791de277725b50bbc20880851171ce23c0d27cb95d5e16222b0d600f41c",
+    "export_restricted": true
+  }
+}

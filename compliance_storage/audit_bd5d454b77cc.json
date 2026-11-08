@@ -1,0 +1,12 @@
+{
+  "query": "Donald Tusk",
+  "source_url": "https://pl.wikipedia.org/w/index.php?search=Donald%20Tusk",
+  "verified_answer": "🚨 [LIVE NEWSROOM — SYNTEZA PUBLICYSTYCZNA]\n• Podmiot / Urząd: Donald Tusk\n• Status i kluczowa rola na żywo:\n\"Donald Franciszek Tusk (ur. 22 kwietnia 1957 w Gdańsku) – polski polityk i historyk. W latach 2007–2014 i od 2023 prezes Rady Ministrów stojący na czele swojego pierwszego, drugiego i trzeciego gabinetu\"\n\n🎙️ [KOMENTARZ STUDIO F1]\n• Zweryfikowano z bieżącym strumieniem publicznym. Stanowisko i funkcja potwierdzone w rejestrach.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:57:04.180305",
+    "sha256_signature": "bd5d454b77ccc765e7c4a8e271ee3ff1e352ce1e6ae3932c1ebd76a63e442f27",
+    "export_restricted": true
+  }
+}

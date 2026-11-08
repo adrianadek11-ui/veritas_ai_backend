@@ -14,7 +14,7 @@ from core.brain import brain
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
 logger = logging.getLogger("VeritasGlobalF1")
 
-app = FastAPI(title="Veritas Matrix Nano-Core Global F1", version="66.0-NDA")
+app = FastAPI(title="Veritas Matrix Nano-Core Global F1", version="66.0-NDA-SCIFI")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -76,6 +76,9 @@ async def api_verify(req: VerifyRequest):
         "signature": nda_proof["sha256_signature"],
         "clause": nda_proof["nda_clause"]
     }
+
+    # Automatyczny broadcast do wszystkich podłączonych ekranów WebSocket w studiu
+    await manager.broadcast({"action": "UPDATE_STUDIO", "data": result})
 
     return result
 

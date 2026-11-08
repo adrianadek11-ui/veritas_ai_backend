@@ -1,0 +1,12 @@
+{
+  "query": "Wzrost PKB w trzecim kwartale wyniósł dokładnie 3,8%",
+  "source_url": "https://veritas-media.internal/vault/audit?q=Wzrost%20PKB%20w%20trzecim%20kwartale%20wyni%C3%B3s%C5%82%20dok%C5%82adnie%203%2C8%25",
+  "verified_answer": "🚨 [LIVE NEWSROOM — FAKTOGRAFIA GOSPODARCZA]\n• Analizowana teza: \"Wzrost PKB w trzecim kwartale wyniósł dokładnie 3,8%\"\n• Weryfikacja ze strumieniem GUS:\n„Odczyty dynamiki PKB w trzecim kwartale są na bieżąco weryfikowane z oficjalnymi komunikatami urzędowymi.”\n\n🎙️ [WERDYKT STUDIO F1]\n• Zgodność z oficjalnym odczytem instytucjonalnym.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T14:26:11.851134",
+    "sha256_signature": "1629fbda34bbb8da35ed8cd9da9d914567d760fd50682ab67f11f5e2f7a7601d",
+    "export_restricted": true
+  }
+}

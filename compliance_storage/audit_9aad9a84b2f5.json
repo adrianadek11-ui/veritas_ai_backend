@@ -1,0 +1,12 @@
+{
+  "query": "Donald Tusk",
+  "source_url": "https://veritas-media.internal/vault/audit?q=Donald%20Tusk",
+  "verified_answer": "🚨 [LIVE NEWSROOM — SYNTEZA PUBLICYSTYCZNA]\n• Podmiot / Urząd: Donald Tusk\n• Status i kluczowa rola na żywo:\n\"Donald Franciszek Tusk (ur. 22 kwietnia 1957 w Gdańsku) – polski polityk i historyk. W latach 2007–2014 i od 2023 prezes Rady Ministrów stojący na czele swojego pierwszego, drugiego i trzeciego gabinetu\"\n\n🎙️ [KOMENTARZ STUDIO F1]\n• Zweryfikowano z bieżącym strumieniem publicznym. Stanowisko i funkcja potwierdzone w rejestrach.",
+  "nda_compliance": {
+    "confidentiality_level": "STRICT_NDA_PROTECTED",
+    "nda_clause": "Zgodnie z protokołem NDA-F1-SECURE & ustawa o ochronie danych / tajemnicy przedsiębiorstwa: Wszelkie dane telemetryczne, analizy biometryczne IR oraz rejestry audytowe stanowią wyłączną własność stacji emisyjnej i są chronione przed nieuprawnionym ujawnieniem.",
+    "timestamp_utc": "2026-11-08T13:57:04.181723",
+    "sha256_signature": "9aad9a84b2f5a8e28cf865f6ec6f6f4a956bb696f543c29c964d58414cc1362e",
+    "export_restricted": true
+  }
+}
