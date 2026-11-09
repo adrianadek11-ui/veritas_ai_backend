@@ -7,3 +7,5 @@ python-multipart>=0.0.6
 httpx
 websockets
 wsproto
+aiohttp==3.9.3
+rich==13.7.0
