@@ -27,6 +27,20 @@ services:
       - veritas-network
     restart: always
 
+  # GŁÓWNY BACKEND: Serwer FastAPI
+  veritas-core:
+    build: .
+    container_name: veritas_core_server
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://veritas_redis_cache:6379
+    networks:
+      - veritas-network
+    depends_on:
+      - veritas-cache
+    restart: always
+
 volumes:
   redis_data:
 
