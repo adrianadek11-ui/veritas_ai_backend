@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2 ORBITAL MARK // SECURE LOGIN</title>
+    <style>
+        :root {
+            --bg-base: #010307;
+            --panel-bg: rgba(7, 12, 24, 0.95);
+            --border-hud: #00ffcc88;
+            --accent-cyan: #00ffcc;
+            --accent-red: #ef4444;
+            --text-main: #f3f4f6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.12) 0%, transparent 80%),
+                linear-gradient(rgba(0, 255, 204, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-card {
+            background: var(--panel-bg);
+            border: 2px solid var(--border-hud);
+            border-radius: 6px;
+            padding: 30px;
+            width: 360px;
+            box-shadow: 0 0 40px rgba(0,255,204,0.25);
+            position: relative;
+        }
+        .login-card::before { content: ""; position: absolute; top: 0; left: 0; width: 8px; height: 8px; border-top: 2px solid var(--accent-cyan); border-left: 2px solid var(--accent-cyan); }
+        .login-card::after { content: ""; position: absolute; bottom: 0; right: 0; width: 8px; height: 8px; border-bottom: 2px solid var(--accent-cyan); border-right: 2px solid var(--accent-cyan); }
+        
+        h2 { color: var(--accent-cyan); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-align: center; text-shadow: 0 0 10px rgba(0,255,204,0.6); }
+        
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; }
+        
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            background: rgba(1, 4, 9, 0.9);
+            border: 1px solid var(--border-hud);
+            color: var(--text-main);
+            padding: 8px 35px 8px 10px;
+            font-size: 0.8rem;
+            border-radius: 3px;
+        }
+        input:focus { border-color: var(--accent-cyan); outline: none; box-shadow: 0 0 10px rgba(0,255,204,0.5); }
+        
+        .toggle-password {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--accent-cyan);
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 4px;
+            box-shadow: none;
+            text-shadow: 0 0 5px var(--accent-cyan);
+        }
+        .toggle-password:hover { color: #fff; background: none; box-shadow: none; }
+        
+        button.submit-btn {
+            width: 100%;
+            background: rgba(0,255,204,0.2);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 10px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            border-radius: 3px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            margin-top: 10px;
+            text-shadow: 0 0 6px var(--accent-cyan);
+        }
+        button.submit-btn:hover { background: rgba(0,255,204,0.4); box-shadow: 0 0 20px var(--accent-cyan); color: #fff; }
+        .error-msg { color: var(--accent-red); font-size: 0.7rem; text-align: center; margin-top: 10px; display: none; text-shadow: 0 0 5px var(--accent-red); }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <h2>🔒 C2 SECURE AUTH</h2>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+            <label>Identyfikator Operatora</label>
+            <input type="text" id="username" placeholder="Wpisz login..." required autofocus>
+        </div>
+        <div class="form-group">
+            <label>Klucz Szyfrujący (Hasło)</label>
+            <div class="input-wrapper">
+                <input type="password" id="password" placeholder="Wpisz hasło..." required>
+                <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePasswordVisibility()">👁</button>
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">Autoryzuj Dostęp</button>
+    </form>
+    <div class="error-msg" id="errorMsg">Błąd autoryzacji: Nieprawidłowe dane!</div>
+</div>
+
+<script>
+    // Czścimy sesję przy wejściu na ekran logowania
+    sessionStorage.removeItem("c2_auth");
+
+    function togglePasswordVisibility() {
+        const pwdInput = document.getElementById('password');
+        const toggleBtn = document.getElementById('toggleBtn');
+        if (pwdInput.type === 'password') {
+            pwdInput.type = 'text';
+            toggleBtn.style.color = '#38bdf8';
+        } else {
+            pwdInput.type = 'password';
+            toggleBtn.style.color = '#00ffcc';
+        }
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+        const u = document.getElementById('username').value.trim();
+        const p = document.getElementById('password').value.trim();
+        
+        if(u === "admin" && p === "Veritas2026") {
+            sessionStorage.setItem("c2_auth", "authorized_true");
+            window.location.replace("/app");
+        } else {
+            document.getElementById('errorMsg').style.display = "block";
+        }
+    }
+</script>
+</body>
+</html>

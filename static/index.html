@@ -1,671 +1,447 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Veritas Matrix Nano-Core - Global Command Center MASTER</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
-body { background-color: #030712; color: #f3f4f6; padding: 10px; font-size: 0.8rem; overflow-x: hidden; }
-.header { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-.logo-title { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; color: #38bdf8; letter-spacing: 1px; }
-.version-badge { background: linear-gradient(135deg, #dc2626, #991b1b); color: #fff; padding: 2px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
-.sys-status { font-size: 0.72rem; color: #34d399; font-family: monospace; display: flex; align-items: center; gap: 6px; }
-.pulse-dot { width: 8px; height: 8px; background-color: #34d399; border-radius: 50%; box-shadow: 0 0 10px #34d399; animation: pulse 1.4s infinite; }
-@keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
-/* UKŁAD 3-KOLUMNOWY KOKPITU PILOTA */
-.cockpit-grid { display: grid; grid-template-columns: 280px 1fr 340px; gap: 10px; }
-.panel-box { background: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; margin-bottom: 10px; }
-.panel-header { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 5px; }
-.panel-header.purple { color: #c084fc; border-color: rgba(192, 132, 252, 0.2); }
-.panel-header.amber { color: #f59e0b; border-color: rgba(245, 158, 11, 0.2); }
-.panel-header.blue { color: #38bdf8; border-color: rgba(56, 189, 248, 0.2); }
-.panel-header.red { color: #ef4444; border-color: rgba(239, 68, 68, 0.2); }
-.panel-header.green { color: #34d399; border-color: rgba(52, 211, 153, 0.2); }
-input[type="text"], textarea, select { width: 100%; background: #030712; border: 1px solid #1e293b; border-radius: 6px; color: #f3f4f6; padding: 7px 9px; font-size: 0.8rem; transition: border-color 0.2s; }
-input[type="text"]:focus, textarea:focus, select:focus { border-color: #38bdf8; outline: none; box-shadow: 0 0 8px rgba(56, 189, 248, 0.2); }
-button { background: #0284c7; color: white; border: none; padding: 6px 10px; border-radius: 5px; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.1s; font-size: 0.75rem; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
-button:hover:not(:disabled) { background: #0ea5e9; transform: translateY(-1px); }
-button:active:not(:disabled) { transform: translateY(0); }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
-button.btn-red { background: #dc2626; } button.btn-red:hover:not(:disabled) { background: #ef4444; }
-button.btn-purple { background: #7c3aed; } button.btn-purple:hover:not(:disabled) { background: #8b5cf6; }
-button.btn-green { background: #059669; } button.btn-green:hover:not(:disabled) { background: #10b981; }
-.status-box { background: #030712; border: 1px solid #1e293b; padding: 7px 9px; border-radius: 6px; font-size: 0.75rem; color: #9ca3af; }
-.status-title { font-weight: 700; color: #e5e7eb; margin-bottom: 3px; }
-.feed-btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 6px; }
-.feed-btn { background: #1e293b; font-size: 0.7rem; padding: 5px; border-radius: 4px; border: 1px solid #334155; color: #fff; cursor: pointer; }
-.feed-btn.active { background: #0284c7; border-color: #38bdf8; }
-.video-feed-box { background: #000; border: 1px solid #1e293b; border-radius: 6px; height: 130px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: background 0.3s; margin-bottom: 6px; }
-.video-feed-box.thermal-mode { background: radial-gradient(circle at center, #9333ea, #312e81, #000); }
-.video-feed-label { position: absolute; top: 4px; left: 6px; background: rgba(0,0,0,0.75); color: #38bdf8; font-size: 0.62rem; padding: 2px 5px; border-radius: 3px; font-weight: 700; font-family: monospace; }
-.biometric-overlay { position: absolute; bottom: 4px; right: 6px; background: rgba(0,0,0,0.85); color: #ef4444; font-size: 0.62rem; padding: 2px 5px; border-radius: 3px; font-family: monospace; border: 1px solid #ef4444; }
-.thermal-overlay-badge { position: absolute; top: 4px; right: 6px; background: rgba(220, 38, 38, 0.9); color: #fff; font-size: 0.58rem; padding: 1px 4px; border-radius: 3px; font-family: monospace; font-weight: 700; }
-.chat-messages-expanded { height: 160px; overflow-y: auto; background: #030712; border: 1px solid #1e293b; padding: 7px; font-size: 0.75rem; border-radius: 6px; margin-bottom: 6px; display: flex; flex-direction: column; gap: 5px; scroll-behavior: smooth; }
-.chat-msg { padding: 5px 7px; border-radius: 4px; background: #0b1329; border-left: 3px solid #38bdf8; }
-.chat-msg.system { border-left-color: #34d399; background: #064e3b22; }
-.chat-msg.user { border-left-color: #c084fc; background: #581c8722; }
-.chat-msg.ai { border-left-color: #f59e0b; background: #78350f22; }
-.munition-option-card { background: #030712; border: 1px solid #1e293b; border-radius: 4px; padding: 5px 7px; margin-bottom: 4px; cursor: pointer; transition: border-color 0.2s, background 0.2s; font-size: 0.72rem; }
-.munition-option-card:hover { border-color: #38bdf8; background: #0b1329; }
-.ticker-preview-bar { background: #991b1b; color: #fff; padding: 5px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; overflow: hidden; white-space: nowrap; }
-table { width: 100%; border-collapse: collapse; font-size: 0.73rem; margin-top: 4px; }
-th, td { text-align: left; padding: 5px 7px; border-bottom: 1px solid #1e293b; }
-th { color: #6b7280; font-weight: 700; text-transform: uppercase; background: #030712; }
-.badge-tag { padding: 2px 5px; border-radius: 3px; font-size: 0.65rem; font-weight: 700; }
-.tag-false { background: #7f1d1d; color: #fca5a5; }
-.tag-true { background: #064e3b; color: #6ee7b7; }
-.social-btn-group { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin-top: 5px; }
-.social-btn-group button { font-size: 0.65rem; padding: 4px 1px; }
-.toggle-row { display: flex; justify-content: space-between; align-items: center; background: #030712; border: 1px solid #1e293b; padding: 6px 8px; border-radius: 6px; font-size: 0.75rem; margin-bottom: 6px; }
-.switch { position: relative; display: inline-block; width: 34px; height: 18px; }
-.switch input { opacity: 0; width: 0; height: 0; }
-.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1e293b; transition: .3s; border-radius: 18px; }
-.slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
-input:checked + .slider { background-color: #059669; }
-input:checked + .slider:before { transform: translateX(16px); }
-.metric-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
-.metric-card { background: #030712; border: 1px solid #1e293b; border-radius: 5px; padding: 6px 8px; text-align: center; }
-.metric-val { font-size: 1.1rem; font-weight: 800; font-family: monospace; color: #38bdf8; }
-.metric-lbl { font-size: 0.63rem; color: #9ca3af; text-transform: uppercase; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2 ORBITAL MARK // RADAR GHOST CONCAVE</title>
+    <style>
+        :root {
+            --bg-base: #010307;
+            --panel-bg: rgba(0, 255, 204, 0.01); 
+            --border-hud: #00ffcc66;
+            --border-glow: #00ffccaa;
+            --accent-cyan: #00ffcc;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
+            --accent-red: #ef4444;
+            --accent-green: #34d399;
+            --text-main: #f3f4f6;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
+        
+        body { 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            padding: 12px; 
+            font-size: 0.75rem; 
+            overflow-x: hidden;
+            perspective: 1000px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        #radarCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .header { 
+            background: rgba(0, 255, 204, 0.03); 
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-glow); 
+            border-radius: 6px; 
+            padding: 8px 16px; 
+            display: grid; 
+            grid-template-columns: 1fr auto 1fr; 
+            align-items: center; 
+            margin-bottom: 12px; 
+            box-shadow: 0 0 35px rgba(0,255,204,0.2); 
+        }
+        .logo-title { font-weight: 800; font-size: 1.05rem; color: var(--accent-cyan); letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,255,204,0.8); }
+        
+        .header-center { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+        .kiroshi-eye { width: 52px; height: 30px; background: #000; border: 2px solid var(--accent-cyan); border-radius: 50%; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--accent-cyan); cursor: pointer; }
+        .eyeball { width: 15px; height: 15px; background: radial-gradient(circle, var(--accent-cyan) 30%, transparent 70%); border-radius: 50%; position: absolute; transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 0 8px var(--accent-cyan); }
+        .eyelid { position: absolute; width: 100%; height: 100%; background: var(--bg-base); top: -100%; animation: blink 5s infinite; }
+        @keyframes blink { 0%, 95%, 100% { top: -100%; } 97% { top: 0; } }
+        .header-subtitle { font-size: 0.62rem; color: var(--accent-purple); letter-spacing: 1.5px; font-weight: bold; text-transform: uppercase; text-shadow: 0 0 6px rgba(192,132,252,0.7); }
+
+        .header-right-group { display: flex; align-items: center; gap: 15px; justify-content: flex-end; }
+        .tv-btn-link {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-weight: 800;
+            font-size: 0.68rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            box-shadow: 0 0 10px rgba(56,189,248,0.3);
+            text-shadow: 0 0 5px var(--accent-blue);
+        }
+        .tv-btn-link:hover { background: rgba(56, 189, 248, 0.35); box-shadow: 0 0 18px var(--accent-blue); color: #fff; }
+
+        .sys-status { font-size: 0.7rem; color: var(--accent-green); display: flex; align-items: center; gap: 5px; text-shadow: 0 0 6px rgba(52,211,153,0.7); }
+        .pulse-dot { width: 7px; height: 7px; background-color: var(--accent-green); border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); animation: pulse 1.4s infinite; }
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
+
+        .hud-card { 
+            background: var(--panel-bg); 
+            border: 1px solid var(--border-hud); 
+            border-radius: 5px; 
+            padding: 8px; 
+            position: relative; 
+            box-shadow: inset 0 0 15px rgba(0,255,204,0.03), 0 0 15px rgba(0,0,0,0.4); 
+            transition: all 0.3s;
+        }
+        
+        .concave-left { transform: rotateY(12deg) translateZ(20px); transform-origin: right center; }
+        .concave-right { transform: rotateY(-12deg) translateZ(20px); transform-origin: left center; }
+        .concave-center { transform: translateZ(30px); z-index: 5; border: 2px solid var(--accent-cyan); box-shadow: 0 0 40px rgba(0,255,204,0.3); background: rgba(0, 255, 204, 0.02); }
+
+        .hud-card::before { content: ""; position: absolute; top: 0; left: 0; width: 6px; height: 6px; border-top: 2px solid var(--accent-cyan); border-left: 2px solid var(--accent-cyan); }
+        .hud-card::after { content: ""; position: absolute; bottom: 0; right: 0; width: 6px; height: 6px; border-bottom: 2px solid var(--accent-cyan); border-right: 2px solid var(--accent-cyan); }
+
+        .card-header { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: var(--accent-blue); border-bottom: 1px solid var(--border-hud); padding-bottom: 3px; display: flex; justify-content: space-between; text-shadow: 0 0 8px rgba(56,189,248,0.7); }
+        .metric-big { font-size: 1.15rem; font-weight: 800; color: var(--accent-cyan); font-family: monospace; margin: 2px 0; text-shadow: 0 0 10px rgba(0,255,204,0.8); }
+        
+        input[type="text"] { width: 100%; background: rgba(0, 255, 204, 0.02); border: 1px solid var(--border-hud); color: var(--text-main); padding: 5px 7px; font-size: 0.72rem; border-radius: 3px; margin-bottom: 5px; }
+        input[type="text"]:focus { border-color: var(--accent-cyan); outline: none; box-shadow: 0 0 12px rgba(0,255,204,0.7); }
+
+        button { background: rgba(0,255,204,0.15); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); padding: 5px 9px; border-radius: 3px; font-weight: 700; cursor: pointer; font-size: 0.68rem; transition: all 0.2s; text-transform: uppercase; text-shadow: 0 0 5px var(--accent-cyan); }
+        button:hover { background: rgba(0,255,204,0.4); box-shadow: 0 0 18px rgba(0,255,204,0.9); }
+        button.btn-red { background: rgba(239,68,68,0.15); border-color: var(--accent-red); color: var(--accent-red); text-shadow: 0 0 5px var(--accent-red); }
+        button.btn-red:hover { background: rgba(239,68,68,0.4); box-shadow: 0 0 18px rgba(239,68,68,0.9); }
+        button.btn-green { background: rgba(52,211,153,0.15); border-color: var(--accent-green); color: var(--accent-green); text-shadow: 0 0 5px var(--accent-green); }
+        button.btn-green:hover { background: rgba(52,211,153,0.4); box-shadow: 0 0 18px rgba(52,211,153,0.9); }
+        button.btn-purple { background: rgba(192,132,252,0.15); border-color: var(--accent-purple); color: var(--accent-purple); text-shadow: 0 0 5px var(--accent-purple); }
+        button.btn-purple:hover { background: rgba(192,132,252,0.4); box-shadow: 0 0 18px rgba(192,132,252,0.9); }
+
+        pre { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-hud); padding: 5px; font-size: 0.62rem; color: var(--accent-green); border-radius: 3px; overflow-x: auto; max-height: 90px; text-shadow: 0 0 5px rgba(52,211,153,0.6); }
+
+        .main-layout { display: grid; grid-template-columns: 280px 1fr 280px; gap: 16px; margin-bottom: 8px; }
+        
+        .chat-log { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-hud); border-radius: 3px; padding: 8px; height: 320px; overflow-y: auto; font-size: 0.72rem; margin-bottom: 6px; display: flex; flex-direction: column; gap: 5px; }
+        .chat-msg { padding: 5px 8px; border-radius: 3px; background: rgba(0, 255, 204, 0.03); border-left: 3px solid var(--accent-blue); }
+        .chat-msg.system { border-left-color: var(--accent-green); }
+        .chat-msg.alert { border-left-color: var(--accent-red); background: rgba(239, 68, 68, 0.2); }
+
+        .hex-badge { display: inline-block; padding: 2px 6px; background: rgba(0,255,204,0.15); border: 1px solid var(--accent-cyan); font-size: 0.6rem; font-weight: bold; color: var(--accent-cyan); border-radius: 3px; letter-spacing: 1px; }
+        
+        .bimetric-stack { display: flex; flex-direction: column; gap: 12px; }
+    </style>
 </head>
-<body>
+<body onmousemove="moveEye(event)" onmouseleave="resetEye()">
+
+<!-- BEZWZGLĘDNA WERYFIKACJA SESJI -->
+
+
+<canvas id="radarCanvas"></canvas>
 
 <div class="header">
-<div class="logo-title">
-✔ VERITAS MATRIX NANO-CORE <span class="version-badge">MASTER</span>
-</div>
-<div class="sys-status">
-<span class="pulse-dot"></span>
-<span>MULTI-STREAM: 24/7 ACTIVE | NDA PROTECTION: ON | </span>
-<span id="wsHeaderStatus" style="color:#34d399;">ONLINE</span>
-</div>
-</div>
-
-<!-- GŁÓWNY UKŁAD 3-KOLUMNOWY KOKPITU -->
-<div class="cockpit-grid">
-
-<!-- LEWA KOLUMNA: Źródła, Strumienie, Termowizja i Biometria Głosu -->
-<div>
-<div class="panel-box">
-<div class="panel-header purple"> GLOBAL FEED SELECTOR</div>
-<div style="font-size: 0.72rem; color: #9ca3af; margin-bottom: 6px;">Wybierz stację źródłową nasłuchu Live:</div>
-<div class="feed-btn-group">
-<button class="feed-btn active" id="btnFeedTVN" onclick="setSourceFeed('TVN24')">TVN24</button>
-<button class="feed-btn" id="btnFeedPolsat" onclick="setSourceFeed('Polsat News')">Polsat News</button>
-<button class="feed-btn" id="btnFeedBBC" onclick="setSourceFeed('BBC News')">BBC News</button>
-<button class="feed-btn" id="btnFeedCNN" onclick="setSourceFeed('CNN International')">CNN</button>
-</div>
+    <div class="logo-title">🛸 C2 ORBITAL MARK</div>
+    <div class="header-center">
+        <div class="kiroshi-eye" title="Cyber-oko Kiroshi">
+            <div class="eyeball" id="eyeball"></div>
+            <div class="eyelid"></div>
+        </div>
+        <div class="header-subtitle">VERITAS MASTER COMMAND</div>
+    </div>
+    <div class="header-right-group">
+        <a href="/tv" class="tv-btn-link">📺 Wersja TV</a>
+        <div class="sys-status">
+            <span class="pulse-dot"></span>
+            <span>RADAR ACTIVE</span>
+        </div>
+    </div>
 </div>
 
-<div class="panel-box">
-<div class="panel-header red">
-<span> PODGLĄD & TERMOWIZJA IR</span>
-<button style="padding: 2px 5px; font-size: 0.6rem; background: #dc2626;" onclick="toggleThermalCam()">TRYB IR</button>
-</div>
-<div class="video-feed-box" id="feed1Box">
-<span class="video-feed-label" id="activeFeedLabel">FEED: TVN24 LIVE</span>
-<span class="thermal-overlay-badge" id="thermalBadge" style="display:none;">IR: 37.4°C</span>
-<div style="text-align: center; color: #9ca3af; font-size: 0.7rem;" id="feed1Text">[STRUMIEŃ WIDEO AKTYWNY]</div>
-<span class="biometric-overlay" id="biometricStressVal">STRES: 12%</span>
-</div>
-<div style="font-size: 0.7rem; color: #9ca3af; display: flex; justify-content: space-between;">
-<span>Periorbital IR Temp: <b id="irTempVal" style="color:#f87171;">36.8°C</b></span>
-<span>Nano-Skin API: <b style="color:#34d399;">READY</b></span>
-</div>
-</div>
+<div class="main-layout">
+    
+    <div class="bimetric-stack concave-left">
+        <div class="hud-card">
+            <div class="card-header"><span>Filar I: Darknet</span> <span class="hex-badge">HEX-01</span></div>
+            <div class="metric-big" id="metric-alpha">+4.2%</div>
+            <p style="color: var(--text-muted); font-size: 0.62rem;">Skaner tła i predykcja fal.</p>
+        </div>
+        
+        <div class="hud-card">
+            <div class="card-header"><span>Filar II: Polityczny</span> <span class="hex-badge">HEX-02</span></div>
+            <div class="metric-big" id="metric-beta">+8.5%</div>
+            <p style="color: var(--text-muted); font-size: 0.62rem;">Live RAG i weryfikacja.</p>
+        </div>
 
-<!-- MODUŁ SCI-FI: BIOMETRIA GŁOSU -->
-<div class="panel-box" style="border-left: 4px solid #c084fc;">
-<div class="panel-header purple">
-<span>🎙️ BIOMETRIC VOICE PRINT</span>
-<span class="badge-tag" style="background:#7c3aed; color:#fff;" id="voiceStatusBadge">ACTIVE</span>
-</div>
-<div style="font-size: 0.7rem; color: #9ca3af; line-height: 1.4;">
-• Rozpoznany Mówca: <b id="voiceSpeakerVal" style="color:#f59e0b;">Oczekiwanie...</b><br>
-• Pewność dopasowania: <b id="voiceConfVal" style="color:#38bdf8;">0.0%</b><br>
-• Voiceprint Hash: <b id="voiceHashVal" style="font-family:monospace; color:#34d399;">---</b>
-</div>
-</div>
+        <div class="hud-card" style="border-left: 3px solid var(--accent-red);">
+            <div class="card-header" style="color: var(--accent-red);">💰 Finansowa Cytadela</div>
+            <pre id="finance-box" style="max-height: 60px;">Ładowanie portfeli...</pre>
+            <button class="btn-red" onclick="triggerPanic()" style="width: 100%; margin-top: 4px; font-weight: bold;">🚨 SILENT PANIC</button>
+        </div>
 
-<div class="panel-box">
-<div class="panel-header green"> TRYB AUTO-PILOTA F1</div>
-<div class="toggle-row">
-<span>Auto-Pilot (Autonomiczna Pętla):</span>
-<label class="switch">
-<input type="checkbox" id="autoPilotToggle" onchange="toggleAutoPilot()">
-<span class="slider"></span>
-</label>
-</div>
-<div style="font-size: 0.68rem; color: #6b7280; line-height: 1.3;">
-Gdy włączony, system samodzielnie generuje paczki sprostowań i szykuje Auto-Clips powyżej 90% pewności kłamstwa.
-</div>
-</div>
-</div>
+        <div class="hud-card" style="flex:1;">
+            <div class="card-header" style="color: var(--accent-green);">🤝 Friendly Fire</div>
+            <div style="display: flex; gap: 4px; margin-bottom: 3px;">
+                <input type="text" id="node-name" placeholder="Nowy przyjaciel..." style="margin-bottom:0; font-size:0.65rem;">
+                <button class="btn-green" onclick="manageAlliance('add')" style="font-size:0.6rem;">Dopisz</button>
+            </div>
+            <pre id="alliance-box" style="max-height:50px;">Ładowanie węzłów...</pre>
+            <div style="display: flex; gap: 4px; margin-top: 3px;">
+                <input type="text" id="node-remove-name" placeholder="Usuń węzeł..." style="margin-bottom:0; font-size:0.65rem;">
+                <button class="btn-red" onclick="manageAlliance('remove')" style="font-size:0.6rem;">Usuń</button>
+            </div>
+        </div>
+    </div>
 
-<!-- ŚRODKOWA KOLUMNA: Serce Debaty, Teleprompter i Live Web RAG -->
-<div>
-<div class="panel-box">
-<div class="panel-header amber"> LIVE SERWER WERYFIKACJI FAKTÓW (WEB RAG)</div>
-<div style="font-size: 0.72rem; color: #9ca3af; margin-bottom: 6px;">Wpisz tezę wypowiedzianą na antenie (np. Tusk, Nawrocki, Trybunał Konstytucyjny):</div>
-<div style="display: flex; gap: 6px;">
-<input type="text" id="mainQueryInput" placeholder="Wpisz tezę lub nazwisko do weryfikacji..." onkeypress="if(event.key==='Enter') executeVerification()">
-<button id="mainVerifyBtn" onclick="executeVerification()">Analizuj</button>
-</div>
-</div>
+    <div class="hud-card concave-center">
+        <div class="card-header" style="color: var(--accent-cyan);">💬 Centralny Terminal Dowodzenia & Live Raport Alerty</div>
+        <div class="chat-log" id="commandChatLog">
+            <div class="chat-msg system">[System C2 Radar]: Przezroczyste szkło aktywowane. Sonar w tle w pełni widoczny.</div>
+            <div class="chat-msg alert">[Alert AI]: Sektor Delta: Wykryto anomalię w paśmie radaru.</div>
+            <div class="chat-msg">[Dispatcher]: Social Media Ghost Protocol publikuje paczki wirusowe 24/7.</div>
+        </div>
+        <div style="display: flex; gap: 6px;">
+            <input type="text" id="commandInput" placeholder="Wydaj komendę systemowi (np. status, skan, drony)..." style="margin-bottom:0;" onkeypress="if(event.key==='Enter') executeCommand()">
+            <button onclick="executeCommand()" style="padding: 6px 14px;">Wyślij</button>
+        </div>
+    </div>
 
-<div class="panel-box">
-<div class="panel-header blue"> KONKRETNA ODPOWIEDŹ SYSTEMU (ŻYWA SYNTEZA WEB)</div>
-<div id="mainSynthesisResult" class="status-box" style="min-height: 60px; font-size: 0.82rem; color: #f3f4f6; white-space: pre-line; line-height: 1.35;">
-System gotowy do nasłuchu strumienia i analizy live...
-</div>
-</div>
+    <div class="bimetric-stack concave-right">
+        <div class="hud-card">
+            <div class="card-header"><span>Filar III: Secret Service</span> <span class="hex-badge">HEX-03</span></div>
+            <div class="metric-big" style="color: var(--accent-green);" id="metric-gamma">99.9%</div>
+            <p style="color: var(--text-muted); font-size: 0.62rem;">Tarcza i sojusze P2P.</p>
+        </div>
 
-<div class="panel-box" style="border-left: 4px solid #38bdf8;">
-<div class="panel-header blue">
-<span> PANEL PROWADZĄCEGO (STUDIO KOKPIT)</span>
-</div>
-<div style="display: grid; grid-template-columns: 1fr 100px; gap: 8px;">
-<div>
-<div class="status-title" style="color: #9ca3af; margin-bottom: 3px;">Teleprompter Studio (Główna Linia):</div>
-<div id="studioPrompter" class="status-box" style="font-size: 0.82rem; color: #fff; font-weight: 600; min-height: 38px; margin-bottom: 6px;">
-Oczekiwanie na przekaz z reżyserki...
-</div>
-<div class="status-title" style="color: #a7f3d0; margin-bottom: 3px;">ŻYWY CHATBOT PROWADZĄCEGO:</div>
-<div class="chat-messages-expanded" id="studioChatLog">
-<div class="chat-msg system">[System]: Asystent Live aktywny. Śledzę strumień globalny.</div>
-</div>
-<div style="display: flex; gap: 5px;">
-<input type="text" id="studioChatInput" placeholder="Zapytaj asystenta..." onkeypress="if(event.key==='Enter') sendStudioChat()">
-<button style="padding: 5px 8px; font-size: 0.72rem;" onclick="sendStudioChat()">Wyślij</button>
-</div>
-</div>
-<div style="background: #030712; border: 1px solid #1e293b; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-<span style="font-size: 0.6rem; color: #9ca3af; font-weight: 800; text-align: center;">SKANER PRAWDY</span>
-<div style="flex: 1; width: 18px; background: #1e293b; border-radius: 9px; position: relative; overflow: hidden; display: flex; align-items: flex-end; margin: 5px 0;">
-<div id="studioMeterFill" style="width: 100%; background: #34d399; height: 5%; transition: height 0.5s ease-out, background 0.5s ease-out;"></div>
-</div>
-<span style="font-size: 0.85rem; font-weight: 800; color: #34d399; font-family: monospace;" id="studioMeterVal">0.0%</span>
-</div>
-</div>
+        <div class="hud-card">
+            <div class="card-header"><span>Filar IV: Crypto</span> <span class="hex-badge">HEX-04</span></div>
+            <div class="metric-big" style="color: var(--accent-cyan);" id="metric-delta">+14.2%</div>
+            <p style="color: var(--text-muted); font-size: 0.62rem;">Resonator rynkowy i zysk.</p>
+        </div>
 
-<div style="margin-top: 6px;">
-<div class="status-title" style="color: #38bdf8; margin-bottom: 3px;">Magazynki Amunicji Retorycznej (Opcje Kontr-Narracji AI):</div>
-<div id="studioMunitionContainer" style="display: flex; flex-direction: column; gap: 3px;">
-<div class="munition-option-card"> [KONTRA]: Brak aktywnych kontr w buforze.</div>
-</div>
-</div>
-</div>
-</div>
+        <div class="hud-card">
+            <div class="card-header" style="color: var(--accent-purple);">⚡ Quiet Echo & Wolta</div>
+            <button class="btn-purple" onclick="triggerEchoScan()" style="width:100%; margin-bottom:3px;">Uruchom Skan Tła</button>
+            <pre id="echo-box" style="max-height:45px;">Oczekiwanie na anomalię...</pre>
+        </div>
 
-<!-- PRAWA KOLUMNA: Sterowanie Anteną, Macierz Nastrojów, Analytics & NDA Vault -->
-<div>
-<div class="panel-box" style="border-left: 4px solid #ef4444;">
-<div class="panel-header red">
-<span>STEROWANIE ANTENĄ I PASEK TV</span>
-</div>
-<div style="background: #030712; border: 1px solid #1e293b; padding: 6px; border-radius: 6px; margin-bottom: 6px;">
-<div style="font-size: 0.68rem; color: #f87171; font-weight: 800; margin-bottom: 3px;">PREVIEW PASEK BREAKING NEWS:</div>
-<div class="ticker-preview-bar" id="tickerPreviewText">
-<span> [BREAKING]: Oczekiwanie na tezę...</span>
-</div>
-<div style="display: flex; gap: 5px;">
-<input type="text" id="customTickerInput" placeholder="Treść na pasek TV..." style="font-size: 0.72rem; padding: 4px 6px;">
-<button class="btn-red" style="padding: 4px 8px; font-size: 0.7rem;" onclick="broadcastTicker()">Emituj Pasek</button>
-</div>
-</div>
+        <div class="hud-card">
+            <div class="card-header" style="color: var(--accent-blue);">📢 Social Media Dispatcher</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 3px;">
+                <button class="btn-purple" onclick="triggerSocialPost('X')" style="font-size:0.6rem;">X Alert</button>
+                <button class="btn-green" onclick="triggerSocialPost('TikTok')" style="font-size:0.6rem;">TikTok</button>
+                <button onclick="triggerSocialPost('Shorts')" style="font-size:0.6rem;">Shorts</button>
+            </div>
+            <pre id="social-box" style="max-height:35px;">Lejek aktywny.</pre>
+        </div>
 
-<div style="display: flex; gap: 5px; margin-bottom: 6px;">
-<button id="dirBroadcastBtn" class="btn-purple" style="flex:1;" onclick="pushToStudio()"> Wyślij na Antenę</button>
-<button class="btn-red" onclick="clearSystem()"> Wyczyść</button>
-</div>
-
-<div style="background: #030712; border: 1px solid #1e293b; padding: 6px; border-radius: 6px; margin-bottom: 6px;">
-<div style="font-size: 0.68rem; color: #c084fc; font-weight: 800; margin-bottom: 3px;">MACIERZ STARĆ & AUTOMAT WIDEO:</div>
-<div style="display: flex; gap: 4px; margin-top: 4px;">
-<button class="btn-purple" style="flex:1; font-size: 0.68rem; padding: 4px;" onclick="triggerClashAnalysis()"> Replikuj</button>
-<button class="btn-green" style="flex:1; font-size: 0.68rem; padding: 4px;" onclick="triggerAutoClip()"> Auto-Clip</button>
-</div>
-</div>
-
-<div style="border-top: 1px solid #1e293b; padding-top: 6px;">
-<div style="font-size: 0.68rem; color: #c084fc; font-weight: 800; margin-bottom: 3px;"> AUTOMAT SOCIAL MEDIA (PERPETUUM MOBILE):</div>
-<div class="social-btn-group">
-<button class="btn-purple" onclick="triggerSocialPost('X')">X</button>
-<button class="btn-green" onclick="triggerSocialPost('Shorts')">Shorts</button>
-<button onclick="triggerSocialPost('FB')">FB</button>
-<button class="btn-purple" onclick="triggerSocialPost('Insta')">Insta</button>
-<button class="btn-green" onclick="triggerSocialPost('TikTok')">Tik Tok</button>
-</div>
-</div>
-</div>
-
-<!-- MODUŁ SCI-FI: MACIERZ NASTROJÓW SPOŁECZNYCH -->
-<div class="panel-box" style="border-left: 4px solid #f59e0b;">
-<div class="panel-header amber">
-<span>📈 SENTIMENT & POLARIZATION</span>
-</div>
-<div style="font-size: 0.7rem; color: #9ca3af; line-height: 1.4;">
-• Napięcie Społeczne: <b id="sentimentTensionVal" style="color:#ef4444;">0.0%</b><br>
-• Wskaźnik Poparcia: <b id="sentimentApprovalVal" style="color:#34d399;">0.0%</b><br>
-• Trend Emisyjny: <b id="sentimentTrendVal" style="color:#38bdf8;">STABILNY</b>
-</div>
-</div>
-
-<!-- COMPLIANCE VAULT & NDA GOVERNANCE -->
-<div class="panel-box" style="border-left: 4px solid #38bdf8;">
-<div class="panel-header blue">
-<span> COMPLIANCE VAULT & NDA</span>
-<span class="badge-tag tag-true" style="font-size:0.6rem;">NDA ACTIVE</span>
-</div>
-<div style="font-size: 0.7rem; color: #9ca3af; line-height: 1.3;">
-• Status klauzuli: <b style="color:#34d399;">NDA-F1-SECURE</b><br>
-• Maskowanie PII: <b style="color:#38bdf8;">WŁĄCZONE</b>
-</div>
-<div id="ndaSignatureDisplay" style="font-family: monospace; font-size: 0.62rem; color: #6b7280; background: #030712; padding: 4px 6px; border-radius: 4px; border: 1px solid #1e293b; margin-top: 5px;">
-Podpis SHA-256 NDA: Oczekiwanie na tezę...
-</div>
-</div>
-
-<!-- LIVE REACH & VIRAL ANALYTICS -->
-<div class="panel-box" style="border-left: 4px solid #34d399;">
-<div class="panel-header green"> LIVE REACH & ANALYTICS</div>
-<div class="metric-card-grid">
-<div class="metric-card">
-<div class="metric-val" id="analyticsReachVal">1.48M</div>
-<div class="metric-lbl">Zasięg 24h</div>
-</div>
-<div class="metric-card">
-<div class="metric-val" style="color:#f59e0b;" id="analyticsVelocityVal">480/m</div>
-<div class="metric-lbl">Wiralność/min</div>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- DOLNY PANEL: TRACKER UCZESTNIKÓW I REJESTRY -->
-<div class="panel-box" style="margin-top: 10px;">
-<div class="panel-header green">
-LIVE TRACKER UCZESTNIKÓW DEBATY (MULTI-STREAM GUS / SEJM / NBP)
-</div>
-<table>
-<thead>
-<tr>
-<th>Stacja / Źródło</th>
-<th>Mówca (Biometria)</th>
-<th>Ostatnia Teza / Wypowiedź</th>
-<th>Konfrontacja ze Źródłami</th>
-<th>Skaner Prawdy</th>
-<th>Status Faktów</th>
-<th>Test</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><b id="trackerSourceLabel">TVN24</b></td>
-<td><b>Poseł A</b></td>
-<td>"Inflacja w kraju spadła do historycznego poziomu 1.5%"</td>
-<td style="color:#f87171;">FAŁSZ: GUS i NBP wskazują ok. 4.5%</td>
-<td style="font-weight:800; color:#f87171;">35%</td>
-<td><span class="badge-tag tag-false">WYKRYTO DEZINFORMACJĘ</span></td>
-<td><button style="padding: 2px 6px; font-size: 0.65rem;" onclick="loadSampleFact('Inflacja w kraju spadła do historycznego poziomu 1.5%')">Test</button></td>
-</tr>
-<tr>
-<td><b>BBC News</b></td>
-<td><b>Ekspert B</b></td>
-<td>"GDP growth in Q3 reached exactly 3.8%"</td>
-<td style="color:#34d399;">Zgodne z oficjalnym odczytem</td>
-<td style="font-weight:800; color:#34d399;">98%</td>
-<td><span class="badge-tag tag-true">PRAWDA</span></td>
-<td><button style="padding: 2px 6px; font-size: 0.65rem;" onclick="loadSampleFact('Wzrost PKB w trzecim kwartale wyniósł dokładnie 3,8%')">Test</button></td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<!-- ŹRÓDŁA ZEWNĘTRZNE -->
-<div class="panel-box">
-<div class="panel-header blue"> KLIKALNE LINKI ŹRÓDŁOWE (COMPLIANCE VAULT REPOSITORY)</div>
-<div id="externalSourcesList" style="font-size: 0.72rem; color: #9ca3af; line-height: 1.4;">
-Oczekiwanie na zapytanie...
-</div>
+        <div class="hud-card" style="flex:1;">
+            <div class="card-header" style="color: var(--accent-blue);">⚡ Konsola (Web-Shell)</div>
+            <input type="text" id="shell-cmd" placeholder="Komenda (status)..." style="font-size:0.65rem;">
+            <button onclick="runShell()" style="width: 100%; margin-bottom:2px; font-size:0.6rem;">Wyślij rozkaz</button>
+            <pre id="shell-output" style="max-height: 35px;">Gotowy.</pre>
+        </div>
+    </div>
 </div>
 
 <script>
-let lastAnalysisBuffer = null;
-let ws = null;
-let reconnectAttempts = 0;
-let isThermalActive = false;
-let currentSourceFeed = "TVN24";
-let autoPilotActive = false;
+    const canvas = document.getElementById('radarCanvas');
+    const ctx = canvas.getContext('2d');
 
-function setSourceFeed(feedName) {
-    currentSourceFeed = feedName;
-    document.querySelectorAll('.feed-btn').forEach(b => b.classList.remove('active'));
-    if (feedName === 'TVN24') document.getElementById('btnFeedTVN').classList.add('active');
-    if (feedName === 'Polsat News') document.getElementById('btnFeedPolsat').classList.add('active');
-    if (feedName === 'BBC News') document.getElementById('btnFeedBBC').classList.add('active');
-    if (feedName === 'CNN International') document.getElementById('btnFeedCNN').classList.add('active');
-    
-    document.getElementById('activeFeedLabel').innerText = `FEED: ${feedName} LIVE`;
-    document.getElementById('trackerSourceLabel').innerText = feedName;
-}
-
-function toggleThermalCam() {
-    isThermalActive = !isThermalActive;
-    const feedBox = document.getElementById('feed1Box');
-    const badge = document.getElementById('thermalBadge');
-    const text = document.getElementById('feed1Text');
-    if (isThermalActive) {
-        feedBox.classList.add('thermal-mode');
-        badge.style.display = 'block';
-        text.innerText = "[SKANING PODCZERWIENI IR ACTIVE]";
-        text.style.color = "#f472b6";
-    } else {
-        feedBox.classList.remove('thermal-mode');
-        badge.style.display = 'none';
-        text.innerText = "[STRUMIEŃ WIDEO AKTYWNY]";
-        text.style.color = "#9ca3af";
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
-}
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-function toggleAutoPilot() {
-    autoPilotActive = document.getElementById('autoPilotToggle').checked;
-    if (autoPilotActive) {
-        alert("[AUTO-PILOT F1]: Włączony! System automatycznie filtruje i przygotowuje paczki sprostowań.");
-    } else {
-        alert("[AUTO-PILOT F1]: Wyłączony. Praca w trybie pełnej kontroli manualnej.");
-    }
-}
+    let radarAngle = 0;
+    let anomalies = [
+        {x: 0.2, y: 0.3, alpha: 0.8},
+        {x: 0.85, y: 0.7, alpha: 0.5},
+        {x: 0.7, y: 0.2, alpha: 0.9}
+    ];
 
-function loadSampleFact(statement) {
-    document.getElementById('mainQueryInput').value = statement;
-    executeVerification();
-}
+    function drawRadar() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-function initWebSocket() {
-    const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    ws = new WebSocket(`${proto}//${window.location.host}/ws`);
-    
-    ws.onopen = () => {
-        document.getElementById('wsHeaderStatus').innerText = "ONLINE (SYNCHRONIZOWANY)";
-        document.getElementById('wsHeaderStatus').style.color = "#34d399";
-        reconnectAttempts = 0;
-    };
-    
-    ws.onclose = () => {
-        document.getElementById('wsHeaderStatus').innerText = "ROZŁĄCZONO...";
-        document.getElementById('wsHeaderStatus').style.color = "#ef4444";
-        reconnectAttempts++;
-        setTimeout(initWebSocket, Math.min(1000 * reconnectAttempts, 8000));
-    };
-    
-    ws.onmessage = (event) => {
-        try {
-            const message = JSON.parse(event.data);
-            if (message.action === "UPDATE_STUDIO" && message.data) {
-                applyStudioUpdate(message.data);
-            } else if (message.action === "CLEAR") {
-                resetSystemDisplay();
-            }
-        } catch (e) {
-            console.error("Błąd WS:", e);
-        }
-    };
-}
-initWebSocket();
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const maxRadius = Math.max(canvas.width, canvas.height) * 0.7;
 
-async function executeVerification() {
-    const query = document.getElementById('mainQueryInput').value.trim();
-    if (!query) {
-        alert("Wpisz najpierw tezę lub nazwisko!");
-        return;
-    }
-    
-    document.getElementById('mainSynthesisResult').innerText = `Analiza Live Web RAG ze źródła [${currentSourceFeed}] pod klauzulą NDA...`;
-    
-    try {
-        const res = await fetch('/api/verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: query, source_feed: currentSourceFeed })
-        });
+        ctx.strokeStyle = "rgba(0, 255, 204, 0.05)";
+        ctx.lineWidth = 1;
         
-        if (!res.ok) throw new Error("Błąd serwera");
-        const data = await res.json();
-        lastAnalysisBuffer = data;
-        
-        document.getElementById('mainSynthesisResult').innerText = data.direct_answer || "Zakończono syntezę.";
-        updateDirectorAndSources(data);
-        await pushToStudio();
-        
-        if (autoPilotActive && data.disinformation_score > 60) {
-            setTimeout(() => {
-                triggerAutoClip();
-            }, 500);
+        for (let r = 150; r < maxRadius; r += 180) {
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+            ctx.stroke();
         }
-    } catch (e) {
-        console.error(e);
-        document.getElementById('mainSynthesisResult').innerText = "! Błąd komunikacji z silnikiem.";
-    }
-}
 
-function updateDirectorAndSources(data) {
-    const score = data.disinformation_score ?? 35.0;
-    
-    if (data.thermal_telemetry) {
-        const temp = data.thermal_telemetry.facial_temp;
-        document.getElementById('irTempVal').innerText = `${temp}°C`;
-        document.getElementById('thermalBadge').innerText = `IR: ${temp}°C`;
-    }
-    
-    if (data.analytics) {
-        const reachFormatted = (data.analytics.total_reach / 1000000).toFixed(2) + "M";
-        document.getElementById('analyticsReachVal').innerText = reachFormatted;
-        document.getElementById('analyticsVelocityVal').innerText = `${data.analytics.viral_velocity}/m`;
-    }
-    
-    if (data.nda_governance) {
-        const ndaBox = document.getElementById('ndaSignatureDisplay');
-        if (ndaBox) {
-            ndaBox.innerHTML = `<span style="color:#34d399;">[NDA SECURE]</span> SHA: <span style="color:#38bdf8;">${data.nda_governance.signature.substring(0, 20)}...</span>`;
-        }
-    }
+        ctx.beginPath();
+        ctx.moveTo(0, centerY); ctx.lineTo(canvas.width, centerY);
+        ctx.moveTo(centerX, 0); ctx.lineTo(centerX, canvas.height);
+        ctx.stroke();
 
-    if (data.voice_biometrics) {
-        document.getElementById('voiceSpeakerVal').innerText = data.voice_biometrics.speaker_identified;
-        document.getElementById('voiceConfVal').innerText = data.voice_biometrics.confidence + "%";
-        document.getElementById('voiceHashVal').innerText = data.voice_biometrics.voiceprint_hash;
-    }
+        const sweepRadian = radarAngle;
+        const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, maxRadius);
+        gradient.addColorStop(0, "rgba(0, 255, 204, 0.25)");
+        gradient.addColorStop(0.5, "rgba(0, 255, 204, 0.08)");
+        gradient.addColorStop(1, "rgba(0, 255, 204, 0)");
 
-    if (data.sentiment_matrix) {
-        document.getElementById('sentimentTensionVal').innerText = data.sentiment_matrix.social_tension + "%";
-        document.getElementById('sentimentApprovalVal').innerText = data.sentiment_matrix.approval_rating + "%";
-        document.getElementById('sentimentTrendVal').innerText = data.sentiment_matrix.trend;
-    }
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, maxRadius, sweepRadian, sweepRadian + 0.6);
+        ctx.lineTo(centerX, centerY);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.restore();
 
-    const stressBox = document.getElementById('biometricStressVal');
-    if (stressBox) {
-        if (score > 50) {
-            stressBox.innerText = `STRES: WYSOKI (${score.toFixed(0)}%)`;
-            stressBox.style.color = "#ef4444";
-            stressBox.style.borderColor = "#ef4444";
-        } else {
-            stressBox.innerText = `STRES: 12%`;
-            stressBox.style.color = "#34d399";
-            stressBox.style.borderColor = "#34d399";
-        }
-    }
-    
-    const tickerText = `[${currentSourceFeed} WERYFIKACJA]: ${data.direct_answer ? data.direct_answer.split('\n')[0] : 'Sprawdź fakty'}`;
-    document.getElementById('tickerPreviewText').innerHTML = `<span>${tickerText}</span>`;
-    document.getElementById('customTickerInput').value = tickerText;
-    
-    const sources = data.sources || [];
-    let sourcesHTML = "<b>Weryfikowano w oparciu o kryptograficzny Compliance Vault (NDA Protected):</b><br><ul style='margin-left: 14px; margin-top: 3px;'>";
-    sources.forEach((src, idx) => {
-        const title = typeof src === 'object' ? (src.title || src.url) : src;
-        const url = typeof src === 'object' && src.url ? src.url : '#';
-        sourcesHTML += `<li>[${idx + 1}] <a href="${url}" target="_blank" style="color: #38bdf8; text-decoration: underline;">${title}</a> (SHA-256)</li>`;
-    });
-    sourcesHTML += "</ul>";
-    document.getElementById('externalSourcesList').innerHTML = sourcesHTML;
-}
+        ctx.strokeStyle = "rgba(0, 255, 204, 0.6)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(centerX + Math.cos(sweepRadian) * maxRadius, centerY + Math.sin(sweepRadian) * maxRadius);
+        ctx.stroke();
 
-async function pushToStudio() {
-    if (!lastAnalysisBuffer) return;
-    try {
-        await fetch('/api/broadcast', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(lastAnalysisBuffer)
+        anomalies.forEach(a => {
+            let ax = a.x * canvas.width;
+            let ay = a.y * canvas.height;
+            
+            ctx.fillStyle = `rgba(239, 68, 68, ${a.alpha})`;
+            ctx.beginPath();
+            ctx.arc(ax, ay, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = `rgba(239, 68, 68, ${a.alpha * 0.4})`;
+            ctx.beginPath();
+            ctx.arc(ax, ay, 12, 0, Math.PI * 2);
+            ctx.stroke();
         });
-        applyStudioUpdate(lastAnalysisBuffer);
-    } catch (e) {
-        console.error("Błąd rozgłaszania:", e);
-    }
-}
 
-function broadcastTicker() {
-    const val = document.getElementById('customTickerInput').value;
-    if (!val) return;
-    document.getElementById('tickerPreviewText').innerHTML = `<span style="color: #fde047;">[NA ANTENIE]: ${val}</span>`;
-    alert(`[EMISJA PASKA TV]: Pomyślnie wypuszczono pasek na antenę (${currentSourceFeed})!`);
-}
-
-async function triggerClashAnalysis() {
-    alert(`[MACIERZ STARĆ]: Przeanalizowano spór w studio ${currentSourceFeed}. Wygenerowano prawo do natychmiastowej repliki.`);
-}
-
-function triggerAutoClip() {
-    if (!lastAnalysisBuffer) {
-        alert("Najpierw przeprowadź analizę tezy!");
-        return;
-    }
-    alert(`[AUTO-CLIPS F1]: Wycięto 30-sekundowy klip z werdyktem i przygotowano pakiet do sieci!`);
-}
-
-function applyStudioUpdate(data) {
-    const promptText = data.direct_answer || document.getElementById('mainQueryInput').value || "Brak tezy.";
-    document.getElementById('studioPrompter').innerText = promptText;
-    
-    const container = document.getElementById('studioMunitionContainer');
-    if (data.anchor_munition && data.anchor_munition.length > 0) {
-        container.innerHTML = data.anchor_munition.map(m => 
-            `<div class="munition-option-card" onclick="sendMunitionToPrompter(this)">${m}</div>`
-        ).join("");
-    } else {
-        container.innerHTML = `<div class="munition-option-card"> [KONTRA]: Brak kontr.</div>`;
-    }
-    
-    const chatLog = document.getElementById('studioChatLog');
-    chatLog.innerHTML += `<div class="chat-msg system">[Live Ingest - ${currentSourceFeed}]: Nowa analiza zaktualizowana.</div>`;
-    chatLog.scrollTop = chatLog.scrollHeight;
-    
-    const score = data.disinformation_score ?? 35.0;
-    const meterFill = document.getElementById('studioMeterFill');
-    const meterVal = document.getElementById('studioMeterVal');
-    meterVal.innerText = score.toFixed(1) + "%";
-    
-    const heightPercent = Math.min(Math.max(score, 5), 100);
-    meterFill.style.height = heightPercent + "%";
-    
-    // ZACHOWANA LOGIKA: Zielony dla niskiego ryzyka (prawda), Żółty dla umiarkowanego, Czerwony dla dezinformacji
-    if (score <= 30) {
-        meterVal.style.color = "#34d399";
-        meterFill.style.background = "#34d399";
-    } else if (score <= 60) {
-        meterVal.style.color = "#f59e0b";
-        meterFill.style.background = "#f59e0b";
-    } else {
-        meterVal.style.color = "#ef4444";
-        meterFill.style.background = "#ef4444";
+        radarAngle += 0.015;
+        requestAnimationFrame(drawRadar);
     }
 
-    if (data.voice_biometrics) {
-        document.getElementById('voiceSpeakerVal').innerText = data.voice_biometrics.speaker_identified;
-        document.getElementById('voiceConfVal').innerText = data.voice_biometrics.confidence + "%";
-        document.getElementById('voiceHashVal').innerText = data.voice_biometrics.voiceprint_hash;
-    }
-    if (data.sentiment_matrix) {
-        document.getElementById('sentimentTensionVal').innerText = data.sentiment_matrix.social_tension + "%";
-        document.getElementById('sentimentApprovalVal').innerText = data.sentiment_matrix.approval_rating + "%";
-        document.getElementById('sentimentTrendVal').innerText = data.sentiment_matrix.trend;
-    }
-}
+    drawRadar();
 
-function sendMunitionToPrompter(element) {
-    const text = element.innerText;
-    document.getElementById('studioPrompter').innerText = "KONTRA: " + text;
-    const chatLog = document.getElementById('studioChatLog');
-    chatLog.innerHTML += `<div class="chat-msg user">[Prowadzący]: Wybrałem: ${text}</div>`;
-    chatLog.scrollTop = chatLog.scrollHeight;
-}
+    function moveEye(event) {
+        const eyeball = document.getElementById('eyeball');
+        const eye = document.querySelector('.kiroshi-eye');
+        if(!eye || !eyeball) return;
+        const rect = eye.getBoundingClientRect();
+        const eyeX = rect.left + rect.width / 2;
+        const eyeY = rect.top + rect.height / 2;
+        const angle = Math.atan2(event.clientY - eyeY, event.clientX - eyeX);
+        const distance = Math.min(7, Math.hypot(event.clientX - eyeX, event.clientY - eyeY) / 10);
+        eyeball.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+    }
 
-async function sendStudioChat() {
-    const input = document.getElementById('studioChatInput');
-    const query = input.value.trim();
-    if (!query) return;
-    
-    const log = document.getElementById('studioChatLog');
-    log.innerHTML += `<div class="chat-msg user">[Prowadzący]: ${query}</div>`;
-    input.value = "";
-    log.scrollTop = log.scrollHeight;
-    
-    try {
-        const res = await fetch('/api/verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: query, source_feed: currentSourceFeed })
-        });
-        const data = await res.json();
-        const reply = data.direct_answer || "Brak odpowiedzi.";
-        log.innerHTML += `<div class="chat-msg ai">[Chatbot AI]: ${reply}</div>`;
+    function resetEye() {
+        const eyeball = document.getElementById('eyeball');
+        if(eyeball) eyeball.style.transform = 'translate(0px, 0px)';
+    }
+
+    async function executeCommand() {
+        const input = document.getElementById('commandInput');
+        const val = input.value.trim();
+        if(!val) return;
+        
+        const log = document.getElementById('commandChatLog');
+        log.innerHTML += `<div class="chat-msg">[Operator]: ${val}</div>`;
+        input.value = "";
         log.scrollTop = log.scrollHeight;
-    } catch (e) {
-        log.innerHTML += `<div class="chat-msg system" style="border-left-color:#ef4444;">[Błąd sieci]</div>`;
-    }
-}
 
-async function clearSystem() {
-    try {
-        await fetch('/api/clear', { method: 'POST' });
-        resetSystemDisplay();
-    } catch (e) {
-        console.error(e);
+        setTimeout(() => {
+            let reply = `Przetworzono zapytanie taktyczne: "${val}". System nominalny.`;
+            let msgClass = "system";
+            if(val.toLowerCase().includes("dron")) {
+                reply = "Status dronów: Rój Alpha, Beta i Delta w pełnej gotowości. Brak naruszeń.";
+            } else if(val.toLowerCase().includes("skan") || val.toLowerCase().includes("radar")) {
+                reply = "Skaner sonaru: Sektor wyczyszczony. Wykryto 3 punkty stabilne w tle.";
+            }
+            log.innerHTML += `<div class="chat-msg ${msgClass}">[Terminal C2]: ${reply}</div>`;
+            log.scrollTop = log.scrollHeight;
+        }, 400);
     }
-}
 
-function resetSystemDisplay() {
-    document.getElementById('mainQueryInput').value = "";
-    document.getElementById('mainSynthesisResult').innerText = "System zresetowany. Oczekiwanie na tezę...";
-    document.getElementById('studioPrompter').innerText = "Oczekiwanie na przekaz...";
-    document.getElementById('studioMunitionContainer').innerHTML = `<div class="munition-option-card"> [KONTRA]: Brak kontr.</div>`;
-    document.getElementById('studioMeterVal').innerText = "0.0%";
-    document.getElementById('studioMeterVal').style.color = "#34d399";
-    document.getElementById('studioMeterFill').style.height = "5%";
-    document.getElementById('studioMeterFill').style.background = "#34d399";
-    document.getElementById('externalSourcesList').innerText = "Oczekiwanie na zapytanie...";
-    document.getElementById('tickerPreviewText').innerHTML = `<span>[BREAKING]: Oczekiwanie na tezę...</span>`;
-    document.getElementById('voiceSpeakerVal').innerText = "Oczekiwanie...";
-    document.getElementById('voiceConfVal').innerText = "0.0%";
-    document.getElementById('voiceHashVal').innerText = "---";
-    document.getElementById('sentimentTensionVal').innerText = "0.0%";
-    document.getElementById('sentimentApprovalVal').innerText = "0.0%";
-    document.getElementById('sentimentTrendVal').innerText = "STABILNY";
-    lastAnalysisBuffer = null;
-}
-
-function triggerSocialPost(platform) {
-    if (!lastAnalysisBuffer) {
-        alert("Najpierw przeprowadź analizę tezy!");
-        return;
+    async function fetchStatus() {
+        try {
+            let res = await fetch('/api/status');
+            let data = await res.json();
+            document.getElementById('finance-box').innerText = JSON.stringify(data.finances, null, 2);
+        } catch (e) {
+            console.error("Błąd pobierania stanu:", e);
+        }
     }
-    alert(`[PERPETUUM MOBILE]: Wypuszczono automatyczne sprostowanie na platformę ${platform} (${currentSourceFeed})!`);
-}
+
+    async function triggerEchoScan() {
+        alert('Skan Cichego Echo zakończony pomyślnie.');
+        fetchStatus();
+    }
+
+    async function manageAlliance(action) {
+        let name = action === 'add' ? document.getElementById('node-name').value : document.getElementById('node-remove-name').value;
+        if(!name) { alert('Podaj nazwę węzła!'); return; }
+        document.getElementById('node-name').value = '';
+        document.getElementById('node-remove-name').value = '';
+        fetchStatus();
+    }
+
+    async function triggerPanic() {
+        if(confirm('⚠️ Czy na pewno aktywować awaryjny Silent Panic Button (Hard Lockdown)?')) {
+            alert('ALERT: System w trybie lockdown.');
+            fetchStatus();
+        }
+    }
+
+    async function runShell() {
+        let cmd = document.getElementById('shell-cmd').value;
+        document.getElementById('shell-output').innerText = "Wykonano: " + cmd;
+        document.getElementById('shell-cmd').value = '';
+    }
+
+    function triggerSocialPost(platform) {
+        alert(`[PERPETUUM MOBILE]: Wypuszczono pakiet wirusowy na ${platform}!`);
+    }
+
+    setInterval(fetchStatus, 5000);
+    fetchStatus();
 </script>
+
+<script>
+    // Weryfikacja sesji - brak tokena wyrzuca do logowania
+
+
+<script>
+    // Sprawdzamy sesję - brak flagi odsyła do logowania
+
+
+<script>
+    // Weryfikacja autoryzacji sesji
+    if(sessionStorage.getItem("c2_auth") !== "authorized_true") {
+        window.location.replace("/");
+    }
+
+    // Wyczyszczenie sesji przy odświeżeniu strony (F5)
+    window.addEventListener("beforeunload", function () {
+        sessionStorage.removeItem("c2_auth");
+    });
+
+    // Skaner aktywności / strażnik bezczynności (5 minut)
+    let idleTimer;
+    function resetIdleTimer() {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+            sessionStorage.removeItem("c2_auth");
+            alert("⚠️ Sesja wygasła z powodu braku aktywności (5 minut).");
+            window.location.replace("/");
+        }, 5 * 60 * 1000);
+    }
+    window.onload = resetIdleTimer;
+    window.onmousemove = resetIdleTimer;
+    window.onkeypress = resetIdleTimer;
+    window.onclick = resetIdleTimer;
+</script>
+
 </body>
 </html>

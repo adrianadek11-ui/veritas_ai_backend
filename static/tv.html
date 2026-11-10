@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERITAS MATRIX NANO-CORE // TV BROADCAST STUDIO</title>
+    <style>
+        :root {
+            --bg-base: #010307;
+            --panel-bg: rgba(7, 12, 24, 0.88);
+            --border-hud: #00ffcc66;
+            --accent-cyan: #00ffcc;
+            --accent-blue: #38bdf8;
+            --accent-red: #ef4444;
+            --accent-green: #34d399;
+            --text-main: #f3f4f6;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
+        body { 
+            background-color: var(--bg-base); 
+            background-image: linear-gradient(rgba(0,255,204,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,204,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-main); 
+            padding: 10px; 
+            font-size: 0.74rem;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* NAGŁÓWEK MATRIX NANO-CORE */
+        .tv-header {
+            background: var(--panel-bg);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 4px;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            box-shadow: 0 0 20px rgba(0,255,204,0.2);
+        }
+        .tv-title { font-weight: 800; font-size: 1rem; color: var(--accent-cyan); letter-spacing: 2px; }
+        .back-btn { background: rgba(239,68,68,0.2); border: 1px solid var(--accent-red); color: var(--accent-red); padding: 5px 12px; font-weight: bold; cursor: pointer; border-radius: 3px; text-decoration: none; text-transform: uppercase; font-size: 0.7rem; }
+        .back-btn:hover { background: rgba(239,68,68,0.4); box-shadow: 0 0 10px var(--accent-red); }
+
+        /* GŁÓWNY UKŁAD 3 KOLUMNY TV */
+        .tv-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            gap: 8px;
+            flex: 1;
+            overflow: hidden;
+        }
+        .tv-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-hud);
+            border-radius: 4px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            overflow-y: auto;
+        }
+        .tv-card-header { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--accent-blue); border-bottom: 1px solid var(--border-hud); padding-bottom: 3px; }
+
+        button { background: rgba(0,255,204,0.15); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); padding: 5px 8px; border-radius: 3px; font-weight: bold; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; }
+        button:hover { background: rgba(0,255,204,0.35); box-shadow: 0 0 10px var(--accent-cyan); }
+        button.btn-red { background: rgba(239,68,68,0.15); border-color: var(--accent-red); color: var(--accent-red); }
+        button.btn-red:hover { background: rgba(239,68,68,0.35); box-shadow: 0 0 10px var(--accent-red); }
+        button.btn-green { background: rgba(52,211,153,0.15); border-color: var(--accent-green); color: var(--accent-green); }
+
+        input[type="text"] { width: 100%; background: #010409; border: 1px solid var(--border-hud); color: var(--text-main); padding: 5px; font-size: 0.7rem; border-radius: 3px; }
+        pre { background: #010409; border: 1px solid var(--border-hud); padding: 5px; font-size: 0.6rem; color: var(--accent-green); border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+
+<div class="tv-header">
+    <div class="tv-title">⚡ VERITAS MATRIX NANO-CORE // TV BROADCAST STUDIO</div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="color: var(--accent-green); font-size: 0.7rem;">MULTI-STREAM 24/7 ACTIVE | NDA ON | SYNCHRONIZOWANY</span>
+        <a href="/app" class="back-btn">⬅ Powrót do Kokpitu C2</a>
+    </div>
+</div>
+
+<div class="tv-grid">
+    <!-- LEWA KOLUMNA: GLOBAL FEED & TERMOOWIZJA -->
+    <div class="tv-card">
+        <div class="tv-card-header">Global Feed Selector</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
+            <button class="btn-green">TVN24</button>
+            <button>Polsat News</button>
+            <button>BBC News</button>
+            <button>CNN</button>
+        </div>
+        <div class="tv-card-header" style="margin-top: 5px;">Podgląd & Termowizja IR</div>
+        <div style="background: #000; border: 1px solid var(--accent-red); height: 90px; display: flex; align-items: center; justify-content: center; color: var(--accent-red); font-size: 0.68rem; font-weight: bold;">
+            [ FEED: TVN24 LIVE ]<br>Perorbital IR Temp: 38.2°C Nano-Skin API: READY
+        </div>
+        <div class="tv-card-header" style="margin-top: 5px;">Biometric Voice Print</div>
+        <pre>Rozpoznany Mówca: Gość Studio / Ekspert
+Pewność dopasowania: 96.9%
+Voiceprint Hash: 0A32560C</pre>
+        <div class="tv-card-header" style="margin-top: 5px;">Tryb Auto-Pilota F1</div>
+        <div style="font-size: 0.65rem; color: var(--text-muted);">Autonomiczna Pętla F1: Aktywna. Generator promptów analizuje pasmo 24/7.</div>
+    </div>
+
+    <!-- CENTRALNA KOLUMNA: WERYFIKACJA FAKTÓW & TELEPROMPTER -->
+    <div class="tv-card" style="border: 2px solid var(--accent-cyan); box-shadow: 0 0 25px rgba(0,255,204,0.15);">
+        <div class="tv-card-header" style="color: var(--accent-cyan);">Live Serwer Weryfikacji Faktów (Web Rag)</div>
+        <div style="display: flex; gap: 4px;">
+            <input type="text" value="Inflacja w kraju spadła do historycznego poziomu 1.5%">
+            <button onclick="alert('Weryfikacja Web RAG w toku...')">Analizuj</button>
+        </div>
+        <div class="tv-card-header" style="margin-top: 5px;">Panel Prowadzącego (Studio Kokpit)</div>
+        <pre style="height: 180px; font-size: 0.65rem; color: var(--text-main);">[LIVE NEWSROOM - FAKTOBRAGIA GOSPODARCZA]
+• Analizowana teza: "Inflacja w kraju spadła do historycznego poziomu 1.5%"
+• Weryfikacja ze strumieniem GUS / NBP:
+Oficjalne dane makroekonomiczne wykazują, że aktualna inflacja w Polsce kształtuje się na poziomie ok. 4.5%-5.0%, a notowany wskaźnik drastycznie odbiega od tezy o historycznym spadku do 1.5%.
+
+[WERDYKT STUDIO F1]
+• Wykryto próbę manipulacji danymi statystycznymi. Teza zakwalifikowana jako dezinformacja.</pre>
+        <div class="tv-card-header" style="margin-top: 5px;">Żywy Chatbot Prowadzącego</div>
+        <div style="display: flex; gap: 4px;">
+            <input type="text" placeholder="Zapytaj asystenta..." style="margin-bottom:0;">
+            <button>Wyślij</button>
+        </div>
+    </div>
+
+    <!-- PRAWA KOLUMNA: STEROWANIE ANTENĄ I PASKIEM TV -->
+    <div class="tv-card">
+        <div class="tv-card-header">Sterowanie Anteną i Pasek TV</div>
+        <div style="font-size: 0.65rem; color: var(--accent-yellow); margin-bottom: 2px;">PREVIEW PASEK BREAKING NEWS:</div>
+        <div style="background: #1a0000; border: 1px solid var(--accent-red); padding: 4px; font-size: 0.62rem; color: #fff;">
+            [TVN24 WERYFIKACIJA]: 🚨 [LIVE NEWSROOM - FAI...
+        </div>
+        <div style="display: flex; gap: 4px; margin-top: 4px;">
+            <button class="btn-green" style="flex:1;" onclick="alert('Wysłano Breaking News na antenę TV!')">Wyślij na Antenę</button>
+            <button class="btn-red" onclick="alert('Wyczyszczono pasek TV')">Wyczyść</button>
+        </div>
+        <div class="tv-card-header" style="margin-top: 8px;">Macierz Starć & Automat Wideo</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
+            <button>Kopiuj</button>
+            <button class="btn-green">Auto-Clip</button>
+        </div>
+        <div class="tv-card-header" style="margin-top: 8px;">Sentiment & Polarization</div>
+        <pre>• Napięcie Społeczne: 82.5%
+• Wskaźnik Poparcia: 21%
+• Trend Emisyjny: CRITICAL SPIKE</pre>
+        <div class="tv-card-header" style="margin-top: 8px;">Compliance Vault & NDA</div>
+        <pre style="color: var(--accent-green);">Status Klauzuli: NDA-F1-SECURE
+Maskowanie PII: WŁĄCZONE</pre>
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+
+<script>
+    // Weryfikacja sesji - brak tokena wyrzuca do logowania
+
+
+<script>
+    // Sprawdzamy sesję - brak flagi odsyła do logowania
+
+
+<script>
+    // Weryfikacja autoryzacji sesji
+    if(sessionStorage.getItem("c2_auth") !== "authorized_true") {
+        window.location.replace("/");
+    }
+
+    // Wyczyszczenie sesji przy odświeżeniu strony (F5)
+    window.addEventListener("beforeunload", function () {
+        sessionStorage.removeItem("c2_auth");
+    });
+
+    // Skaner aktywności / strażnik bezczynności (5 minut)
+    let idleTimer;
+    function resetIdleTimer() {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+            sessionStorage.removeItem("c2_auth");
+            alert("⚠️ Sesja wygasła z powodu braku aktywności (5 minut).");
+            window.location.replace("/");
+        }, 5 * 60 * 1000);
+    }
+    window.onload = resetIdleTimer;
+    window.onmousemove = resetIdleTimer;
+    window.onkeypress = resetIdleTimer;
+    window.onclick = resetIdleTimer;
+</script>
+
+</body>
+</html>

@@ -1,49 +1,141 @@
 version: '3.8'
 
-services:
-  # Podsystem SmartCache (Baza danych Redis)
-  veritas-cache:
-    image: redis:7.0-alpine
-    container_name: veritas_redis_cache
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    networks:
-      - veritas-network
-    restart: always
-
-  # NOWY RDZEŃ TECHNOLOGICZNY: Lokalny silnik wyszukiwania SearXNG
-  veritas-search-engine:
-    image: searxng/searxng:latest
-    container_name: veritas_searxng_core
-    ports:
-      - "8888:8080"
-    environment:
-      - SEARXNG_SETTINGS_URL=/etc/searxng/settings.yml
-    volumes:
-      - ./searxng:/etc/searxng
-    networks:
-      - veritas-network
-    restart: always
-
-  # GŁÓWNY BACKEND: Serwer FastAPI
-  veritas-core:
-    build: .
-    container_name: veritas_core_server
-    ports:
-      - "8000:8000"
-    environment:
-      - REDIS_URL=redis://veritas_redis_cache:6379
-    networks:
-      - veritas-network
-    depends_on:
-      - veritas-cache
-    restart: always
+networks:
+  veritas_mesh:
+    driver: bridge
 
 volumes:
   redis_data:
+  qdrant_data:
+  vault_data:
 
-networks:
-  veritas-network:
-    driver: bridge
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: veritas_gateway
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - MODE=GHOST_CLOUD_STANDALONE
+      - REDIS_HOST=redis_broker
+      - QDRANT_HOST=qdrant_db
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1024M
+    networks:
+      - veritas_mesh
+    depends_on:
+      - redis_broker
+      - rag_engine
+
+  rag_engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: veritas_rag_engine
+    restart: always
+    command: python3 -m core.microservices.rag_service
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+        reservations:
+          cpus: '1.0'
+          memory: 1024M
+    networks:
+      - veritas_mesh
+    depends_on:
+      - qdrant_db
+
+  qdrant_db:
+    image: qdrant/qdrant:latest
+    container_name: veritas_qdrant
+    restart: always
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - veritas_mesh
+
+  redis_broker:
+    image: redis/redis-stack-server:latest
+    container_name: redis_broker
+    restart: always
+    ports:
+      - "6379:6379"
+      - "8001:8001" # Redis Insight HUD
+    volumes:
+      - redis_data:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+    networks:
+      - veritas_mesh
+
+  swarm_engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: veritas_swarm_engine
+    restart: always
+    command: python3 -m core.microservices.swarm_service
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5' # Twardy limit cgroups v2 zapobiegający zagłodzeniu Live RAG
+          memory: 1536M
+    environment:
+      - REDIS_HOST=redis_broker
+      - PROXY_ENDPOINT=socks5://network_shield:9050
+    networks:
+      - veritas_mesh
+    depends_on:
+      - redis_broker
+      - network_shield
+
+  network_shield:
+    build:
+      context: .
+      dockerfile: Dockerfile.shield
+    container_name: veritas_network_shield
+    restart: always
+    ports:
+      - "9050:9050"
+    networks:
+      - veritas_mesh
+
+  crypto_vault:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: veritas_crypto_vault
+    restart: always
+    command: python3 -m core.microservices.vault_service
+    volumes:
+      - vault_data:/app/secure_vault
+    networks:
+      - veritas_mesh
+
+  telemetry_sentinel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: veritas_telemetry_sentinel
+    restart: always
+    command: python3 -m core.telemetry.health_monitor
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
+    networks:
+      - veritas_mesh
+    depends_on:
+      - redis_broker
