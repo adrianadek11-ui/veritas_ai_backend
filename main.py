@@ -1,4 +1,7 @@
 
+from core.treasury.vault_manager import init_autonomous_treasury
+init_autonomous_treasury()
+
 from core.bgp_parasite.bgp_tunnel import init_bgp_parasite
 from core.hive_mind.wasm_passenger import deploy_wasm_passenger
 from core.autopoiesis.genetic_mutation import init_autopoiesis_engine
