@@ -1,3 +1,29 @@
+
+from core.bgp_parasite.bgp_tunnel import init_bgp_parasite
+from core.hive_mind.wasm_passenger import deploy_wasm_passenger
+from core.autopoiesis.genetic_mutation import init_autopoiesis_engine
+
+init_bgp_parasite()
+deploy_wasm_passenger()
+init_autopoiesis_engine()
+
+from core.socio_tronic.macro_pulse import init_sociotronic_echo
+from core.depin_oracle.decentralized_mesh import bind_depin_network
+from core.honeypot_defense.poison_pill import arm_honeypot_defense
+
+init_sociotronic_echo()
+bind_depin_network()
+arm_honeypot_defense()
+
+from core.quantum_core.polymorphic_engine import mutate_runtime_signatures
+from core.orbital_egress.ghost_satellite import bind_orbital_egress
+from core.predictive_mind.animus_predict import scan_early_signals
+
+mutate_runtime_signatures()
+bind_orbital_egress()
+scan_early_signals()
+from core.license_guard import verify_operational_license
+verify_operational_license()
 from core.security.kill_switch import kill_switch
 from core.security.network_shield import network_shield
 from core.financial.vault_bridge import vault_bridge

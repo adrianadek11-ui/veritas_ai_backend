@@ -1,0 +1,7 @@
+{
+  "subscribers": {
+    "ally_politics": {"topics": ["polityka", "wybory", "narracja"]},
+    "ally_finance": {"topics": ["giełda", "finanse", "RWA"]},
+    "ally_tech": {"topics": ["AI", "dezinformacja", "bezpieczeństwo"]}
+  }
+}
